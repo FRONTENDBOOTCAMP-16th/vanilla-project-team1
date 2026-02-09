@@ -63,7 +63,7 @@
 | ------ | -------------------- | ----------------------------- |
 | 조재권 | 영화 목록 페이지     | [https://github.com/jjg2362]  |
 | 윤유영 | 상영시간 선택 페이지 | [https://github.com/yuyeongE] |
-| 이찬미 | 좌석 선택 페이지     | [GitHub 링크]                 |
+| 이찬미 | 좌석 선택 페이지     | [https://github.com/lcmbook55]                 |
 | 장예지 | 결제 페이지          | [https://github.com/ruiwaa]   |
 
 ---
