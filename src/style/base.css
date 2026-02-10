@@ -1,42 +1,125 @@
-/* 기본 글꼴스타일 */
-body {
-  font-family: 'SUIT Variable', sans-serif;
+:root {
+  /* Font */
+  --font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR',
+    'Apple SD Gothic Neo', 'Malgun Gothic', Arial, sans-serif;
+
+  /* Type scale */
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+
+  /* Line height */
+  --lh-tight: 1.2;
+  --lh-base: 1.5;
+
+  /* Spacing */
+  --sp-8: 0.5rem;
+  --sp-12: 0.75rem;
+  --sp-16: 1rem;
+  --sp-20: 1.25rem;
+  --sp-24: 1.5rem;
+
+  /* Radius */
+  --r-8: 0.5rem;
+  --r-12: 0.75rem;
+  --r-16: 1rem;
+  --r-pill: 9999px;
+
+  /* Layout */
+  --app-max-width: 375px;
+
+  /* Base colors */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #111111;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
 }
-/* 링크<a>요소 스타일 */
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-16);
+  line-height: var(--lh-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 앱 컨테이너: 모바일(375) 중심 개발 */
+.app {
+  width: 100%;
+  max-width: var(--app-max-width);
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--color-bg);
+}
+
+/* 링크: 디자인 시스템에서 제어 */
 a {
+  color: inherit;
   text-decoration: none;
+}
+
+/* 폼 요소: 폰트 상속 + placeholder 색 */
+input,
+select,
+textarea,
+button {
+  font: inherit;
   color: inherit;
 }
 
-/* 테이블 스타일 */
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
+::placeholder {
+  color: var(--color-muted);
 }
 
-/* CSS 예제 본문 스타일 */
-/* 여백 */
-.spacing-20 {
-  margin: 20px;
+/* focus-visible만 표시(키보드 탐색) */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--r-8);
+}
 
-  h1 {
-    margin-block: 20px;
+/* 공통 레이아웃 유틸 */
+.container {
+  padding-left: var(--sp-16);
+  padding-right: var(--sp-16);
+}
+
+.surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-16);
+  box-shadow: var(--shadow-1);
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* Safe-area (iOS) */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
   }
-}
-
-/* 컴포넌트 영역 스타일링*/
-/* ui component */
-.ui-component {
-  border: 1px solid currentColor;
-  margin-block: 10px;
-  padding: 10px;
-}
-/* copy component */
-.copy-component {
-  display: flex;
-  background: black;
-  color: white;
-  margin-block-start: 0.5em;
-  padding: 0.5em 1em;
-  border-radius: 4px;
 }
