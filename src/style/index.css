@@ -1,4 +1,4 @@
-@import '/src/common/modern-reset.css';
-@import '/src/common/a11y.css';
-@import '/src/common/theme.css';
-@import '/src/common/base.css';
+@import '/src/style/modern-reset.css';
+@import '/src/style/a11y.css';
+@import '/src/style/theme.css';
+@import '/src/style/base.css';
