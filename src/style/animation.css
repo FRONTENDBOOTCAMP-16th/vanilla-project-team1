@@ -1,0 +1,109 @@
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0 deg;
+}
+
+/* 애니메이션 관련 CSS */
+/* fade 애니메이션 */
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* shrink 애니메bounce@keyframes shrink {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
+
+
+/* bounce 애니메이션 */
+@keyframes bounce {
+  0% {
+    translate: 0 0;
+  }
+  100% {
+    translate: 0 -20px;
+  }
+}
+
+/* shake 애니메이션 */
+@keyframes shake {
+  0% {
+    translate: 0 0;
+  }
+  100% {
+    translate: -10px 0;
+  }
+}
+
+/* flip 애니메이션 */
+@keyframes flip {
+  0% {
+    rotate: y 0;
+  }
+  100% {
+    rotate: y 360deg;
+  }
+}
+
+/* pulse 애니메이션 */
+@keyframes pulse {
+  0% {
+    scale: 1;
+  }
+  100% {
+    scale: 1.1;
+  }
+}
+
+/* wobble 애니메이션 */
+@keyframes wobble {
+  0%,
+  100% {
+    transform: translateX(0%) rotate(0deg);
+  }
+  15% {
+    transform: translateX(-15px) rotate(-5deg);
+  }
+  30% {
+    transform: translateX(10px) rotate(3deg);
+  }
+  45% {
+    transform: translateX(-10px) rotate(-3deg);
+  }
+  60% {
+    transform: translateX(5px) rotate(2deg);
+  }
+  75% {
+    transform: translateX(-5px) rotate(-1deg);
+  }
+}
+
+/* spin 애니메이션 */
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+/* angle0*/
+@keyframes angle {
+  0% {
+    --angle: 0deg;
+  }
+  100% {
+    --angle: 360deg;
+  }
+}
