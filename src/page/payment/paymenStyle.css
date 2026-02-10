@@ -1,0 +1,6 @@
+@import './../../style/base.css';
+
+@import './../../style/modern-reset.css';
+@import './../../style/a11y.css';
+
+@import './../payment/paymentComponent.css';
