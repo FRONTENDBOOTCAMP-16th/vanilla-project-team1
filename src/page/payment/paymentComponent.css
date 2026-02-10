@@ -1,17 +1,10 @@
-body {
-  max-width: 375px;
-}
 /*  레이아웃 */
 .movie-ticket-payment-info {
   display: flex;
   flex-flow: nowrap row;
   gap: 20px;
-  padding: 15px 18px;
+  padding-block: 15px;
   border-bottom: 5px solid #f8f8f8;
-
-  &::after {
-    content: '';
-  }
 
   .img-container {
     display: inline-block;
@@ -19,22 +12,19 @@ body {
   }
   .info-text-part {
     display: flex;
-    flex-flow: nowrap column;
+    flex-flow: wrap column;
+    gap: 10px;
   }
 
   .movie-info {
     color: gray;
 
-    dt {
+    li {
       float: left;
       clear: both;
       min-width: 40px;
       margin-bottom: 7px;
-      margin-right: 5px;
-    }
-    dd {
-      float: left;
-      margin-bottom: 7px;
+      font-size: var(--fs-14);
     }
   }
 }
@@ -43,8 +33,8 @@ body {
   top: -5px;
   right: -10px;
 }
-/* 스타일링 */
 
+/* 스타일링 */
 h2 {
   font-size: 1.2rem;
   font-weight: 600;
