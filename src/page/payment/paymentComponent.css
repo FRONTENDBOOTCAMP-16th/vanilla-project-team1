@@ -1,14 +1,13 @@
 /*  레이아웃 */
-/* .app {
-  overflow: scroll;
-} */
+main {
+  overflow: auto;
+}
 /* 영화 예매 정보 레이아웃 */
 .movie-ticket-payment-info {
   display: flex;
   flex-flow: nowrap row;
   gap: 20px;
   padding-block: 15px;
-  border-bottom: 5px solid var(--color-primary);
 
   .img-container {
     display: inline-block;
@@ -44,7 +43,6 @@
   display: flex;
   flex-flow: wrap column;
   padding-block: 15px;
-  border-bottom: 5px solid var(--color-primary);
 
   .lion-point {
     margin: 10px 0 10px;
@@ -102,14 +100,56 @@
 /* 최종 결제 수단 섹션 레이아웃 */
 .final-payment {
   padding-block: 15px;
+
+  .final-payment-methods {
+    padding-block: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-12);
+    align-items: center;
+
+    button {
+      display: grid;
+      svg {
+        justify-self: center;
+      }
+    }
+  }
+}
+
+/* 포인트 적립 섹션 레이아웃 */
+.earn-points {
+  padding-block: var(--sp-8);
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  column-gap: var(--sp-8);
+
+  .earn-point_etc {
+    justify-self: end;
+  }
+}
+/* 푸터 섹션 레이아웃 */
+.final-payment-calculation {
+  position: sticky;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  .tickect-price-cal-container {
+    padding-block-start: var(--sp-8);
+  }
 }
 /* 스타일링 */
+.payment-container {
+  border-bottom: 3px solid var(--color-primary);
+}
+
 h2 {
   font-size: 1.2rem;
   font-weight: 600;
 }
 
 .movie-img {
+  width: 100%;
   border-radius: 5px;
 }
 
@@ -129,4 +169,68 @@ h2 {
   &:focus-visible {
     outline: 3px solid var(--color-focus);
   }
+}
+
+.final-payment button {
+  text-decoration: none;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: var(--r-8);
+  padding-block: var(--sp-8);
+  font-size: var(--fs-14);
+
+  &:hover {
+    background-color: var(--color-primary-200);
+  }
+}
+
+.tickect-price-cal-container {
+  font-size: var(--fs-14);
+
+  .ticket-price {
+    color: var(--color-muted);
+  }
+  strong {
+    color: var(--color-text);
+  }
+  .total-ticket-price {
+    color: var(--color-primary-active);
+  }
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+
+  &:checked {
+    background-color: var(--color-primary);
+    border: var(--color-on-primary);
+    vertical-align: middle;
+
+    &::before {
+      content: '✓';
+      color: var(--color-bg);
+      font-size: var(--fs-14);
+    }
+  }
+}
+
+.pay-button {
+  text-decoration: none;
+  background: none;
+  background-color: var(--color-primary-hover);
+  border: none;
+  color: var(--color-on-primary);
+}
+
+.earn-points {
+  font-size: var(--fs-14);
 }

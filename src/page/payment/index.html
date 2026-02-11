@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="/src/style/index.css" />
     <link rel="stylesheet" href="/src/page/payment/paymentComponent.css" />
   </head>
-  <body>
+  <body class="app">
     <h1 class="sr-only">영화 예매 티켓 결제 페이지</h1>
     <a href="#main-content" class="sr-only focusable-main">본문 바로가기</a>
-    <main class="app">
-      <div class="container paymenent-container">
+    <main class="container">
+      <div class="container payment-container">
         <section class="movie-ticket-payment-info">
           <h2 class="sr-only">영화 예매 티켓 정보</h2>
           <div class="img-container">
@@ -54,6 +54,8 @@
             </ul>
           </div>
         </section>
+      </div>
+      <div class="container payment-container">
         <section class="payment-discount">
           <h2 class="discount-part-heading">할인/포인트</h2>
           <div class="lion-point">
@@ -129,6 +131,8 @@
             </div>
           </div>
         </section>
+      </div>
+      <div class="container payment-container">
         <section class="final-payment">
           <h2>최종 결제수단</h2>
           <div class="final-payment-methods">
@@ -189,7 +193,7 @@
                   L.point
                 </text>
               </svg>
-              라이온포인트
+              라이온 포인트
             </button>
 
             <button
@@ -265,7 +269,6 @@
                   Lion
                 </text>
               </svg>
-
               라이온 페이
             </button>
 
@@ -341,7 +344,40 @@
           </div>
         </section>
       </div>
+      <div class="container payment-container">
+        <section class="earn-points">
+          <h2 class="sr-only">포인트 적립 방법</h2>
+          <div class="earn-lionpoint">
+            <label for="earn-point">라이온 포인트 적립</label>
+            <input type="checkbox" name="point-data" id="earn-point" checked />
+          </div>
+          <div class="earn-point_etc">
+            <label for="id-point">ID적립</label>
+            <input type="checkbox" name="id-point-data" id="id-point" />
+            <label for="card-number-point">카드번호 적립</label>
+            <input type="checkbox" name="card-point-data" id="card-number-point" />
+          </div>
+        </section>
+      </div>
     </main>
-    <footer></footer>
+    <footer class="container final-payment-calculation">
+      <div class="tickect-price-cal-container">
+        <p class="ticket-price">
+          상품금액 <strong class="js-component-price">1000</strong>원 - 할인금액
+          <strong class="js-component-price">200</strong>원
+        </p>
+        <p class="total-ticket-price js-component-price" aria-live="polite">
+          <strong>총 합계</strong> 800 원
+        </p>
+      </div>
+      <button
+        type="button"
+        class="pay-button"
+        aria-pressed="false"
+        aria-label="최종 결제 금액 결제 버튼"
+      >
+        결제하기
+      </button>
+    </footer>
   </body>
 </html>
