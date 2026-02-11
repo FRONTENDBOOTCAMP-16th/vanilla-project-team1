@@ -180,6 +180,10 @@ h2 {
   font-size: var(--fs-14);
 
   &:hover {
+    background-color: var(--color-primary-100);
+  }
+
+  &.active {
     background-color: var(--color-primary-200);
   }
 }
