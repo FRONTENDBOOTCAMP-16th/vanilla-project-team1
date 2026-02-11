@@ -124,7 +124,7 @@ main {
   grid-template-columns: 100px 1fr;
   column-gap: var(--sp-8);
 
-  .earn-point_etc {
+  .earn-point-etc {
     justify-self: end;
   }
 }
@@ -139,8 +139,10 @@ main {
   }
 }
 /* 스타일링 */
-.payment-container {
+
+section {
   border-bottom: 3px solid var(--color-primary);
+  padding-inline: 16px;
 }
 
 h2 {
