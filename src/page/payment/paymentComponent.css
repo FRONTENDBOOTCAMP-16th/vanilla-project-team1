@@ -1,10 +1,14 @@
 /*  레이아웃 */
+/* .app {
+  overflow: scroll;
+} */
+/* 영화 예매 정보 레이아웃 */
 .movie-ticket-payment-info {
   display: flex;
   flex-flow: nowrap row;
   gap: 20px;
   padding-block: 15px;
-  border-bottom: 5px solid #f8f8f8;
+  border-bottom: 5px solid var(--color-primary);
 
   .img-container {
     display: inline-block;
@@ -17,7 +21,7 @@
   }
 
   .movie-info {
-    color: gray;
+    color: var(--color-muted);
 
     li {
       float: left;
@@ -34,11 +38,77 @@
   right: -10px;
 }
 
+/* 할인 섹션 레이아웃 */
+
+.payment-discount {
+  display: flex;
+  flex-flow: wrap column;
+  padding-block: 15px;
+  border-bottom: 5px solid var(--color-primary);
+
+  .lion-point {
+    margin: 10px 0 10px;
+    width: 100%;
+  }
+
+  .point-tab ul {
+    display: flex;
+    width: 100%;
+    border: 2px solid var(--color-text);
+    border-radius: var(--r-8);
+  }
+
+  .point-tab li {
+    flex: 1;
+    border-left: 1px solid #ddd;
+  }
+
+  .lion-point-button {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    line-height: 40px;
+    border-radius: 5px;
+    padding: 0;
+    font-size: var(--fs-14);
+  }
+}
+
+/* 할인 방법 섹션 레이아웃 */
+.coupon-list {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  gap: var(--sp-8);
+
+  .coupon-list-item {
+    flex: 1;
+  }
+
+  .coupon-list-item button {
+    display: block;
+    width: 100%;
+    height: 50px;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: var(--r-8);
+    font-size: var(--fs-14);
+  }
+}
+
+/* 최종 결제 수단 섹션 레이아웃 */
+.final-payment {
+  padding-block: 15px;
+}
 /* 스타일링 */
 h2 {
   font-size: 1.2rem;
   font-weight: 600;
 }
+
 .movie-img {
   border-radius: 5px;
 }
@@ -46,4 +116,17 @@ h2 {
 .movie-title {
   font-size: 1.2rem;
   font-weight: 800;
+}
+
+.lion-point-button,
+.coupon-list-item button {
+  &:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-bg);
+    font-weight: 500;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-focus);
+  }
 }
