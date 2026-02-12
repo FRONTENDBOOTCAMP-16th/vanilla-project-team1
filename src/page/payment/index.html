@@ -11,9 +11,10 @@
   <body class="app">
     <h1 class="sr-only">영화 예매 티켓 결제 페이지</h1>
     <a href="#main-content" class="sr-only focusable-main">본문 바로가기</a>
-    <main class="container">
+    <main class="container" id="main-content">
       <section class="movie-ticket-payment-info">
         <h2 class="sr-only">영화 예매 티켓 정보</h2>
+        <!-- 추후 접근성 관련해서 고려해봐야 함 -->
         <div class="img-container">
           <img
             class="movie-img"
@@ -59,15 +60,14 @@
         <h2 class="discount-part-heading">할인/포인트</h2>
         <div class="lion-point">
           <div class="point-tab">
-            <ul>
+            <ul role="tablist">
               <li>
-                <!-- role tab -->
-                <!-- aria-controls 추가 -->
                 <button
                   class="lion-point-button"
                   type="button"
+                  role="tab"
+                  aria-controls="panel-1"
                   aria-selected="false"
-                  aria-label="lion-POINT로 조회 및 적립"
                 >
                   Lion-POINT 조회
                 </button>
@@ -76,6 +76,8 @@
                 <button
                   class="lion-point-button"
                   type="button"
+                  role="tab"
+                  aria-controls="panel-2"
                   aria-selected="false"
                   aria-label="lion-POINT 카드 번호로 적립"
                 >
@@ -83,8 +85,80 @@
                 </button>
               </li>
             </ul>
+            <div class="point-tabpanel" role="tabpanel" id="panel-1">
+              <form class="lion-point-panel">
+                <div class="point-input-container">
+                  <label for="point-input" class="sr-only">포인트 입력</label>
+                  <input
+                    type="text"
+                    name="point-data"
+                    id="point-input"
+                    placeholder="포인트 입력(100P 단위로 사용가능)"
+                  />
+                  <button type="button">최대 적용</button>
+                </div>
+                <div class="card-point-password-input-container">
+                  <label for="card-point-password" class="sr-only">Lion-POINT 비밀번호 입력</label>
+                  <input
+                    type="password"
+                    name="card-point-password"
+                    id="card-point-password"
+                    placeholder="Lion-POINT 비밀번호 입력(6~8자리)"
+                    required
+                  />
+                </div>
+                <div class="point-input-button-container">
+                  <button type="button">취소</button>
+                  <button type="button">적용</button>
+                </div>
+              </form>
+            </div>
+            <div class="point-tabpanel" role="tabpanel" id="panel-2">
+              <form class="card-number-point-panel">
+                <div class="card-number-input-container">
+                  <label for="number-input" class="sr-only">라이온 포인트 카드 번호 입력</label>
+                  <input
+                    type="text"
+                    name="card-number-data"
+                    id="number-input"
+                    placeholder="카드번호 입력(16자리)"
+                    required
+                  />
+                </div>
+                <div class="card-password-input-container">
+                  <label for="card-number-password" class="sr-only">Lion-POINT 비밀번호 입력</label>
+                  <input
+                    type="password"
+                    name="card-point-password"
+                    id="card-number-password"
+                    placeholder="Lion-POINT 비밀번호 입력(6~8자리)"
+                    required
+                  />
+                  <button type="button" aria-label="카드번호 조회">조회</button>
+                </div>
+                <div class="current-points-container">
+                  <span class="current-point"
+                    >보유 포인트 <strong class="js-component-current-point"></strong
+                  ></span>
+                  <div class="current-point-input">
+                    <label for="use-current-point" class="sr-only">Lion-POINT 입력</label>
+                    <input
+                      type="text"
+                      id="use-current-point"
+                      placeholder="포인트 입력(100p 단위로 사용가능)"
+                    />
+                    <button type="button">최대 적용</button>
+                  </div>
+                </div>
+                <div class="point-input-button-container">
+                  <button type="button">취소</button>
+                  <button type="button">적용</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
+
         <div class="coupon-discount-method">
           <div class="discount-method-tab">
             <ul class="coupon-list">
@@ -131,12 +205,7 @@
       <section class="final-payment">
         <h2>최종 결제수단</h2>
         <div class="final-payment-methods">
-          <button
-            type="button"
-            class="credit-card active"
-            aria-pressed="false"
-            aria-label="최종 결제 수단 신용카드 선택"
-          >
+          <button type="button" class="credit-card active" aria-pressed="false">
             <!-- 신용카드 -->
             <svg
               width="40"
@@ -154,12 +223,7 @@
           </button>
 
           <!-- 엘포인트  -->
-          <button
-            type="button"
-            class="lionpoint"
-            aria-pressed="false"
-            aria-label="최종 결제 수단 라이온 포인트 선택"
-          >
+          <button type="button" class="lionpoint" aria-pressed="false">
             <svg
               width="50"
               height="40"
@@ -185,12 +249,7 @@
             라이온 포인트
           </button>
 
-          <button
-            type="button"
-            class="quickpay"
-            aria-pressed="false"
-            aria-label="최종 결제 수단 간편 결제 선택"
-          >
+          <button type="button" class="quickpay" aria-pressed="false">
             <!-- 간편 결제 -->
             <svg
               width="40"
@@ -219,12 +278,7 @@
             간편 결제
           </button>
 
-          <button
-            type="button"
-            class="lionpay"
-            aria-pressed="false"
-            aria-label="최종 결제 수단 라이온 페이 선택"
-          >
+          <button type="button" class="lionpay" aria-pressed="false">
             <!-- 라이온 페이 -->
             <svg
               width="80"
@@ -263,12 +317,7 @@
             라이온 페이
           </button>
 
-          <button
-            type="button"
-            class="cellphone-pay"
-            aria-pressed="false"
-            aria-label="최종 수단 결제 휴대폰 선택"
-          >
+          <button type="button" class="cellphone-pay" aria-pressed="false">
             <!-- 휴대폰 -->
             <svg
               width="40"
@@ -294,12 +343,7 @@
             휴대폰
           </button>
 
-          <button
-            type="button"
-            class="bank-payment"
-            aria-pressed="false"
-            aria-label="최종 결제 수단 통장 결제 선택"
-          >
+          <button type="button" class="bank-payment" aria-pressed="false">
             <!-- 통장 결제 -->
             <svg
               width="40"
@@ -361,14 +405,7 @@
           <strong>총 합계</strong> 800 원
         </p>
       </div>
-      <button
-        type="button"
-        class="pay-button"
-        aria-pressed="false"
-        aria-label="최종 결제 금액 결제 버튼"
-      >
-        결제하기
-      </button>
+      <button type="button" class="pay-button" aria-pressed="false">결제하기</button>
     </footer>
   </body>
 </html>
