@@ -26,7 +26,7 @@
 **Tools**
 
 - Git / GitHub
-- Jira
+- Notion
 - VS Code
 
 ---
@@ -59,12 +59,12 @@
 
 ## 👨‍👩‍👧‍👦 팀원 소개
 
-| 이름   | 역할                 | GitHub                       |
-| ------ | -------------------- | ---------------------------- |
-| 조재권 | 영화 목록 페이지     | [https://github.com/jjg2362] |
-| 윤유영 | 상영시간 선택 페이지 | [GitHub 링크]                |
-| 이찬미 | 좌석 선택 페이지     | [GitHub 링크]                |
-| 장예지 | 결제 페이지          | [GitHub 링크]                |
+| 이름   | 역할                 | GitHub                         |
+| ------ | -------------------- | ------------------------------ |
+| 조재권 | 영화 목록 페이지     | [https://github.com/jjg2362]   |
+| 윤유영 | 상영시간 선택 페이지 | [https://github.com/yuyeongE]  |
+| 이찬미 | 좌석 선택 페이지     | [https://github.com/lcmbook55] |
+| 장예지 | 결제 페이지          | [https://github.com/ruiwaa]    |
 
 ---
 
@@ -80,21 +80,23 @@ likelion-16th-movie-reservation-site/
 │   │   └── icons/
 │   ├── components/      # (선택) 재사용 가능한 UI 조각 (헤더, 카드 등)
 │   ├── styles/          # 스타일 시트
+│   │   └── a11y.css
 │   │   ├── base.css
+│   │   └── index.css
+│   │   └── mordern-reset.css
 │   │   ├── theme.css
-│   │   └── main.css
 │   ├── utils/           # 공통 함수 (날짜 포맷팅, 유효성 검사 등)
 │   ├── api/             # API 호출 관련 로직 분리 (API 연동 fetch 함수 모음)
 │   └── main.js          # JavaScript 진입점 (Entry Point)
 │   └── page
-│   │   ├──mainPage/
-│   │   │   ├──main.html
-│   │   │   ├──mainStyle.css
-│   │   │   ├──mainJs.js
-│   │   ├──bookingPage/
-│   │   ├──seatPage/
-│   │   ├──paymentPage/
-├── index.html           # 메인 HTML (Vite는 index.html이 루트에 위치)
+│   │   ├──main/         # 메인 페이지
+│   │   │   ├──index.html
+│   │   │   ├──main.css
+│   │   │   ├──main.js
+│   │   ├──booking/      # 극장/시간 선택 페이지
+│   │   ├──seat/         # 좌석 선택 페이지
+│   │   ├──payment/      # 결제 페이지
+├── index.html           # 메인 HTML
 ├── package.json         # 의존성 관리
 ├── .gitignore           # Git 제외 파일 목록
 └── vite.config.js       # Vite 설정 파일
