@@ -54,11 +54,15 @@ main {
     width: 100%;
     border: 2px solid var(--color-text);
     border-radius: var(--r-8);
+    overflow: hidden;
+
+    &:last-child {
+      border-left: 1px solid #ddd;
+    }
   }
 
   .point-tab li {
     flex: 1;
-    border-left: 1px solid #ddd;
   }
 
   .lion-point-button {
