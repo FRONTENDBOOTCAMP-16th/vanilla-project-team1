@@ -182,8 +182,8 @@ const seatArr = [
     AVAILABLE,
     AVAILABLE,
     AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
+    RESERVED,
+    RESERVED,
     AVAILABLE,
     AVAILABLE,
     AVAILABLE,
@@ -193,15 +193,15 @@ const seatArr = [
 
 console.log(seatArr);
 
-const container = document.querySelector('seat-area');
+const container = document.querySelector('.seat-area');
 
-function renderseat(seatArr) {
-  const rows = seatArr.langth;
+function renderSeat(seatArr) {
+  const rows = seatArr.length;
   const cols = seatArr[0].length;
-  container.style.setproperty('--cols', string(cols));
+  container.style.setProperty('--cols', String(cols));
 
   for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; i++) {
+    for (let j = 0; j < cols; j++) {
       const seatElement = document.createElement('button');
       seatElement.textContent = seatArr[i][j];
       if (seatArr[i][j] === RESERVED) {
@@ -211,3 +211,5 @@ function renderseat(seatArr) {
     }
   }
 }
+
+renderSeat(seatArr);

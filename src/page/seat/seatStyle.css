@@ -1,24 +1,19 @@
 /* 공통 */
 
-/* Base — Mobile (기본) */
-.container {
-  width: 100%;
-	max-width: 375px;
-	margin: 0 auto;
-	padding: 0 8px;
+/* Small phone */
+@media (min-width: 480px) {
 }
 
-/* Small phone */
-@media (min-width:480px) {}
-
 /* Tablet */
-@media (min-width:768px) {}
+@media (min-width: 768px) {
+}
 
 /* Desktop */
-@media (min-width:1024px) {}
+@media (min-width: 1024px) {
+}
 
 /* Large Desktop */
-@media (min-width:1280px) {}
-
+@media (min-width: 1280px) {
+}
 
 /* seatsyle */
