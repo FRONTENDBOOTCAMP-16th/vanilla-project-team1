@@ -1,71 +1,59 @@
 <!doctype html>
 <html lang="ko-KR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>seatPage</title>
-    <link rel="stylesheet" href="/src/page/seat/seatStyle.css" />
-    <link rel="stylesheet" href="/src/style/index.css" />
-    <script src="/src/page/seat/seatJs.js" type="module"></script>
-  </head>
 
-  <body class="app">
-    <main class="container">
-      <div class="seat-component" role="region" aria-labelledby="seat-section">
-        <!-- seat select (높이: ??? 넓이 : 375px)-->
-        <h2 id="seat-section">좌석 선택</h2>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>seatPage</title>
+  <link rel="stylesheet" href="/src/page/seat/seatStyle.css" />
+  <link rel="stylesheet" href="/src/style/index.css" />
+  <link rel="stylesheet" href="/src/style/a11y.css" />
+  <script src="/src/page/seat/seatJs.js" type="module"></script>
+</head>
 
-        <!-- title screen -->
-        <span class="title-screen" role="heading"> SCREEN </span>
+<body class="app">
+  <main class="container">
+    <div class="seat-component" role="region" aria-labelledby="seat-section">
+      <!-- seat select-->
+      <h2 id="seat-section">좌석 선택</h2>
 
-        <!-- seat area A~J 124석 -->
-        <!-- occupied(좌석 이용불가)는 좌석 매진일때, 이용불가 좌석일때 -->
-        <!-- isabled(좌석 이용가능) 이용가능 좌석일때 white-->
+      <!-- title screen -->
+      <span class="title-screen" role="heading"> SCREEN </span>
 
-        <!-- selected(좌석 선택됨), 실시간으로 좌석 선택시 -->
-        <!-- seat none(좌석 없음) 좌석 완전 차단-->
+      <!-- seat area (A~J 124석 배열) -->
+      <div class="seat-area"></div>
+    </div>
 
-        <!-- A -->
-        <div class="seat-area">
-          <!-- 각 좌석 버튼에 aria-label 추가 -->
-          <button type="button" class="seat isabled" aria-label="J5 좌석 선택 불가">J5</button>
-          <button type="button" class="seat occupied" disabled aria-label="J7 좌석 매진">J7</button>
-          <button
-            type="button"
-            class="seat special"
-            data-seat="J11"
-            aria-label="장애인석 J11 선택 가능"
-          >
-            J11
-          </button>
-        </div>
-      </div>
+    <!-- seat icon-list -->
+    <ul class="icon-list">
+      <li class="list-item">
+        <span class="icon-special"></span>
+        <span class="label">장애인석</span>
+      </li>
+      <li class="list-item">
+        <span class="icon-door"></span>
+        <span class="label">출입문</span>
+      </li>
+    </ul>
 
-      <!-- seat list -->
-      <div class="seat-list">
-        <ul>
-          <li>장애인석</li>
-          <li>출입문</li>
-        </ul>
-      </div>
+    <!-- movie title -->
+    <h3>왕과 사는 남자(2D)</h3>
+    <!-- selected info -->
+    <div class="selected-info" role="region" aria-labelledby="selected-info-title">
+      <h4 id="selected-info" class="sr-only">선택된 예매 정보</h4>
+      <ul class="info-list">
+        <li class="info-item">
+          <span class="label">좌석</span>
+          <span id="selected-seats">좌석을 선택해주세요</span>
+        </li>
+        <li class="info-item">
+          <span class="label">인원</span>
+          <span id="person-count">성인 0</span>
+          <button type="button" class="change" aria-label="인원 변경하기">인원변경</button>
+        </li>
+      </ul>
+    </div>
+  </main>
+</body>
 
-      <!-- movie title (높이: 넓이 : 375px)-->
-      <h3>movie title(Screening Format)</h3>
-
-      <div class="selected-info">
-        <!-- 좌석 info -->
-        <ul>
-          좌석
-        </ul>
-        <li>좌석을 선택해주세요(좌석 선택시 안내 연동)</li>
-
-        <!-- 인원 info,change -->
-        <ul>
-          인원
-        </ul>
-        <li>인원info</li>
-        <a href="인원선택페이지" role="button"> 인원변경 </a>
-      </div>
-    </main>
-  </body>
 </html>
