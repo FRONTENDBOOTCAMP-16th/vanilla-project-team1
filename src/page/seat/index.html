@@ -12,10 +12,12 @@
 </head>
 
 <body class="app">
+  <!-- 메인 컨테이너 -->
   <main class="container">
+    <!-- seat-component -->
     <div class="seat-component" role="region" aria-labelledby="seat-section">
-      <!-- seat select-->
-      <h2 id="seat-section">좌석 선택</h2>
+      <!-- seat select section -->
+      <h2 id="seat-section" class="sr-only">좌석 선택</h2>
 
       <!-- title screen -->
       <span class="title-screen" role="heading"> SCREEN </span>
@@ -24,7 +26,7 @@
       <div class="seat-area"></div>
     </div>
 
-    <!-- seat icon-list -->
+    <!-- seat icon-list (special,door) -->
     <ul class="icon-list">
       <li class="list-item">
         <span class="icon-special"></span>
@@ -36,20 +38,29 @@
       </li>
     </ul>
 
-    <!-- movie title -->
-    <h3>왕과 사는 남자(2D)</h3>
-    <!-- selected info -->
-    <div class="selected-info" role="region" aria-labelledby="selected-info-title">
-      <h4 id="selected-info" class="sr-only">선택된 예매 정보</h4>
+    <!-- selected-component -->
+    <div class="selected-component" role="region" aria-labelledby="selected-info-section">
+      <!-- selected-info-section -->
+      <h3 id="selected-info-section" class="sr-only">선택된 예매 정보</h3>
+      <!-- seledcted-details(날짜,장소,관(층)) -->
+      <p class="seledcted-details">
+        <time datetime="2026-02-13">2026.02.13(금)</time>
+        <span class="site">광명(광명사거리)</span>
+        <span class="hall-floor">5관 일반(8층)</span>
+      </p>
+      <!-- selected info list (좌석, 인원)-->
       <ul class="info-list">
         <li class="info-item">
           <span class="label">좌석</span>
-          <span id="selected-seats">좌석을 선택해주세요</span>
+          <span id="selected-seats" class="value">좌석을 선택해주세요</span>
         </li>
         <li class="info-item">
           <span class="label">인원</span>
-          <span id="person-count">성인 0</span>
-          <button type="button" class="change" aria-label="인원 변경하기">인원변경</button>
+          <div class="content-group">
+            <span id="person-count" class="value">성인 0</span>
+            <!-- 인원 변경 화면으로 이동하는 버튼 -->
+            <button type="button" class="change" aria-label="인원 선택 화면으로 이동하여 변경하기">인원변경</button>
+          </div>
         </li>
       </ul>
     </div>
