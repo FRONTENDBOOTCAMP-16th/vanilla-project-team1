@@ -45,7 +45,9 @@
       <!-- seledcted-details(날짜,장소,관(층)) -->
       <p class="seledcted-details">
         <time datetime="2026-02-13">2026.02.13(금)</time>
+        <span class="divider" aria-hidden="true">·</span>
         <span class="site">광명(광명사거리)</span>
+        <span class="divider" aria-hidden="true">·</span>
         <span class="hall-floor">5관 일반(8층)</span>
       </p>
       <!-- selected info list (좌석, 인원)-->
@@ -57,12 +59,17 @@
         <li class="info-item">
           <span class="label">인원</span>
           <div class="content-group">
-            <span id="person-count" class="value">성인 0</span>
-            <!-- 인원 변경 화면으로 이동하는 버튼 -->
-            <button type="button" class="change" aria-label="인원 선택 화면으로 이동하여 변경하기">인원변경</button>
+            <span class="value">성인 0</span>
+            <!-- 인원 변경 카운터 - 숫자 + -->
+            <div class="percon-count">
+              <button type="button" class="minus-btn">-</button>
+              <span id="person-count" class="count-value">2</span>
+              <button type="button" class="plus-btn">+</button>
+            </div>
           </div>
         </li>
       </ul>
+    </div>
     </div>
   </main>
 </body>
