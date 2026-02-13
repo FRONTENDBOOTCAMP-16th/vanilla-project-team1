@@ -1,6 +1,7 @@
 /*  레이아웃 */
 main {
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   padding-bottom: var(--sp-8);
   font-family: var(--font-sans);
 }
@@ -51,18 +52,22 @@ main {
     width: 100%;
   }
 
+  .point-tab {
+    border: 2px solid var(--color-text);
+    border-radius: var(--r-8);
+  }
+
   .point-tab ul {
     display: flex;
     width: 100%;
-    border: 2px solid var(--color-text);
-    border-radius: var(--r-8);
+    border-bottom: 2px solid var(--color-text);
     /* overflow: hidden; */
   }
 
   .point-tab li {
     flex: 1;
     &:last-child {
-      border-left: 1px solid #ddd;
+      border-left: 2px solid var(--color-text);
     }
   }
 
@@ -81,15 +86,28 @@ main {
 
 /* 할인 섹션 폼 요소 레이아웃 */
 
+.tabpanel-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .point-tabpanel {
   padding: var(--sp-8);
-  border: 1px solid #ccc;
   display: none;
 
   &.active {
     display: flex;
-    flex-flow: wrap row;
+    flex-grow: 1;
     border-radius: 5px;
+
+    .point-input-container {
+      display: flex;
+      flex-grow: 1;
+      column-gap: 5px;
+      flex-wrap: wrap; /* 이 줄 추가 */
+      align-items: flex-start; /* 이 줄 추가 */
+    }
 
     input {
       width: 220px;
@@ -100,7 +118,7 @@ main {
 
     .lion-point-panel {
       display: flex;
-      flex-flow: nowrap column;
+      flex-direction: column;
       row-gap: 10px;
     }
     .point-input-button-container {
@@ -111,7 +129,7 @@ main {
 
     .card-number-point-panel {
       display: flex;
-      flex-flow: nowrap column;
+      flex-direction: column;
       row-gap: 5px;
 
       .card-password-input-container {
@@ -244,6 +262,11 @@ h2 {
   }
 }
 
+.coupon-list button {
+  &.active {
+    background-color: var(--color-primary-200);
+  }
+}
 .final-payment button {
   text-decoration: none;
   background: none;
