@@ -94,12 +94,14 @@ main {
     input {
       width: 220px;
       height: 30px;
+      background-color: #ddd;
+      border: 1px solid var(--color-border);
     }
 
     .lion-point-panel {
       display: flex;
       flex-flow: nowrap column;
-      row-gap: 5px;
+      row-gap: 10px;
     }
     .point-input-button-container {
       display: grid;
