@@ -61,7 +61,6 @@ main {
     display: flex;
     width: 100%;
     border-bottom: 2px solid var(--color-text);
-    /* overflow: hidden; */
   }
 
   .point-tab li {
@@ -237,6 +236,7 @@ h2 {
     background-color: var(--color-primary-hover);
     color: var(--color-bg);
     font-weight: 500;
+    border-radius: 0;
   }
 
   &:focus-visible {
