@@ -71,21 +71,22 @@ function removeAttr(element, attrName) {
 // 할인 포인트 버튼 클릭 시 화면 전환되는 함수
 function handleTabClick(e) {
   if (!e.target.closest('button')) return;
-  removeAllActive(POINT_TABS, 'active');
-  const target = e.target.closest('button');
+  removeAllActive(POINT_TABS, 'active'); // 모든 버튼 활성화 초기화
+  setAllAttr(LION_POINT_BUTTON, 'aria-selected', 'false'); // 모든 버튼 접근성 속성 초기화
+  const target = e.target.closest('button'); // 부모요소에서 가장 가까운 버튼 찾기
   const targetValue = getAttr(target, 'aria-controls');
   const activeTarget = document.getElementById(targetValue);
-  isActive(activeTarget);
-  setAllAttr(LION_POINT_BUTTON, 'aria-selected', 'false');
-  setAttr(target, 'aria-selected', 'true');
+  isActive(activeTarget); // 해당되는 타켓에 active 클래스명 추가
+  setAttr(target, 'aria-selected', 'true'); // 해당되는 타켓에 상태 전환
 }
 
 // 힐인/포인트 방법 버튼 속성 및 스타일링 변환 함수
 function handleCouponList(e) {
+  if (!e.target.closest('button')) return;
   const target = e.target.closest('button');
   setAllAttr(COUPON_LIST_BUTTON, 'aria-selected', 'false');
-  setAttr(target, 'aria-selected', 'true');
   removeAllActive(COUPON_LIST_BUTTON, 'active');
+  setAttr(target, 'aria-selected', 'true');
   isActive(target);
 }
 
