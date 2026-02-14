@@ -230,8 +230,7 @@ h2 {
   font-weight: 800;
 }
 
-.lion-point-button,
-.coupon-list-item button {
+.lion-point-button {
   &:hover {
     background-color: var(--color-primary-hover);
     color: var(--color-bg);
@@ -243,7 +242,17 @@ h2 {
     outline: 3px solid var(--color-focus);
   }
 }
+.coupon-list-item button {
+  &:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-bg);
+    font-weight: 500;
+  }
 
+  &:focus-visible {
+    outline: 3px solid var(--color-focus);
+  }
+}
 /* 할인 섹션 폼 영역 스타일링 */
 .point-tabpanel {
   font-size: var(--fs-14);
