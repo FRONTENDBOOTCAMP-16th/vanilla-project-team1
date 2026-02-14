@@ -3,9 +3,8 @@
 // 이벤트 연결
 // [✅] active 클래스 명 추가
 // [✅] 할인/포인트 버튼 클릭시 화면 전환
-// [] 폼 서식에 비밀번호 입력 안했을 시 해당 알림창 나오게 하기
 // [✅] 폼 변환될 때 스타일링
-// [] 폼 서식 버튼을 어떻게 구현해야 하는지
+// [✅] 폼 서식에 비밀번호 입력 안했을 시 해당 알림창 나오게 하기
 // [] 폼 서식에 해당 값 적용하기
 // [] 폼 서식 포인트 입력 및 비밀번호 입력 양식에 맞춰서 제어할 수 있게
 // [] 버튼 누르면 입력한 서식이 적용되게 하기
@@ -25,6 +24,8 @@ const COUPON_LIST = document.querySelector('.coupon-list');
 const COUPON_LIST_BUTTON = document.querySelectorAll('.coupon-list button');
 const FINAL_PAYMENT = document.querySelector('.final-payment');
 const FINAL_PAYMENT_METHODS_BUTTON = document.querySelectorAll('.final-payment-methods button');
+const CARD_POINT_PASSWORD_INPUT = document.getElementById('card-point-password');
+const CARD_NUMBER_PASSWORD_INPUT = document.getElementById('card-number-password');
 
 // 모든 요소의 active 클래스 네임 제거 함수
 function removeAllActive(elements, attrValue) {
@@ -99,7 +100,30 @@ function handleFinalPaymentButton(e) {
   isActive(target);
 }
 
-// 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
+// 폼 서식에 비밀번호 입력 안했을 시 해당 알림창 나오게 하기
+// 패널 1
+function lionPointCardPasswordAuth(e) {
+  e.preventDefault();
+  if (!e.target) return;
+  const target = e.target.closest('#card-point-password');
+  if (target.value.length < 6 || target.value.length > 8) {
+    alert('6~8자리로 입력하세요');
+  }
+}
+//패널 2
+function lionPointCardNumberPasswordAuth(e) {
+  e.preventDefault();
+  if (!e.target) return;
+  const target = e.target.closest('#card-number-password');
+  if (target.value.length < 6 || target.value.length > 8) {
+    alert('6~8자리로 입력하세요');
+  }
+}
+// 폼 서식에 해당 값 적용하기
+// 폼 서식 포인트 입력 및 비밀번호 입력 양식에 맞춰서 제어할 수 있게
+// 버튼 누르면 입력한 서식이 적용되게 하기
+
+// 예매 티켓 결제 페이지 내부에 연결된 이벤트
 
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
 POINT_TAB.addEventListener('click', handleTabClick);
@@ -107,5 +131,13 @@ POINT_TAB.addEventListener('click', handleTabClick);
 // 힐인/포인트 방법 버튼 속성 및 스타일링 변환 이벤트
 COUPON_LIST.addEventListener('click', handleCouponList);
 
+// 폼 서식에 비밀번호 입력시 알림창 나오는 이벤트
+// 패널 1
+CARD_POINT_PASSWORD_INPUT.addEventListener('change', lionPointCardPasswordAuth);
+// 패널 2
+CARD_NUMBER_PASSWORD_INPUT.addEventListener('change', lionPointCardNumberPasswordAuth);
+
 // 최종 결제 수단 클릭 시 버튼 속성 변환 이벤트
 FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);
+
+// 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
