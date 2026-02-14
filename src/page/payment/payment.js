@@ -5,8 +5,8 @@
 // [✅] 할인/포인트 버튼 클릭시 화면 전환
 // [✅] 폼 변환될 때 스타일링
 // [✅] 폼 서식에 비밀번호 입력 안했을 시 해당 알림창 나오게 하기
+// [] 폼 서식 포인트 입력 및 비밀번호 입력 양식에 맞춰서 제어할 수 있게 버튼 연결
 // [] 폼 서식에 해당 값 적용하기 (해당 포인트 입력하고 적용 버튼 누르면 푸터 결제 영역에 보이게 하기)
-// [] 폼 서식 포인트 입력 및 비밀번호 입력 양식에 맞춰서 제어할 수 있게
 // [✅] 할인 및 포인트 적립 버튼 접근성 속성 변환
 // [✅] 버튼 클릭 시 아리아 속성 전환
 // [] 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
@@ -27,6 +27,8 @@ const CARD_POINT_PASSWORD_INPUT = document.getElementById('card-point-password')
 const CARD_NUMBER_PASSWORD_INPUT = document.getElementById('card-number-password');
 const POINT_INPUT_DATA = document.getElementById('point-input');
 const CURRENT_POINT_INPUT_DATA = document.getElementById('use-current-point');
+const POINT_INPUT_DATA_BUTTON = document.querySelector('.point-input-container button');
+const CURRENT_POINT_INPUT_BUTTON = document.querySelector('.current-point-input button');
 
 // 모든 요소의 active 클래스 네임 제거 함수
 function removeAllActive(elements, attrValue) {
@@ -107,7 +109,7 @@ function handleFinalPaymentButton(e) {
 // 패널 1
 function pointInputAuth(e) {
   if (!e.target) return;
-  const target = e.target.closest('#point-input');
+  const target = document.querySelector('#point-input');
   let value = parseInt(target.value, 10);
   // 조건문 만들기
   // 거짓: 숫자가 아니면 알림창 뜨기
@@ -122,7 +124,7 @@ function pointInputAuth(e) {
 // 패널 2
 function currentInputAuth(e) {
   if (!e.target) return;
-  const target = e.target.closest('#use-current-point');
+  const target = document.querySelector('#use-current-point');
   let value = parseInt(target.value, 10);
   // 조건문 만들기
   // 거짓: 숫자가 아니면 알림창 뜨기
@@ -139,18 +141,22 @@ function currentInputAuth(e) {
 // 패널 1
 function lionPointCardPasswordAuth(e) {
   if (!e.target) return;
-  const target = e.target.closest('#card-point-password');
+  const target = document.querySelector('#card-point-password');
   if (target.value.length < 6 || target.value.length > 8) {
     alert('6~8자리로 입력하세요');
+  } else {
+    return target.value;
   }
 }
 //패널 2
 function lionPointCardNumberPasswordAuth(e) {
   e.preventDefault();
   if (!e.target) return;
-  const target = e.target.closest('#card-number-password');
+  const target = document.querySelector('#card-number-password');
   if (target.value.length < 6 || target.value.length > 8) {
     alert('6~8자리로 입력하세요');
+  } else {
+    return target.value;
   }
 }
 
@@ -161,12 +167,16 @@ function lionPointCardNumberPasswordAuth(e) {
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
 POINT_TAB.addEventListener('click', handleTabClick);
 
-// 힐인/포인트 방법 버튼 속성 및 스타일링 변환 이벤트
+// 할인/포인트 방법 버튼 속성 및 스타일링 변환 이벤트
 COUPON_LIST.addEventListener('click', handleCouponList);
 
 // 폼 서식에 조건에 충족하는 포인트 입력하는 이벤트
-POINT_INPUT_DATA.addEventListener('change', pointInputAuth);
-CURRENT_POINT_INPUT_DATA.addEventListener('change', currentInputAuth);
+//POINT_INPUT_DATA.addEventListener('change', pointInputAuth);
+//CURRENT_POINT_INPUT_DATA.addEventListener('change', currentInputAuth);
+
+// 폼 서식 포인트 입력에 연결될 버튼 이벤트
+POINT_INPUT_DATA_BUTTON.addEventListener('click', pointInputAuth);
+CURRENT_POINT_INPUT_BUTTON.addEventListener('click', currentInputAuth);
 
 // 폼 서식에 비밀번호 입력시 알림창 나오는 이벤트
 // 패널 1
