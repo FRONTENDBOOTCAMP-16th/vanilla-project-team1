@@ -88,7 +88,7 @@
             </ul>
             <div class="tabpanel-container">
               <div class="point-tabpanel" role="tabpanel" id="panel-1">
-                <form class="lion-point-panel">
+                <form class="lion-point-panel" method="post">
                   <div class="point-input-container">
                     <label for="point-input" class="sr-only">포인트 입력</label>
                     <input
@@ -108,17 +108,16 @@
                       name="card-point-password"
                       id="card-point-password"
                       placeholder="Lion-POINT 비밀번호 입력(6~8자리)"
-                      required
                     />
                   </div>
                   <div class="point-input-button-container">
-                    <button type="button">취소</button>
+                    <button type="reset">취소</button>
                     <button type="submit">적용</button>
                   </div>
                 </form>
               </div>
               <div class="point-tabpanel" role="tabpanel" id="panel-2">
-                <form class="card-number-point-panel">
+                <form class="card-number-point-panel" method="post">
                   <div class="card-number-input-container">
                     <label for="number-input" class="sr-only">라이온 포인트 카드 번호 입력</label>
                     <input
@@ -155,7 +154,7 @@
                     </div>
                   </div>
                   <div class="point-input-button-container">
-                    <button type="button">취소</button>
+                    <button type="reset">취소</button>
                     <button type="submit">적용</button>
                   </div>
                 </form>
