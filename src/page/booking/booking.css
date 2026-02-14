@@ -39,7 +39,8 @@ img {
 
   border-bottom: 1px solid rgb(190, 190, 190);
 
-  overflow-x: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
 
   /* fire fox 스크롤바 숨김*/
   scrollbar-width: none;
@@ -139,6 +140,12 @@ img {
   color: rgb(190, 190, 190);
 
   margin-left: auto;
+}
+
+.movie-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
 }
 
 /* Small phone */
