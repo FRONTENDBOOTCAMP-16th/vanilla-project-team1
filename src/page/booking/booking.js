@@ -9,7 +9,9 @@ function renderMovieList(movieList) {
     console.log(v);
     const article = document.createElement('article');
     article.classList.add('movie-card');
-
+    
+    const movieWrapper = document.createElement('div');
+    movieWrapper.classList.add('movie-wrapper');
     const poster = document.createElement('img');
     poster.src = v.postUrl;
     poster.alt = v.movieName;
@@ -19,6 +21,8 @@ function renderMovieList(movieList) {
     const title = document.createElement('p');
     title.classList.add('movie-title');
     title.textContent = v.movieName;
+    movieWrapper.appendChild(poster);
+    movieWrapper.appendChild(title);
 
 
     const timeList = document.createElement('div');
@@ -38,8 +42,7 @@ function renderMovieList(movieList) {
       timeList.appendChild(button);
     });
 
-    article.appendChild(poster);
-    article.appendChild(title);
+    article.appendChild(movieWrapper);
     article.appendChild(timeList);
     container.appendChild(article);
   });
