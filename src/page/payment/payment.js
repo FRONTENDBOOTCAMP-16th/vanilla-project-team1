@@ -29,6 +29,9 @@ const POINT_INPUT_DATA = document.getElementById('point-input');
 const CURRENT_POINT_INPUT_DATA = document.getElementById('use-current-point');
 const POINT_INPUT_DATA_BUTTON = document.querySelector('.point-input-container button');
 const CURRENT_POINT_INPUT_BUTTON = document.querySelector('.current-point-input button');
+const CARD_NUMBER_INPUT_CONTAINER = document.querySelector('.card-number-input-container');
+const POINT_INPUT_SUBMIT_BUTTON = document.getElementById('point-submit-button');
+const POINT_INPUT_RESET_BUTTON = document.getElementById('point-reset-button');
 
 // 모든 요소의 active 클래스 네임 제거 함수
 function removeAllActive(elements, attrValue) {
@@ -161,8 +164,27 @@ function lionPointCardNumberPasswordAuth(e) {
   }
 }
 
+// 카드 번호로 조회 미충족시, 알림창 나오게 하기
+function cardNumberAuth(e) {
+  if (!e.target) return;
+  const target = e.target.closest('input');
+  const value = target.value.length;
+  if (value < 17) {
+    alert('카드번호 16자리를 입력하세요');
+  }
+}
+
 // 폼 서식에 해당 값 적용하기
 // 버튼 누르면 입력한 서식이 적용되게 하기
+function validateAllPanel1(e) {
+  e.preventDefault();
+  const pointValue = document.querySelector('#point-input').value;
+  const passwordValue = document.querySelector('#card-point-password').value;
+  pointInputAuth(e);
+  lionPointCardPasswordAuth(e);
+  alert('포인트가 적립되었습니다.');
+  console.log(pointValue, passwordValue);
+}
 
 // 예매 티켓 결제 페이지 내부에 연결된 이벤트
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
@@ -184,6 +206,12 @@ CURRENT_POINT_INPUT_BUTTON.addEventListener('click', currentInputAuth);
 CARD_POINT_PASSWORD_INPUT.addEventListener('change', lionPointCardPasswordAuth);
 // 패널 2
 CARD_NUMBER_PASSWORD_INPUT.addEventListener('change', lionPointCardNumberPasswordAuth);
+
+// 카드 번호로 조회 미충족시, 알림창 나오게 하는 이벤트
+CARD_NUMBER_INPUT_CONTAINER.addEventListener('change', cardNumberAuth);
+
+// 폼 서식 충족 값 입력 후 적용 버튼 누르면 알림창 나오게 하는 이벤트
+POINT_INPUT_SUBMIT_BUTTON.addEventListener('click', validateAllPanel1);
 
 // 최종 결제 수단 클릭 시 버튼 속성 변환 이벤트
 FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);

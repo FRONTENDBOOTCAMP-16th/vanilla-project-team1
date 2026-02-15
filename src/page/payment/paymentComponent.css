@@ -1,7 +1,7 @@
 /*  레이아웃 */
 main {
-  overflow-y: scroll;
-  overflow-x: hidden;
+  /* overflow-y: scroll;
+  overflow-x: hidden; */
   padding-bottom: var(--sp-8);
   font-family: var(--font-sans);
 }
@@ -272,6 +272,7 @@ h2 {
 }
 
 .coupon-list button {
+  white-space: nowrap;
   &.active {
     background-color: var(--color-primary-200);
   }
