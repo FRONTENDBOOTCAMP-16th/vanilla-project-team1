@@ -283,6 +283,7 @@ h2 {
   border-radius: var(--r-8);
   padding-block: var(--sp-8);
   font-size: var(--fs-14);
+  white-space: nowrap;
 
   &:hover {
     background-color: var(--color-primary-100);

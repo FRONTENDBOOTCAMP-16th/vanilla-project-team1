@@ -140,14 +140,15 @@ function currentInputAuth(e) {
 // 폼 서식에 비밀번호 입력 안했을 시 해당 알림창 나오게 하기
 // 패널 1
 function lionPointCardPasswordAuth(e) {
-  if (!e.target) return;
   const target = document.querySelector('#card-point-password');
+  if (!e.target) return;
   if (target.value.length < 6 || target.value.length > 8) {
     alert('6~8자리로 입력하세요');
   } else {
     return target.value;
   }
 }
+
 //패널 2
 function lionPointCardNumberPasswordAuth(e) {
   e.preventDefault();
@@ -171,8 +172,8 @@ POINT_TAB.addEventListener('click', handleTabClick);
 COUPON_LIST.addEventListener('click', handleCouponList);
 
 // 폼 서식에 조건에 충족하는 포인트 입력하는 이벤트
-//POINT_INPUT_DATA.addEventListener('change', pointInputAuth);
-//CURRENT_POINT_INPUT_DATA.addEventListener('change', currentInputAuth);
+POINT_INPUT_DATA.addEventListener('change', pointInputAuth);
+CURRENT_POINT_INPUT_DATA.addEventListener('change', currentInputAuth);
 
 // 폼 서식 포인트 입력에 연결될 버튼 이벤트
 POINT_INPUT_DATA_BUTTON.addEventListener('click', pointInputAuth);
