@@ -11,11 +11,9 @@
 //   }
 // }
 // loadSeats();
-
-// 2차원 배열
-
 // import { searchForWorkspaceRoot } from 'vite';
 
+// 2차원 배열
 // 평면 12열 11행
 const AVAILABLE = 1;
 const RESERVED = 2;
@@ -23,6 +21,7 @@ const SPECIAL = 3;
 // const selected = 4;
 
 const seatArr = [
+  // A
   [
     AVAILABLE,
     AVAILABLE,
@@ -37,6 +36,7 @@ const seatArr = [
     AVAILABLE,
     AVAILABLE,
   ],
+  // B
   [
     AVAILABLE,
     AVAILABLE,
@@ -51,6 +51,7 @@ const seatArr = [
     RESERVED,
     RESERVED,
   ],
+  // C
   [
     AVAILABLE,
     AVAILABLE,
@@ -65,6 +66,7 @@ const seatArr = [
     AVAILABLE,
     AVAILABLE,
   ],
+  // D
   [
     AVAILABLE,
     AVAILABLE,
@@ -79,6 +81,7 @@ const seatArr = [
     AVAILABLE,
     AVAILABLE,
   ],
+  // E
   [
     AVAILABLE,
     AVAILABLE,
@@ -93,6 +96,7 @@ const seatArr = [
     AVAILABLE,
     AVAILABLE,
   ],
+  // F
   [
     AVAILABLE,
     AVAILABLE,
@@ -107,6 +111,7 @@ const seatArr = [
     AVAILABLE,
     AVAILABLE,
   ],
+  // G
   [
     AVAILABLE,
     AVAILABLE,
@@ -121,6 +126,7 @@ const seatArr = [
     RESERVED,
     RESERVED,
   ],
+  // H
   [
     AVAILABLE,
     RESERVED,
@@ -135,6 +141,7 @@ const seatArr = [
     AVAILABLE,
     AVAILABLE,
   ],
+  // I
   [
     AVAILABLE,
     AVAILABLE,
@@ -149,21 +156,10 @@ const seatArr = [
     AVAILABLE,
     AVAILABLE,
   ],
+  // J
   [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-  ],
-  [
+    SPECIAL,
+    SPECIAL,
     AVAILABLE,
     AVAILABLE,
     AVAILABLE,
@@ -171,22 +167,6 @@ const seatArr = [
     AVAILABLE,
     RESERVED,
     RESERVED,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-  ],
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-    AVAILABLE,
     AVAILABLE,
     SPECIAL,
     SPECIAL,
@@ -194,35 +174,56 @@ const seatArr = [
 ];
 
 console.log(seatArr);
-
+// html에서 클래스.seat-area 선택함
 const container = document.querySelector('.seat-area');
-
+// 가로세로 배열의 길이를 정함
 function renderSeat(seatArr) {
   const rows = seatArr.length;
   const cols = seatArr[0].length;
   container.style.setProperty('--cols', String(cols));
 
-  // 12행i 11열j 이중for문 124석 배열 버튼연결해서 돌리기
+  // 12행i 11열j 124석 배열 버튼타입으로 연결해서 이중for문 돌리기
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       const seatElement = document.createElement('button');
-
-      // 행 (A, B...)
+      seatElement.type = 'button';
+      // 12 행 (A, B...J) 아스키 코드 A(65) 활용
       const rowLabel = String.fromCodePoint(65 + i);
-      // 열 (1, 2...)
+      // 11 열 (1, 2...12)
       const colLabel = j + 1;
-      seatElement.textContent = `${rowLabel}${colLabel}`;
+      const seatName = `${rowLabel}${colLabel}`;
+      seatElement.textContent = seatName;
 
+      // 조건에 상태,컬러,접근성 추가함
+      // 조건 - RESERVED , SPECIAL , AVAILABLE(slse))
+
+      // 예약불가능
       if (seatArr[i][j] === RESERVED) {
-        seatElement.classList.add('reserved'); // 클래스 추가해야함
-        seatElement.style.color = 'lightgray';
-        seatElement.disabled = true;
+        seatElement.classList.add('reserved');
+        seatElement.style.color = 'gray';
+        seatElement.disabled = true; // 버튼 비활성화함
+        // 상태 : []좌석 선택 불가
+        seatElement.setAttribute('aria-label', `${seatName} 좌석 선택 불가`);
+
+        // 예약 가능
       } else if (seatArr[i][j] === SPECIAL) {
         seatElement.classList.add('special');
-        seatElement.style.backgroundColor = 'green'; // 장애인석 컬러 다시 논의해서 수정해야함
+        seatElement.style.backgroundColor = 'green';
+        // 상태 : 장애인석[]선택 가능
+        seatElement.setAttribute('aria-label', `장애인석 ${seatName} 선택 가능`);
+      } else {
+        // 상태 : []일반석 선택 가능
+        seatElement.setAttribute('aria-label', `${seatName} 좌석 선택 가능`);
       }
 
-      // 좌석 컨테이너에 추가했음
+      // 배열 사이 복도 만들기(left 2열, center 8열, right 2열)
+      if (j < 2) {
+        seatElement.style.gridColumn = j + 1;
+      } else if (j >= 2 && j < 10) {
+        seatElement.style.gridColumn = j + 6;
+      } else {
+        seatElement.style.gridColumn = j + 11;
+      }
       container.appendChild(seatElement);
     }
   }
