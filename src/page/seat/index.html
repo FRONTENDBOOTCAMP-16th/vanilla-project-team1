@@ -12,7 +12,7 @@
 </head>
 
 <body class="app">
-  <!-- 메인 컨테이너 -->
+  <!-- 메인 컨테이너 - 상단부-->
   <main class="container">
     <!-- seat-component -->
     <div class="seat-component" role="region" aria-labelledby="seat-section">
@@ -38,6 +38,7 @@
       </li>
     </ul>
 
+    <!-- 예매 정보 및 결제 - 하단부  -->
     <!-- selected-component -->
     <div class="selected-component" role="region" aria-labelledby="selected-info-section">
       <!-- selected-info-section -->
@@ -50,7 +51,8 @@
         <span class="divider" aria-hidden="true">·</span>
         <span class="hall-floor">5관 일반(8층)</span>
       </p>
-      <!-- selected info list (좌석, 인원)-->
+
+      <!-- selected info list (좌석, 인원(인원변경버튼))-->
       <ul class="info-list">
         <li class="info-item">
           <span class="label">좌석</span>
@@ -69,6 +71,7 @@
           </div>
         </li>
       </ul>
+
       <!-- payment section (price n button) -->
       <div class="payment-section">
         <div class="price-info">
