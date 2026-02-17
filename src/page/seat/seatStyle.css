@@ -18,7 +18,7 @@
 
 /* seatsyle */
 /* --------------------------------- */
-/* 상단 seat*/
+/* 상단 seat select*/
 /* --------------------------------- */
 main.container {
   padding-left: 0 !important;
@@ -72,7 +72,7 @@ main.container {
   letter-spacing: -1px;
 }
 /* --------------------------------- */
-/* 중단 icon-list */
+/* 중단 - icon-list */
 /* --------------------------------- */
 .icon-list {
   display: flex;
@@ -81,4 +81,53 @@ main.container {
   font-size: var(--fs-12);
   padding: 10px 20px;
   border: 2px solid rgb(0, 238, 107);
+}
+
+/* --------------------------------- */
+/* 하단 - selected info */
+/* --------------------------------- */
+.selected-component {
+  border-radius: var(--r-8) var(--r-8) 0 0;
+}
+/* movie- title h3 */
+/* h3 자간 좁게해야 됨 ✅ */
+.seledcted-details {
+  font-size: var(--fs-16);
+  color: var(--color-text);
+  margin-bottom: var(--sp-24);
+  padding-bottom: var(--sp-16);
+  border-bottom: 1px solid var(--color-border);
+  letter-spacing: -1px;
+  padding: 15px 20px;
+  border: 2px solid rgb(69, 178, 255);
+}
+
+/* selected info */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
+  margin-bottom: var(--sp-24);
+  padding: 0 20px;
+  border: 2px solid rgb(255, 135, 49);
+}
+.info-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.info-item .label {
+  font-size: var(--fs-14);
+  color: var(--color-text);
+  font-weight: normal;
+}
+.info-item .value {
+  font-size: var(--fs-14);
+  color: var(--color-text);
+  font-weight: bold;
+  border: 2px solid rgb(69, 178, 255);
+}
+.content-group {
+  display: flex;
 }
