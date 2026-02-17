@@ -200,7 +200,8 @@ function renderSeat(seatArr) {
       // 예약불가능
       if (seatArr[i][j] === RESERVED) {
         seatElement.classList.add('reserved');
-        seatElement.style.color = 'gray';
+        seatElement.style.color = 'var(--color-muted)'; // 색 다시확인하기
+        seatElement.style.backgroundColor = 'var(--color-muted)'; // 색 다시확인하기
         seatElement.disabled = true; // 버튼 비활성화함
         // 상태 : []좌석 선택 불가
         seatElement.setAttribute('aria-label', `${seatName} 좌석 선택 불가`);
@@ -208,7 +209,7 @@ function renderSeat(seatArr) {
         // 예약 가능
       } else if (seatArr[i][j] === SPECIAL) {
         seatElement.classList.add('special');
-        seatElement.style.backgroundColor = 'green';
+        seatElement.style.backgroundColor = 'darkgreen'; // 색 다시확인하기
         // 상태 : 장애인석[]선택 가능
         seatElement.setAttribute('aria-label', `장애인석 ${seatName} 선택 가능`);
       } else {
@@ -216,13 +217,14 @@ function renderSeat(seatArr) {
         seatElement.setAttribute('aria-label', `${seatName} 좌석 선택 가능`);
       }
 
-      // 배열 사이 복도 만들기(left 2열, center 8열, right 2열)
+      // 배열 사이 복도
+      // left 2열, center 8열, right 2열
       if (j < 2) {
         seatElement.style.gridColumn = j + 1;
       } else if (j >= 2 && j < 10) {
-        seatElement.style.gridColumn = j + 6;
+        seatElement.style.gridColumn = j + 2;
       } else {
-        seatElement.style.gridColumn = j + 11;
+        seatElement.style.gridColumn = j + 3;
       }
       container.appendChild(seatElement);
     }
