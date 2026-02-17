@@ -18,13 +18,16 @@
 
 /* seatsyle */
 /* --------------------------------- */
-/* 상단 seat select*/
+/* main.공통 스타일 일시 해제
 /* --------------------------------- */
 main.container {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
+/* --------------------------------- */
+/* 상단 seat select*/
+/* --------------------------------- */
 .seat-component {
   position: sticky;
   background-color: var(--color-text);
@@ -71,6 +74,7 @@ main.container {
   border-radius: var(--r-8) var(--r-8) 0 0;
   letter-spacing: -1px;
 }
+
 /* --------------------------------- */
 /* 중단 - icon-list */
 /* --------------------------------- */
@@ -86,8 +90,14 @@ main.container {
 /* --------------------------------- */
 /* 하단 - selected info */
 /* --------------------------------- */
-.selected-component {
-  border-radius: var(--r-8) var(--r-8) 0 0;
+/* 상단부분 반호 들어가야함 */
+/* .selected-component {
+  background-color: var(--color-text);
+} */
+
+.selected-info-section {
+  border-radius: var(--r-8) var(--r-8) 20 20;
+  background-color: var(--color-bg);
 }
 /* movie- title h3 */
 /* h3 자간 좁게해야 됨 ✅ */
@@ -100,6 +110,9 @@ main.container {
   letter-spacing: -1px;
   padding: 15px 20px;
   border: 2px solid rgb(69, 178, 255);
+  /* 상단부분 반호 들어가야함 */
+  background-color: var(--color-bg);
+  border-radius: var(--r-16) var(--r-16) 0 0;
 }
 
 /* selected info */
@@ -110,6 +123,7 @@ main.container {
   margin-bottom: var(--sp-24);
   padding: 0 20px;
   border: 2px solid rgb(255, 135, 49);
+  background-color: var(--color-bg);
 }
 .info-item {
   display: flex;
@@ -130,4 +144,33 @@ main.container {
 }
 .content-group {
   display: flex;
+}
+
+/* --------------------------------- */
+/* 결제 섹션 - payment section
+/* --------------------------------- */
+
+.payment-section {
+  padding: 0 20px;
+  border: 2px solid rgb(255, 79, 135);
+  background-color: var(--color-bg);
+}
+
+.price-info {
+  border: 2px solid rgb(214, 34, 255);
+  background-color: var(--color-bg);
+}
+
+/* -원 부분 오른쪽 정렬 필요함 */
+.total-price {
+  border: 2px solid rgba(0, 30, 255, 0.547);
+  align-items: flex-end;
+}
+.go-payment {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  width: 327px;
+  padding: 8px 20px;
+  border: 0px solid;
+  cursor: pointer;
 }
