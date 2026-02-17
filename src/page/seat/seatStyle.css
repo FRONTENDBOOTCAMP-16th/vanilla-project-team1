@@ -71,3 +71,14 @@ main.container {
   border-radius: var(--r-8) var(--r-8) 0 0;
   letter-spacing: -1px;
 }
+/* --------------------------------- */
+/* 중단 icon-list */
+/* --------------------------------- */
+.icon-list {
+  display: flex;
+  background-color: var(--color-text);
+  color: var(--color-surface);
+  font-size: var(--fs-12);
+  padding: 10px 20px;
+  border: 2px solid rgb(0, 238, 107);
+}
