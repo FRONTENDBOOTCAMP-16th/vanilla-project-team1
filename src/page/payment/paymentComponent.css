@@ -60,7 +60,6 @@ main {
   .point-tab ul {
     display: flex;
     width: 100%;
-    border-bottom: 2px solid var(--color-text);
   }
 
   .point-tab li {
@@ -98,7 +97,7 @@ main {
   &.active {
     display: flex;
     flex-grow: 1;
-    border-radius: 5px;
+    border-top: 2px solid var(--color-text);
 
     .point-input-container {
       display: flex;
