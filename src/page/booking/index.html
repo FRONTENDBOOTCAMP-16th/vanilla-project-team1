@@ -16,8 +16,10 @@
   <body class="app">
     <!-- 날짜 선택 -->
     <main class="container">
+      <section class="region-container" aria-label="영화관 선택">
+        <button id="openRegion">영화관 선택</button>
+      </section>
       <section class="date-container" aria-label="날짜 선택">
-        <!-- TODO: 줄바꿈, 글자 사이즈, 컬러(평일/공휴일), 가로 스크롤 -->
         <button>
           <strong>10</strong>
           <span class="play-week">오늘</span>
@@ -61,9 +63,28 @@
       </section>
       <!-- 영화 카드 + 상영시간 -->
       <section class="movie-list" aria-label="영화 목록">
-        <!-- TODO: js get fetch로 이미지 경로 및 영화 상세 내역 받기 -->
         <span class="loader"></span>
       </section>
     </main>
+    <section id="theaterSheet">
+      <header class="sheet-header">
+        <span class="sheet-title">영화관 선택</span>
+        <button id="closeSheet">X</button>
+      </header>
+      <div class="bottom-container">
+        <div>
+          <ul id="regionList">
+            <li><button>서울</button></li>
+            <li><button>경기</button></li>
+          </ul>
+        </div>
+        <div>
+          <ul id="theaterList">
+            <li><button>가양</button></li>
+            <li><button>수유</button></li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
