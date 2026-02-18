@@ -1,7 +1,7 @@
 /*  레이아웃 */
 main {
-  /* overflow-y: scroll;
-  overflow-x: hidden; */
+  overflow-y: scroll;
+  overflow-x: hidden;
   padding-bottom: var(--sp-8);
   font-family: var(--font-sans);
 }
