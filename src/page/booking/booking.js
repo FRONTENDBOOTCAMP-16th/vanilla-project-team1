@@ -1,4 +1,5 @@
 import { showtimeAPI } from '../../apis/apiRequest.js';
+import { regionAPI } from '../../apis/apiRequest.js';
 
 const container = document.querySelector('.movie-list');
 
@@ -74,4 +75,40 @@ dateButtons.forEach((button) => {
     button.classList.add('selected');
   });
 });
+
+
+//상영시간 선택 활성화
+
+container.addEventListener('click', (e) => {
+  const btn = e.target.closest('.show-time');
+  if (!btn) return;
+
+  container
+    .querySelectorAll('.show-time.selected')
+    .forEach((b) => b.classList.remove('selected'));
+
+  btn.classList.add('selected');
+});
+
+
+
+//바텀 시트 열기 / 닫기
+
+const openRegionBtn = document.getElementById('openRegion');
+const theaterSheet = document.getElementById('theaterSheet');
+const closeSheetBtn = document.getElementById('closeSheet');
+
+openRegionBtn.addEventListener('click', () => {
+  theaterSheet.classList.add('is-open');
+});
+
+closeSheetBtn.addEventListener('click', () => {
+  theaterSheet.classList.remove('is-open');
+});
+
+
+
+
+//지역별 영화관 정보 호출
+
 
