@@ -97,7 +97,7 @@
                       id="point-input"
                       placeholder="포인트 입력(100P 단위로 사용가능)"
                     />
-                    <button type="button">최대 적용</button>
+                    <button type="button" data-value="maximum-point">최대 적용</button>
                   </div>
                   <div class="card-point-password-input-container">
                     <label for="card-point-password" class="sr-only"
@@ -111,7 +111,7 @@
                     />
                   </div>
                   <div class="point-input-button-container">
-                    <button type="reset" id="point-reset-button">취소</button>
+                    <button type="reset" class="reset-button">취소</button>
                     <button type="submit" id="point-submit-button">적용</button>
                   </div>
                 </form>
@@ -137,7 +137,7 @@
                       id="card-number-password"
                       placeholder="Lion-POINT 비밀번호 입력(6~8자리)"
                     />
-                    <button type="button" aria-label="카드번호 조회">조회</button>
+                    <button type="button" aria-label="카드번호 조회" id="card-details">조회</button>
                   </div>
                   <div class="current-points-container">
                     <span class="current-point"
@@ -150,12 +150,12 @@
                         id="use-current-point"
                         placeholder="포인트 입력(100p 단위로 사용가능)"
                       />
-                      <button type="button">최대 적용</button>
+                      <button type="button" data-value="maximum-point">최대 적용</button>
                     </div>
                   </div>
                   <div class="point-input-button-container">
-                    <button type="reset">취소</button>
-                    <button type="submit">적용</button>
+                    <button type="reset" class="reset-button">취소</button>
+                    <button type="submit" id="card-number-submit-button">적용</button>
                   </div>
                 </form>
               </div>
