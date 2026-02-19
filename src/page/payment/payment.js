@@ -114,6 +114,7 @@ function handleFinalPaymentButton(e) {
   let paymentMethod = null;
   paymentMethod = target.dataset.label;
   alert(`${paymentMethod}를 선택하셨습니다.`);
+  console.log(paymentMethod);
 }
 
 // 2. 폼 서식 제어 함수들
