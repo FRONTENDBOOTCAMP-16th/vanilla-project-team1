@@ -25,6 +25,7 @@ main {
   .info-text-part {
     display: flex;
     flex-flow: wrap column;
+    flex: 1;
     gap: 10px;
   }
 
@@ -36,7 +37,7 @@ main {
       clear: both;
       min-width: 40px;
       margin-bottom: 7px;
-      font-size: var(--fs-12);
+      font-size: var(--fs-14);
     }
   }
 }
@@ -61,6 +62,7 @@ main {
   .point-tab {
     border: 2px solid var(--color-text);
     border-radius: var(--r-8);
+    overflow: hidden;
   }
 
   .point-tab ul {
@@ -108,7 +110,7 @@ main {
     .point-input-container {
       display: flex;
       flex-grow: 1;
-      column-gap: 5px;
+      column-gap: var(--sp-8);
       flex-wrap: nowrap;
       align-items: center;
 
@@ -128,6 +130,7 @@ main {
       display: flex;
       flex-direction: column;
       row-gap: 10px;
+      width: 100%;
     }
     .point-input-button-container {
       display: grid;
@@ -139,6 +142,7 @@ main {
       display: flex;
       flex-direction: column;
       row-gap: 5px;
+      width: 100%;
 
       .card-password-input-container {
         display: flex;
@@ -153,7 +157,7 @@ main {
     .current-point-input {
       display: flex;
       flex-flow: wrap;
-      column-gap: 3px;
+      column-gap: var(--sp-8);
       align-items: center;
     }
   }
@@ -346,6 +350,14 @@ input[type='checkbox'] {
       content: '✓';
       color: var(--color-bg);
       font-size: var(--fs-14);
+    }
+  }
+
+  &:disabled {
+    background-color: var(--color-border);
+
+    &::before {
+      content: none;
     }
   }
 }
