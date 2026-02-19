@@ -97,7 +97,7 @@ main {
 }
 
 .point-tabpanel {
-  padding: var(--sp-8);
+  padding: 3px;
   display: none;
 
   &.active {
@@ -109,8 +109,12 @@ main {
       display: flex;
       flex-grow: 1;
       column-gap: 5px;
-      flex-wrap: wrap; /* 이 줄 추가 */
-      align-items: flex-start; /* 이 줄 추가 */
+      flex-wrap: nowrap;
+      align-items: center;
+
+      button {
+        white-space: nowrap;
+      }
     }
 
     input {
@@ -139,11 +143,18 @@ main {
       .card-password-input-container {
         display: flex;
         gap: 5px;
+        align-items: center;
 
         button {
           flex-grow: 1;
         }
       }
+    }
+    .current-point-input {
+      display: flex;
+      flex-flow: wrap;
+      column-gap: 3px;
+      align-items: center;
     }
   }
 }
