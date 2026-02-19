@@ -156,9 +156,13 @@ main {
     }
     .current-point-input {
       display: flex;
-      flex-flow: wrap;
-      column-gap: var(--sp-8);
+      column-gap: 5px;
       align-items: center;
+
+      button {
+        box-sizing: border-box;
+        white-space: nowrap;
+      }
     }
   }
 }
