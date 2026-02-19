@@ -131,7 +131,7 @@ function pointInputAuth(e) {
 // 패널 2
 function currentInputAuth(e) {
   if (!e.target) return;
-  const target = document.querySelector('#use-current-point');
+  const target = document.getElementById('use-current-point');
   let value = parseInt(target.value, 10);
   // 조건문 만들기
   // 거짓: 숫자가 아니면 알림창 뜨기
@@ -193,7 +193,7 @@ function cardAuth(e) {
   }
 }
 
-// 버튼 누르면 입력한 서식이 적용되게 하기
+// 적용 버튼 누르면 입력한 서식이 적용되게 하기
 // 패널 1
 function validateAllPanel1(e) {
   e.preventDefault();
@@ -211,7 +211,7 @@ function validateAllPanel2(e) {
   const numberValue = document.getElementById('number-input').value;
   const cardPasswordValue = document.getElementById('card-number-password').value;
   const currentPointValue = document.getElementById('use-current-point').value;
-  if (lionPointCardNumberPasswordAuth(e) && currentInputAuth(e)) {
+  if (cardNumberAuth() && lionPointCardNumberPasswordAuth(e) && currentInputAuth(e)) {
     alert('포인트 할인이 적용되었습니다.');
     console.log(
       `카드번호:${numberValue}, 카드비밀번호: ${cardPasswordValue}, 현재 적용한 포인트:${currentPointValue}`
@@ -225,12 +225,14 @@ function maximumPoint(e) {
   if (!target) return;
   const input = target.parentElement.querySelector('input');
   e.preventDefault();
+  if (input.value === '' || input.value % 100 !== 0 || input.value === '0') {
+    return alert('포인트 최대 적용 실패 ❌');
+  }
   alert('포인트 최대 적용 완료 ✅');
   console.log('적용된 최대 포인트:', input.value);
 }
 
-// ☑️ 예매 티켓 결제 페이지 내부에 연결된 이벤트
-
+// 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
 POINT_TAB.addEventListener('click', handleTabClick);
 
@@ -252,6 +254,7 @@ CARD_NUMBER_SUBMIT_BUTTON.addEventListener('click', validateAllPanel2);
 
 // 폼 서식 최대 적용 조건 충족 시 알림 메시지 나오게 하는 이벤트
 POINT_TAB.addEventListener('click', maximumPoint);
+
 // 최종 결제 수단 클릭 시 버튼 속성 변환 이벤트
 FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);
 

@@ -8,7 +8,6 @@ main {
   flex: 1;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding-bottom: var(--sp-8);
   font-family: var(--font-sans);
 }
 /* 영화 예매 정보 레이아웃 */
