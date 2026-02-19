@@ -16,7 +16,7 @@ main {
   display: flex;
   flex-flow: nowrap row;
   gap: 20px;
-  padding-block: 15px;
+  padding: 15px;
 
   .img-container {
     display: inline-block;
@@ -25,19 +25,20 @@ main {
   .info-text-part {
     display: flex;
     flex-flow: wrap column;
-    flex: 1;
     gap: 10px;
+    box-sizing: border-box;
   }
 
   .movie-info {
     color: var(--color-muted);
+    width: 100%;
 
     li {
       float: left;
       clear: both;
       min-width: 40px;
       margin-bottom: 7px;
-      font-size: var(--fs-14);
+      font-size: var(--fs-12);
     }
   }
 }
