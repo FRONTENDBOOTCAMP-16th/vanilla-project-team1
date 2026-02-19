@@ -102,6 +102,8 @@ function handleCouponList(e) {
 }
 
 // 최종 결제 수단 클릭 시 버튼 속성 변환 및 결제 수단 상태 변경 함수
+// 결제 방법 변수 선언
+let paymentMethod = null;
 function handleFinalPaymentButton(e) {
   const target = e.target.closest('button');
   if (!target) return;
@@ -111,7 +113,6 @@ function handleFinalPaymentButton(e) {
   isActive(target);
 
   //paymentMethod 상태변경
-  let paymentMethod = null;
   paymentMethod = target.dataset.label;
   alert(`${paymentMethod}를 선택하셨습니다.`);
   console.log(paymentMethod);
@@ -280,9 +281,11 @@ function discountPrice(value) {
 // 총 예매 티켓 가격
 // 기본 가격 표시
 const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices());
+// 총 가격 변수 선언
+let totalPriceValue = null;
 function totalPrice() {
   const discountPriceValue = DISCOUNT_PRICE.textContent;
-  const totalPriceValue =
+  totalPriceValue =
     Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
   console.log(typeof totalPriceValue, totalPriceValue); // 확인용
   return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} 원`);
