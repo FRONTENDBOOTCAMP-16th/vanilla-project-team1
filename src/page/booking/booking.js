@@ -17,7 +17,7 @@ function renderMovieList(movieList) {
     poster.src = v.postUrl;
     poster.alt = v.movieName;
     poster.width = 100;
-    poster.height = 150;
+    // poster.height = 150;
 
     const title = document.createElement('p');
     title.classList.add('movie-title');
