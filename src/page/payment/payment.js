@@ -36,6 +36,10 @@ const POINT_INPUT_SUBMIT_BUTTON = document.getElementById('point-submit-button')
 const POINT_INPUT_RESET_BUTTON = document.getElementById('point-reset-button');
 const CARD_NUMBER_SUBMIT_BUTTON = document.getElementById('card-number-submit-button');
 const CARD_NUMBER_RESET_BUTTON = document.getElementById('card-number-reset-button');
+const EARN_POINTS_METHOD_CHECKBOX = document.getElementById('earn-point');
+const CHECKBOX_CONTAINER = document.querySelector('.earn-point-etc');
+
+// 1. 요소의 상태 변환 함수들
 
 // 모든 요소의 active 클래스 네임 제거 함수
 function removeAllActive(elements, attrValue) {
@@ -43,7 +47,6 @@ function removeAllActive(elements, attrValue) {
     item.classList.remove(attrValue);
   }
 }
-
 // 모든 요소의 속성 설정 함수
 function setAllAttr(elements, attrName, attrValue) {
   for (const item of elements) {
@@ -77,7 +80,7 @@ function setAttr(element, attrName, attrValue) {
 }
 
 function removeAttr(element, attrName) {
-  return element.removeAttribute(element, attrName);
+  return element.removeAttribute(attrName);
 }
 
 // 할인 포인트 버튼 클릭 시 화면 전환되는 함수
@@ -86,7 +89,7 @@ function handleTabClick(e) {
   removeAllActive(POINT_TABS, 'active'); // 모든 버튼 활성화 초기화
   setAllAttr(LION_POINT_BUTTON, 'aria-selected', 'false'); // 모든 버튼 접근성 속성 초기화
   const target = e.target.closest('button'); // 부모요소에서 가장 가까운 버튼 찾기
-  const targetValue = getAttr(target, 'aria-controls');
+  const targetValue = getAttr(target, 'aria-controls'); // 해당 속성값 읽기
   const activeTarget = document.getElementById(targetValue);
   isActive(activeTarget); // 해당되는 타켓에 active 클래스명 추가
   setAttr(target, 'aria-selected', 'true'); // 해당되는 타켓에 상태 전환
@@ -111,6 +114,7 @@ function handleFinalPaymentButton(e) {
   isActive(target);
 }
 
+// 2. 폼 서식 제어 함수들
 // 폼 서식 포인트 입력 조건 미충족 시 알림창 나오게 하기
 // + 100 단위로 쓸 수 있게 하기
 // 패널 1
@@ -232,6 +236,23 @@ function maximumPoint(e) {
   console.log('적용된 최대 포인트:', input.value);
 }
 
+// 3. 체크 박스 체크 제어 함수
+function checkboxAuth() {
+  const checked = EARN_POINTS_METHOD_CHECKBOX.checked;
+  const ALL_EARN_POINTS = CHECKBOX_CONTAINER.querySelectorAll('input[type= "checkbox"]');
+
+  if (!checked) {
+    for (const point of ALL_EARN_POINTS) {
+      setAttr(point, 'disabled', 'true');
+      removeAttr(point, 'checked');
+    }
+  } else {
+    for (const point of ALL_EARN_POINTS) {
+      removeAttr(point, 'disabled');
+    }
+  }
+}
+
 // 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
 POINT_TAB.addEventListener('click', handleTabClick);
@@ -252,10 +273,11 @@ POINT_INPUT_SUBMIT_BUTTON.addEventListener('click', validateAllPanel1);
 // 패널 2
 CARD_NUMBER_SUBMIT_BUTTON.addEventListener('click', validateAllPanel2);
 
-// 폼 서식 최대 적용 조건 충족 시 알림 메시지 나오게 하는 이벤트
+// 폼 서식 패널 1, 2에서 최대 적용 조건 충족 시 알림 메시지 나오게 하는 이벤트
 POINT_TAB.addEventListener('click', maximumPoint);
 
 // 최종 결제 수단 클릭 시 버튼 속성 변환 이벤트
 FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);
 
 // 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
+EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
