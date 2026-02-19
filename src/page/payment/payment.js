@@ -1,5 +1,5 @@
 //import { reservationAPI } from '../../apis/apiRequest.js';
-
+import { formatPrices } from '../../utils/commonUtility';
 // 이벤트 연결
 // [✅] active 클래스 명 추가
 // [✅] 할인/포인트 버튼 클릭시 화면 전환
@@ -25,17 +25,10 @@ const COUPON_LIST = document.querySelector('.coupon-list');
 const COUPON_LIST_BUTTON = document.querySelectorAll('.coupon-list button');
 const FINAL_PAYMENT = document.querySelector('.final-payment');
 const FINAL_PAYMENT_METHODS_BUTTON = document.querySelectorAll('.final-payment-methods button');
-const CARD_POINT_PASSWORD_INPUT = document.getElementById('card-point-password');
-const CARD_NUMBER_PASSWORD_INPUT = document.getElementById('card-number-password');
-const POINT_INPUT_DATA = document.getElementById('point-input');
-const CURRENT_POINT_INPUT_DATA = document.getElementById('use-current-point');
 const POINT_INPUT_DATA_BUTTON = document.querySelector('.point-input-container button');
 const CURRENT_POINT_INPUT_BUTTON = document.querySelector('.current-point-input button');
-const CARD_NUMBER_INPUT_CONTAINER = document.querySelector('.card-number-input-container');
 const POINT_INPUT_SUBMIT_BUTTON = document.getElementById('point-submit-button');
-const POINT_INPUT_RESET_BUTTON = document.getElementById('point-reset-button');
 const CARD_NUMBER_SUBMIT_BUTTON = document.getElementById('card-number-submit-button');
-const CARD_NUMBER_RESET_BUTTON = document.getElementById('card-number-reset-button');
 const EARN_POINTS_METHOD_CHECKBOX = document.getElementById('earn-point');
 const CHECKBOX_CONTAINER = document.querySelector('.earn-point-etc');
 const PRODUCT_PRICE = document.querySelector('.js-component-product-price');
@@ -215,6 +208,9 @@ function validateAllPanel1(e) {
   if (pointInputAuth(e) && lionPointCardPasswordAuth(e)) {
     alert('포인트 할인이 적용되었습니다.');
     console.log('적용한 포인트 값:', pointValue, '입력한 비밀번호:', passwordValue);
+    // 적용된 가격 표시
+    discountPrice(pointValue);
+    totalPrice();
   }
 }
 
@@ -229,6 +225,9 @@ function validateAllPanel2(e) {
     console.log(
       `카드번호:${numberValue}, 카드비밀번호: ${cardPasswordValue}, 현재 적용한 포인트:${currentPointValue}`
     );
+    // 적용된 가격 표시
+    discountPrice(currentPointValue);
+    totalPrice();
   }
 }
 
@@ -243,8 +242,10 @@ function maximumPoint(e) {
   }
   alert('포인트 최대 적용 완료 ✅');
 
-  // 할인 가격 푸터에 표시
+  // 할인 가격 푸터에  즉시 표시
   discountPrice(input.value);
+  // 총 가격 푸터에 즉시 표시
+  totalPrice();
 }
 
 // 3. 체크 박스 체크 제어 함수
@@ -275,13 +276,11 @@ function discountPrice(value) {
     return (DISCOUNT_PRICE.textContent = Number(value).toLocaleString());
   }
 }
-
 // 총 예매 티켓 가격
-import { formatPrices } from '../../utils/commonUtility';
 // 기본 가격 표시
 const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices());
 function totalPrice() {
-  const discountPriceValue = formatPrices(DISCOUNT_PRICE.textContent);
+  const discountPriceValue = DISCOUNT_PRICE.textContent;
   const totalPriceValue =
     Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
   return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} 원`);
@@ -316,7 +315,4 @@ FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);
 // 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
 EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
 
-// 티켓 가격, 할인 가격, 총 가격 푸터 영역에 표시
-POINT_TAB.addEventListener('click', discountPrice);
-POINT_TAB.addEventListener('click', totalPrice);
 // 결제하기 버튼 누르면 객체 형태로 결제 수단 방식과 총 예매 티켓 가격 데이터를 post 함수 body 부분에 넣어주기
