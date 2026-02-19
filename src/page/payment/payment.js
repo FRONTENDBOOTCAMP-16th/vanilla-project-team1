@@ -284,6 +284,7 @@ function totalPrice() {
   const discountPriceValue = DISCOUNT_PRICE.textContent;
   const totalPriceValue =
     Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
+  console.log(typeof totalPriceValue, totalPriceValue); // 확인용
   return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} 원`);
 }
 
