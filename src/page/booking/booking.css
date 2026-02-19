@@ -219,7 +219,8 @@ img {
 
 #theaterSheet {
   position: fixed;
-  min-width: var(--app-max-width);
+  width: 100%;
+  max-width: var(--app-max-width);
   bottom: 0;
 
   background: #fff;
