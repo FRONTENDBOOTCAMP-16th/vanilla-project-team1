@@ -38,7 +38,9 @@ const CARD_NUMBER_SUBMIT_BUTTON = document.getElementById('card-number-submit-bu
 const CARD_NUMBER_RESET_BUTTON = document.getElementById('card-number-reset-button');
 const EARN_POINTS_METHOD_CHECKBOX = document.getElementById('earn-point');
 const CHECKBOX_CONTAINER = document.querySelector('.earn-point-etc');
-
+const PRODUCT_PRICE = document.querySelector('.js-component-product-price');
+const DISCOUNT_PRICE = document.querySelector('.js-component-discount-price');
+const TOTAL_PRICE = document.querySelector('.js-component-total-price');
 // 1. 요소의 상태 변환 함수들
 
 // 모든 요소의 active 클래스 네임 제거 함수
@@ -76,7 +78,8 @@ function getAttr(element, attrName) {
 }
 
 function setAttr(element, attrName, attrValue) {
-  return element.setAttribute(attrName, attrValue);
+  if (!element) return;
+  element.setAttribute(attrName, attrValue);
 }
 
 function removeAttr(element, attrName) {
@@ -105,13 +108,19 @@ function handleCouponList(e) {
   isActive(target);
 }
 
-// 최종 결제 수단 클릭 시 버튼 속성 변환 함수
+// 최종 결제 수단 클릭 시 버튼 속성 변환 및 결제 수단 상태 변경 함수
 function handleFinalPaymentButton(e) {
   const target = e.target.closest('button');
+  if (!target) return;
   setAllAttr(FINAL_PAYMENT_METHODS_BUTTON, 'aria-pressed', 'false');
   setAttr(target, 'aria-pressed', 'true');
   removeAllActive(FINAL_PAYMENT_METHODS_BUTTON, 'active');
   isActive(target);
+
+  //paymentMethod 상태변경
+  let paymentMethod = null;
+  paymentMethod = target.dataset.label;
+  console.log(`paymentMethod:${paymentMethod}`);
 }
 
 // 2. 폼 서식 제어 함수들
@@ -233,7 +242,9 @@ function maximumPoint(e) {
     return alert('포인트 최대 적용 실패 ❌');
   }
   alert('포인트 최대 적용 완료 ✅');
-  console.log('적용된 최대 포인트:', input.value);
+
+  // 할인 가격 푸터에 표시
+  discountPrice(input.value);
 }
 
 // 3. 체크 박스 체크 제어 함수
@@ -251,6 +262,29 @@ function checkboxAuth() {
       removeAttr(point, 'disabled');
     }
   }
+}
+
+// 4. 금액 계산/표기 로직 함수
+
+// 영화 티켓 가격
+//function productPrice(e) {}
+
+// 할인된 티켓 가격
+function discountPrice(value) {
+  if (!isNaN(value)) {
+    return (DISCOUNT_PRICE.textContent = Number(value).toLocaleString());
+  }
+}
+
+// 총 예매 티켓 가격
+import { formatPrices } from '../../utils/commonUtility';
+// 기본 가격 표시
+const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices());
+function totalPrice() {
+  const discountPriceValue = formatPrices(DISCOUNT_PRICE.textContent);
+  const totalPriceValue =
+    Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
+  return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} 원`);
 }
 
 // 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
@@ -281,3 +315,8 @@ FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);
 
 // 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
 EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
+
+// 티켓 가격, 할인 가격, 총 가격 푸터 영역에 표시
+POINT_TAB.addEventListener('click', discountPrice);
+POINT_TAB.addEventListener('click', totalPrice);
+// 결제하기 버튼 누르면 객체 형태로 결제 수단 방식과 총 예매 티켓 가격 데이터를 post 함수 body 부분에 넣어주기
