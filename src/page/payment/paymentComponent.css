@@ -370,7 +370,7 @@ input[type='checkbox'] {
 .pay-button {
   text-decoration: none;
   background: none;
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primary-active);
   border: none;
   color: var(--color-on-primary);
 }

@@ -95,9 +95,9 @@ function handleTabClick(e) {
 function handleCouponList(e) {
   if (!e.target.closest('button')) return;
   const target = e.target.closest('button');
-  setAllAttr(COUPON_LIST_BUTTON, 'aria-selected', 'false');
+  setAllAttr(COUPON_LIST_BUTTON, 'aria-pressed', 'false');
   removeAllActive(COUPON_LIST_BUTTON, 'active');
-  setAttr(target, 'aria-selected', 'true');
+  setAttr(target, 'aria-pressed', 'true');
   isActive(target);
 }
 
@@ -113,7 +113,7 @@ function handleFinalPaymentButton(e) {
   //paymentMethod 상태변경
   let paymentMethod = null;
   paymentMethod = target.dataset.label;
-  console.log(`paymentMethod:${paymentMethod}`);
+  alert(`${paymentMethod}를 선택하셨습니다.`);
 }
 
 // 2. 폼 서식 제어 함수들
