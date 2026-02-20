@@ -115,6 +115,26 @@ main.container {
   margin-right: 4px;
 }
 
+/* seat-area - 출입문 아이콘 위치 */
+.seat-area .icon-door-wrapper {
+  grid-column: 11 /13;
+  grid-row: 12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  transform: translateX(21px);
+}
+
+/* seat-area - 배열 사이에 출입문 아이콘 */
+.seat-area .icon-door {
+  width: 30px;
+  height: 8px;
+  border: 2px solid var(--color-muted);
+  border-bottom: none;
+  position: relative;
+}
+
 .icon-door::before,
 .icon-door::after {
   content: '';
@@ -139,11 +159,11 @@ main.container {
   background-color: var(--color-bg);
   border-radius: var(--r-16) var(--r-16) 0 0;
 }
-
 .selected-info-section {
   border-radius: var(--r-8) var(--r-8) 20 20;
   background-color: var(--color-bg);
 }
+
 /* movie- title h3 */
 /* h3 자간 좁게해야 됨 ✅ */
 .selected-details-wrapper {
@@ -160,10 +180,6 @@ main.container {
 
   /* border: 2px solid rgb(69, 178, 255); */
 }
-/*  */
-/* .divider {
-  ;
-} */
 
 /* selected info */
 .info-list {
@@ -189,12 +205,15 @@ main.container {
 }
 .info-item .value {
   font-size: var(--fs-14);
-  color: var(--color-text);
   font-weight: bold;
-  border: 2px solid rgb(69, 178, 255);
+  color: var(--color-text);
 }
 .content-group {
   display: flex;
+}
+.info-item .value.placeholder-text {
+  color: var(--color-muted); /* 또는 var(--color-muted) */
+  font-weight: normal;
 }
 
 /* - + 버튼 */
@@ -246,10 +265,12 @@ main.container {
   background-color: var(--color-bg);
 }
 
-/* -원 부분 오른쪽 정렬 필요함 */
+/* -원 부분 오른쪽 정렬 필요함 ✅*/
 .total-price {
-  border: 2px solid rgba(0, 30, 255, 0.547);
-  align-items: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
 .go-payment {
   background-color: var(--color-primary);
