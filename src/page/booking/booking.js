@@ -62,19 +62,78 @@ async function loadShowTime() {
   }
 }
 
-function renderTheaterList(theaterList) {}
+loadShowTime();
 
-async function loadTheater() {
+
+//지역별 영화관 정보 호출
+
+const regionList = document.getElementById('regionList');
+const theaterList = document.getElementById('theaterList');
+
+let regionsCache = [];
+
+function renderRegionList(regions) {
+  regionList.innerHTML = '';
+
+  regions.forEach((r) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+
+    btn.type = 'button';
+    btn.textContent = r.name;
+    btn.dataset.regionId = r.id;
+
+    li.appendChild(btn);
+    regionList.appendChild(li);
+  });
+}
+
+function renderTheaterList(theaters) {
+  theaterList.innerHTML = '';
+
+  theaters.forEach((t) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+
+    btn.type = 'button';
+    btn.textContent = t.name;
+    btn.dataset.theaterId = t.id;
+
+    li.appendChild(btn);
+    theaterList.appendChild(li);
+  });
+}
+
+async function loadRegions() {
   try {
-    const data = await regionAPI.list();
-    console.log(data);
-    renderTheaterList(data);
+    regionsCache = await regionAPI.list();
+    console.log('regionsCache:', regionsCache);
+
+    renderRegionList(regionsCache);
+
   } catch (e) {
-    console.error(e);
+    console.error('loadRegions error:', e);
   }
 }
 
-loadTheater();
+// 지역 선택 시 해당 지역 영화관 렌더
+regionList.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+
+  const regionId = btn.dataset.regionId;
+
+  const selectedRegion = regionsCache.find(
+    (r) => String(r.id) === String(regionId)
+  );
+
+  console.log('selectedRegion:', selectedRegion);
+
+  renderTheaterList(selectedRegion?.theaters ?? []);
+});
+
+loadRegions();
+
+
 
 //날짜 선택 활성화
 
@@ -119,7 +178,3 @@ closeSheetBtn.addEventListener('click', () => {
   theaterSheet.classList.remove('is-open');
 });
 
-//지역별 영화관 정보 호출
-
-const regionList = document.getElementById('regionList');
-const theaterList = document.getElementById('theaterList');
