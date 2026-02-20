@@ -133,6 +133,7 @@ main.container {
   border: 2px solid var(--color-muted);
   border-bottom: none;
   position: relative;
+  transform: rotate(180deg);
 }
 
 .icon-door::before,
@@ -177,8 +178,6 @@ main.container {
   background-color: var(--color-bg);
   /* 상단부분 반 호 들어가야함 */
   border-radius: var(--r-16) var(--r-16) 0 0;
-
-  /* border: 2px solid rgb(69, 178, 255); */
 }
 
 /* selected info */
