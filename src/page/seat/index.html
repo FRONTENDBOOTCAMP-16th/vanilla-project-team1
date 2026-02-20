@@ -14,7 +14,7 @@
 
 <body class="app">
   <h1 id="seat-select-page" class="sr-only">좌석 선택 페이지</h1>
-  <!-- 메인 컨테이너 - 상단부-->
+  <!-- 메인 컨테이너 - 상단-->
   <main class="container">
 
     <!-- seat-component -->
@@ -24,10 +24,16 @@
       <!-- title screen -->
       <span class="title-screen" role="heading"> SCREEN </span>
       <!-- seat area (A~J 124석 배열) -->
-      <div class="seat-area"></div>
+      <div class="seat-area">
+        <div class="icon-door-wrapper">
+          <span class="icon-door"></span>
+          <span class="sr-only">출입문</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- 좌석 리스트 - 중단부 -->
+    <!-- 좌석 리스트 - 중단 -->
     <!-- seat icon-list (special,door) -->
     <ul class="icon-list">
       <li class="list-item">
@@ -40,7 +46,7 @@
       </li>
     </ul>
 
-    <!-- 예매 정보 및 결제 - 하단부  -->
+    <!-- 예매 정보 및 결제 - 하단  -->
     <!-- selected-component -->
     <div class="selected-component" role="region" aria-labelledby="selected-info-section">
       <!-- selected-info-section -->
