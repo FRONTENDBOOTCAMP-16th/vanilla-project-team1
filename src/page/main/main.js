@@ -1,10 +1,20 @@
 import { regionAPI, showtimeAPI, seatAPI } from '../../apis/apiRequest.js';
+import { resetBookingState, loadBookingState, patchBookingState } from '../../state/movieState.js';
+
+const state = loadBookingState();
 
 let showtime = [];
 
 async function loadRegion() {
   try {
     const region = await regionAPI.list();
+    resetBookingState();
+    patchBookingState({
+      movieId: 1,
+      timetableId: null,
+      seats: [],
+      price: 0,
+    });
   } catch (e) {
     console.error(e);
   }
