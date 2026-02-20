@@ -35,6 +35,7 @@ const CHECKBOX_CONTAINER = document.querySelector('.earn-point-etc');
 const PRODUCT_PRICE = document.querySelector('.js-component-product-price');
 const DISCOUNT_PRICE = document.querySelector('.js-component-discount-price');
 const TOTAL_PRICE = document.querySelector('.js-component-total-price');
+const FOOTER = document.querySelector('.final-payment-calculation');
 const PAY_BUTTON = document.querySelector('.pay-button');
 
 // 1. 요소의 상태 변환 함수들
@@ -316,6 +317,12 @@ async function loadReservation() {
   }
 }
 
+// 결제 버튼 aria-pressed 속성 변경 함수
+function payButtonState(e) {
+  const target = e.target.closest('button');
+  if (!target) return;
+  attr(PAY_BUTTON, 'aria-pressed', 'true');
+}
 // 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
 POINT_TAB.addEventListener('click', handleTabClick);
@@ -347,3 +354,6 @@ EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
 
 // 결제하기 버튼 누르면 객체 형태로 결제 수단 방식과 총 예매 티켓 가격 데이터를 post 함수 body 부분에 넣어주기
 PAY_BUTTON.addEventListener('click', loadReservation);
+
+// 결제 요청 버튼 클릭시 접근 속성 변경
+FOOTER.addEventListener('click', payButtonState);
