@@ -175,6 +175,24 @@ img {
   width: 90px;
 }
 
+/* 영화관 선택 */
+#openRegion.selected {
+  background: var(--color-primary-hover);
+  color: var(--color-on-primary);
+  border-color: var(--color-focus);
+}
+
+#openRegion {
+  border-radius: var(--r-16);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+
+  font-size: 13px;
+
+  padding: var(--sp-8);
+  margin: var(--sp-8);
+}
+
 /* 바텀 시트 */
 
 .sheet-header {
@@ -182,18 +200,6 @@ img {
   padding: 15px 20px;
   border-bottom: 1px solid rgb(190, 190, 190);
   text-align: center;
-}
-
-/* TODO: 선택 상태 활성화 */
-#openRegion {
-  border-radius: var(--r-16);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
-
-  font-size: 15px;
-
-  padding: var(--sp-8);
-  margin: var(--sp-8);
 }
 
 .sheet-title {
@@ -231,6 +237,9 @@ img {
 
   transform: translateY(100%);
   transition: transform 0.7s ease;
+
+  border-radius: 20px 20px 0 0;
+  border: 1px solid black;
 }
 
 #theaterSheet.is-open {
