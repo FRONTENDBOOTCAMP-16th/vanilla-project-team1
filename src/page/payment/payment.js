@@ -1,15 +1,16 @@
-//import { reservationAPI } from '../../apis/apiRequest.js';
+import { reservationAPI } from '../../apis/apiRequest.js';
 import { formatPrices } from '../../utils/commonUtility';
+
 // 이벤트 연결
 // [✅] active 클래스 명 추가
 // [✅] 할인/포인트 버튼 클릭시 화면 전환
 // [✅] 폼 변환될 때 스타일링
 // [✅] 폼 서식에 비밀번호 입력 안했을 시 해당 알림창 나오게 하기
 // [✅] 폼 서식 포인트 입력 및 비밀번호 입력 양식에 맞춰서 제어할 수 있게 버튼 연결
-// [] 폼 서식에 해당 값 적용하기 (해당 포인트 입력하고 적용 버튼 누르면 푸터 결제 영역에 보이게 하기)
+// [✅] 폼 서식에 해당 값 적용하기 (해당 포인트 입력하고 적용 버튼 누르면 푸터 결제 영역에 보이게 하기)
 // [✅] 할인 및 포인트 적립 버튼 접근성 속성 변환
 // [✅] 버튼 클릭 시 아리아 속성 전환
-// [] 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
+// [✅] 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
 
 // 데이터 받아와야 할 것들
 // [] 영화 예매 정보(이미지, 상영날짜, 상영관,인원)
@@ -34,6 +35,8 @@ const CHECKBOX_CONTAINER = document.querySelector('.earn-point-etc');
 const PRODUCT_PRICE = document.querySelector('.js-component-product-price');
 const DISCOUNT_PRICE = document.querySelector('.js-component-discount-price');
 const TOTAL_PRICE = document.querySelector('.js-component-total-price');
+const PAY_BUTTON = document.querySelector('.pay-button');
+
 // 1. 요소의 상태 변환 함수들
 
 // 모든 요소의 active 클래스 네임 제거 함수
@@ -291,6 +294,28 @@ function totalPrice() {
   return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} 원`);
 }
 
+// 5. 결제하기 요청 함수
+
+async function loadReservation() {
+  try {
+    const data = await reservationAPI.create({
+      id: '1',
+      userId: '1',
+      userName: '조재권',
+      theaterId: '3',
+      seatIds: ['A1', 'A2'],
+      paymentMethod: '신용카드',
+      totalPrice: '240000',
+    });
+    console.log(data);
+    alert('결제 완료되었습니다.');
+  } catch (e) {
+    console.error('에러내용:', e);
+    const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');
+    if (retryPayment) return;
+  }
+}
+
 // 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
 POINT_TAB.addEventListener('click', handleTabClick);
@@ -321,3 +346,4 @@ FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);
 EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
 
 // 결제하기 버튼 누르면 객체 형태로 결제 수단 방식과 총 예매 티켓 가격 데이터를 post 함수 body 부분에 넣어주기
+PAY_BUTTON.addEventListener('click', loadReservation);
