@@ -1,4 +1,22 @@
 import { movieAPI } from '../../apis/apiRequest.js';
+import { renderHeader } from '../../common/header/header.js';
+import '../../common/header/header.css';
+
+const mount = document.getElementById('app-header');
+
+renderHeader(mount, {
+  showLoginButton: true,
+  showIcons: true,
+  onLoginClick: () => {
+    // location.href = '/src/page/login/index.html';
+  },
+  onCartClick: () => {
+    console.log('cart');
+  },
+  onTicketClick: () => {
+    console.log('ticket');
+  },
+});
 
 const cardList = document.querySelector('.card-list');
 let cards = [];
