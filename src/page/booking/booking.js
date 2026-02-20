@@ -116,23 +116,6 @@ async function loadRegions() {
   }
 }
 
-// 지역 선택 시 해당 지역 영화관 렌더
-regionList.addEventListener('click', (e) => {
-  const btn = e.target.closest('button');
-
-  const regionId = btn.dataset.regionId;
-
-  const selectedRegion = regionsCache.find(
-    (r) => String(r.id) === String(regionId)
-  );
-
-  console.log('selectedRegion:', selectedRegion);
-
-  renderTheaterList(selectedRegion?.theaters ?? []);
-});
-
-loadRegions();
-
 
 
 //날짜 선택 활성화
