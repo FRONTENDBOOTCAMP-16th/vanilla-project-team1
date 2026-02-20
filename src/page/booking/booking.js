@@ -1,8 +1,7 @@
 import { showtimeAPI } from '../../apis/apiRequest.js';
 import { regionAPI } from '../../apis/apiRequest.js';
 
-console.log("regionList:", document.getElementById("regionList"));
-
+console.log('regionList:', document.getElementById('regionList'));
 
 //상영 시간 정보 호출
 
@@ -15,7 +14,7 @@ function renderMovieList(movieList) {
     console.log(v);
     const article = document.createElement('article');
     article.classList.add('movie-card');
-    
+
     const movieWrapper = document.createElement('div');
     movieWrapper.classList.add('movie-wrapper');
     const poster = document.createElement('img');
@@ -29,7 +28,6 @@ function renderMovieList(movieList) {
     title.textContent = v.movieName;
     movieWrapper.appendChild(poster);
     movieWrapper.appendChild(title);
-
 
     const timeList = document.createElement('div');
     timeList.classList.add('showtime-list');
@@ -64,8 +62,19 @@ async function loadShowTime() {
   }
 }
 
-loadShowTime();
+function renderTheaterList(theaterList) {}
 
+async function loadTheater() {
+  try {
+    const data = await regionAPI.list();
+    console.log(data);
+    renderTheaterList(data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+loadTheater();
 
 //날짜 선택 활성화
 
@@ -78,20 +87,16 @@ dateButtons.forEach((button) => {
   });
 });
 
-
 //상영시간 선택 활성화
 
 container.addEventListener('click', (e) => {
   const btn = e.target.closest('.show-time');
   if (!btn) return;
 
-  container
-    .querySelectorAll('.show-time.selected')
-    .forEach((b) => b.classList.remove('selected'));
+  container.querySelectorAll('.show-time.selected').forEach((b) => b.classList.remove('selected'));
 
   btn.classList.add('selected');
 });
-
 
 //영화관 선택 활성화
 
@@ -101,10 +106,7 @@ regionButton.addEventListener('click', () => {
   regionButton.classList.toggle('selected');
 });
 
-
-
 //바텀 시트 열기 / 닫기
-
 const openRegionBtn = document.getElementById('openRegion');
 const theaterSheet = document.getElementById('theaterSheet');
 const closeSheetBtn = document.getElementById('closeSheet');
@@ -117,11 +119,7 @@ closeSheetBtn.addEventListener('click', () => {
   theaterSheet.classList.remove('is-open');
 });
 
-
-
-
 //지역별 영화관 정보 호출
 
 const regionList = document.getElementById('regionList');
 const theaterList = document.getElementById('theaterList');
-
