@@ -175,7 +175,7 @@ main.container {
   letter-spacing: -1px;
   padding: 15px 20px;
   background-color: var(--color-bg);
-  /* 상단부분 반호 들어가야함 */
+  /* 상단부분 반 호 들어가야함 */
   border-radius: var(--r-16) var(--r-16) 0 0;
 
   /* border: 2px solid rgb(69, 178, 255); */
@@ -210,6 +210,8 @@ main.container {
 }
 .content-group {
   display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .info-item .value.placeholder-text {
   color: var(--color-muted); /* 또는 var(--color-muted) */
