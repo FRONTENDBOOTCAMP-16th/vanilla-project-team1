@@ -1,24 +1,17 @@
 /*  레이아웃 */
 body {
+  max-width: var(--app-max-width);
   height: 100vh;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--color-bg);
   display: flex;
   flex-direction: column;
 }
-/* 반응형 레이아웃*/
-/* @media (min-width: 1024px) {
-  body {
-    max-width: none;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-  }
-
-  footer {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-  }
-} */
 
 main {
+  padding-left: var(--sp-16);
+  padding-right: var(--sp-16);
   flex: 1;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -397,3 +390,32 @@ input[type='checkbox'] {
 .earn-points {
   font-size: var(--fs-14);
 }
+
+/* 반응형 레이아웃*/
+/* @media (min-width: 1024px) {
+  body {
+    max-width: 20000px;
+    height: 1000px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  main {
+    height: 100%;
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+
+    .payment-discount {
+      display: flex;
+      flex-flow: wrap column;
+      flex-grow: 1;
+      row-gap: 5px;
+    }
+  }
+
+  footer {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+  }
+} */
