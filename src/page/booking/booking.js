@@ -1,6 +1,11 @@
 import { showtimeAPI } from '../../apis/apiRequest.js';
 import { regionAPI } from '../../apis/apiRequest.js';
 
+console.log("regionList:", document.getElementById("regionList"));
+
+
+//상영 시간 정보 호출
+
 const container = document.querySelector('.movie-list');
 
 function renderMovieList(movieList) {
@@ -62,9 +67,6 @@ async function loadShowTime() {
 loadShowTime();
 
 
-
-
-
 //날짜 선택 활성화
 
 const dateButtons = document.querySelectorAll('.date-container button');
@@ -91,6 +93,15 @@ container.addEventListener('click', (e) => {
 });
 
 
+//영화관 선택 활성화
+
+const regionButton = document.querySelector('#openRegion');
+
+regionButton.addEventListener('click', () => {
+  regionButton.classList.toggle('selected');
+});
+
+
 
 //바텀 시트 열기 / 닫기
 
@@ -111,4 +122,6 @@ closeSheetBtn.addEventListener('click', () => {
 
 //지역별 영화관 정보 호출
 
+const regionList = document.getElementById('regionList');
+const theaterList = document.getElementById('theaterList');
 
