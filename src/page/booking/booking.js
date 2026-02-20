@@ -64,29 +64,11 @@ async function loadShowTime() {
 
 loadShowTime();
 
-
 //지역별 영화관 정보 호출
 
 const regionList = document.getElementById('regionList');
 const theaterList = document.getElementById('theaterList');
-
 let regionsCache = [];
-
-function renderRegionList(regions) {
-  regionList.innerHTML = '';
-
-  regions.forEach((r) => {
-    const li = document.createElement('li');
-    const btn = document.createElement('button');
-
-    btn.type = 'button';
-    btn.textContent = r.name;
-    btn.dataset.regionId = r.id;
-
-    li.appendChild(btn);
-    regionList.appendChild(li);
-  });
-}
 
 function renderTheaterList(theaters) {
   theaterList.innerHTML = '';
@@ -104,13 +86,37 @@ function renderTheaterList(theaters) {
   });
 }
 
+function renderRegionList(regions) {
+  regionList.innerHTML = '';
+
+  regions.forEach((r) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+
+    btn.type = 'button';
+    btn.textContent = r.name;
+    btn.dataset.regionId = r.id;
+
+    btn.addEventListener('click', (e) => {
+      const currentRegion = regions.find((v) => String(v.id) === String(e.target.dataset.regionId));
+      if (!currentRegion) {
+        return;
+      }
+      const teaters = currentRegion.theaters;
+      renderTheaterList(teaters);
+    });
+
+    li.appendChild(btn);
+    regionList.appendChild(li);
+  });
+}
+
 async function loadRegions() {
   try {
     regionsCache = await regionAPI.list();
     console.log('regionsCache:', regionsCache);
 
     renderRegionList(regionsCache);
-
   } catch (e) {
     console.error('loadRegions error:', e);
   }
@@ -160,4 +166,3 @@ openRegionBtn.addEventListener('click', () => {
 closeSheetBtn.addEventListener('click', () => {
   theaterSheet.classList.remove('is-open');
 });
-
