@@ -7,8 +7,14 @@ body {
 /* 반응형 레이아웃*/
 /* @media (min-width: 1024px) {
   body {
+    max-width: none;
     display: grid;
     grid-template-columns: 2fr 1fr;
+  }
+
+  footer {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
   }
 } */
 
