@@ -82,13 +82,13 @@ main.container {
 .icon-list {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--sp-8);
   background-color: var(--color-text);
   color: var(--color-surface);
   font-size: var(--fs-12);
   height: 30px;
   padding: 10px 20px;
-  border: 2px solid rgb(0, 238, 107);
+  /* border: 2px solid rgb(0, 238, 107); */
 }
 
 /* 장애인석 icon */
@@ -149,15 +149,16 @@ main.container {
 .selected-details-wrapper {
   font-size: var(--fs-16);
   color: var(--color-text);
-  margin-bottom: var(--sp-24);
+  /* margin-bottom: var(--sp-24); */
   padding-bottom: var(--sp-16);
   border-bottom: 1px solid var(--color-border);
   letter-spacing: -1px;
   padding: 15px 20px;
-  border: 2px solid rgb(69, 178, 255);
-  /* 상단부분 반호 들어가야함 */
   background-color: var(--color-bg);
+  /* 상단부분 반호 들어가야함 */
   border-radius: var(--r-16) var(--r-16) 0 0;
+
+  /* border: 2px solid rgb(69, 178, 255); */
 }
 /*  */
 /* .divider {
@@ -169,7 +170,8 @@ main.container {
   display: flex;
   flex-direction: column;
   gap: var(--sp-12);
-  margin-bottom: var(--sp-24);
+  margin-top: 10px;
+  margin-bottom: var(--sp-16);
   padding: 0 20px;
   border: 2px solid rgb(255, 135, 49);
   background-color: var(--color-bg);
@@ -193,6 +195,40 @@ main.container {
 }
 .content-group {
   display: flex;
+}
+
+/* - + 버튼 */
+.person-count-wrapper {
+  display: flex;
+  gap: var(--sp-8);
+  width: 105px;
+  height: 40px;
+  background-color: var(--color-border);
+  border-radius: var(--r-pill);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--sp-8);
+}
+
+.person-count-wrapper button {
+  width: 26px;
+  height: 26px;
+  background-color: var(--color-surface);
+  border: none;
+  border-radius: var(--r-16);
+  font-size: var(--fs-18);
+  font-weight: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: red;
+}
+
+.count-value {
+  font-size: var(--fs-16);
+  font-weight: bold;
+  text-align: center;
 }
 
 /* --------------------------------- */
