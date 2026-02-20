@@ -3,14 +3,15 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-
-  /* 반응형 레이아웃*/
-  /* @media (min-width: 1024px) {
-    body {
-      margin: auto;
-    }
-  } */
 }
+/* 반응형 레이아웃*/
+/* @media (min-width: 1024px) {
+  body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+} */
+
 main {
   flex: 1;
   overflow-y: scroll;
@@ -19,9 +20,6 @@ main {
   font-family: var(--font-sans);
 
   /* 반응형 레이아웃*/
-  /* @media (min-width: 1024px) {
-    width: 800px;
-  } */
 }
 /* 영화 예매 정보 레이아웃 */
 .movie-ticket-payment-info {
