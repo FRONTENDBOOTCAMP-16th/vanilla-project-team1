@@ -116,7 +116,7 @@ async function loadRegions() {
   }
 }
 
-
+loadRegions();
 
 //날짜 선택 활성화
 
