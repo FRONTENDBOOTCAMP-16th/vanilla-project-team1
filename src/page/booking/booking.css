@@ -264,6 +264,13 @@ img {
   background: var(--color-bg);
 }
 
+#regionList button.selected,
+#theaterList button.selected {
+  background: var(--color-primary-hover);
+  color: var(--color-on-primary);
+  border-color: var(--color-focus);
+}
+
 /* Small phone */
 @media (min-width: 480px) {
 }
