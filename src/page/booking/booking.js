@@ -81,6 +81,8 @@ function renderTheaterList(theaters) {
     btn.textContent = t.name;
     btn.dataset.theaterId = t.id;
 
+    btn.dataset.theaterName = t.name;
+
     li.appendChild(btn);
     theaterList.appendChild(li);
   });
@@ -102,8 +104,8 @@ function renderRegionList(regions) {
       if (!currentRegion) {
         return;
       }
-      const teaters = currentRegion.theaters;
-      renderTheaterList(teaters);
+      const theaters = currentRegion.theaters;
+      renderTheaterList(theaters);
     });
 
     li.appendChild(btn);
@@ -166,3 +168,16 @@ openRegionBtn.addEventListener('click', () => {
 closeSheetBtn.addEventListener('click', () => {
   theaterSheet.classList.remove('is-open');
 });
+
+
+//영화관 선택 시 바텀 시트 닫힘
+theaterList.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  const theaterName = btn.dataset.theaterName;
+
+  openRegionBtn.textContent = `${theaterName}`;
+
+  theaterSheet.classList.remove('is-open');
+})
