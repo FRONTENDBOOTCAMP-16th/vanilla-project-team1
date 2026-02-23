@@ -71,7 +71,7 @@ main {
   .point-tab {
     border: 2px solid var(--color-text);
     border-radius: var(--r-8);
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
   .point-tab ul {
@@ -132,8 +132,9 @@ main {
       width: 220px;
       height: 30px;
       flex-grow: 1;
-      background-color: #ddd;
+      background-color: var(--color-on-primary);
       border: 1px solid var(--color-border);
+      border-radius: 5px;
     }
 
     .lion-point-panel {
@@ -278,6 +279,7 @@ h2 {
     outline: 3px solid var(--color-focus);
   }
 }
+
 .coupon-list-item button {
   &:hover {
     background-color: var(--color-primary-hover);
@@ -289,16 +291,21 @@ h2 {
     outline: 3px solid var(--color-focus);
   }
 }
+
 /* 할인 섹션 폼 영역 스타일링 */
-.point-tab {
-  .lion-point-button:not(.active) {
-    border-bottom: 2px solid var(--color-text);
+.lion-point-button {
+  &.active {
+    background-color: var(--color-primary-200);
     border-radius: 0;
   }
 }
-
 .point-tabpanel {
   font-size: var(--fs-14);
+
+  &.active {
+    background-color: var(--color-primary-200);
+    padding: 8px;
+  }
 
   button {
     text-decoration: none;
@@ -419,9 +426,9 @@ input[type='checkbox'] {
 }
 
 /* 반응형 레이아웃*/
-/* @media (min-width: 1024px) {
+@media (min-width: 1024px) {
   body {
-    max-width: 20000px;
+    max-width: 1500px;
     height: 1000px;
     margin: 0;
     display: grid;
@@ -436,7 +443,7 @@ input[type='checkbox'] {
 
     .movie-ticket-payment-info > .img-container {
       flex-grow: 0;
-      width: 280px;
+      width: 250px;
       height: 300px;
 
       .movie-img {
@@ -501,7 +508,6 @@ input[type='checkbox'] {
     }
   }
 
-
   .final-payment-calculation {
     display: grid;
     grid-template-rows: 100px 1fr;
@@ -518,4 +524,4 @@ input[type='checkbox'] {
       font-size: 25px;
     }
   }
-} */
+}
