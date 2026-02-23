@@ -118,7 +118,6 @@ function handleFinalPaymentButton(e) {
 
   //paymentMethod 상태변경
   paymentMethod = target.dataset.label;
-  alert(`${paymentMethod}를 선택하셨습니다.`);
 }
 
 // 2. 폼 서식 제어 함수들
