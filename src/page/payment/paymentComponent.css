@@ -30,6 +30,10 @@ main {
   .img-container {
     display: inline-block;
     position: relative;
+    .movie-img {
+      width: 150px;
+      height: 130px;
+    }
   }
   .info-text-part {
     display: flex;
@@ -41,6 +45,7 @@ main {
   .movie-info {
     color: var(--color-muted);
     width: 100%;
+    white-space: nowrap;
 
     li {
       float: left;
@@ -50,11 +55,6 @@ main {
       font-size: var(--fs-12);
     }
   }
-}
-.movie-age-rating {
-  position: absolute;
-  top: -5px;
-  right: -10px;
 }
 
 /* 할인 섹션 레이아웃 */
