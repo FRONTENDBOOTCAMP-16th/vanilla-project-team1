@@ -268,7 +268,7 @@ function validateAllPanel1(e) {
     console.log('적용한 포인트 값:', pointValue, '입력한 비밀번호:', passwordValue);
     // 적용된 가격 표시
     discountPrice(pointValue);
-    totalPrice();
+    totalPriceCal();
   }
 }
 
@@ -280,7 +280,7 @@ function validateAllPanel2(e) {
     alert('포인트 할인이 적용되었습니다.');
     // 적용된 가격 표시
     discountPrice(currentPointValue);
-    totalPrice();
+    totalPriceCal();
   }
 }
 
@@ -339,20 +339,29 @@ function totalPriceCal() {
   } else {
     totalPriceValue =
       Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
+    return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} `);
   }
-  return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} `);
 }
 totalPriceCal();
 
 // 5. 결제하기 요청 함수
 
+// 스토리지 객체 생성 (이전 페이지에서 받아온 데이터 모으기)
+const storageData = {
+  ...state,
+};
+
 async function loadReservation() {
   try {
-    console.log(state);
+    // 내 페이지에서 유동적으로 바뀌는 데이터 객체에 추가해주기
+    // 유동적으로 바뀌기 떄문에 미리 storageData객체에 값을 넣을 수 없음
+    storageData.paymentMethod = paymentMethod;
+    storageData.totalPrice = totalPriceValue;
+    patchBookingState(storageData);
+    console.log(storageData);
     alert(`결제 완료되었습니다.`);
-    patchBookingState({ paymentMethod });
-    resetBookingState(state);
-    location.href = '/src/page/main/index.html';
+    resetBookingState(storageData);
+    //location.href = '/src/page/main/index.html';
   } catch (e) {
     console.error('에러내용:', e);
     const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');
@@ -366,6 +375,7 @@ function payButtonState(e) {
   if (!target) return;
   attr(PAY_BUTTON, 'aria-pressed', 'true');
 }
+
 // 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
 POINT_TAB.addEventListener('click', handleTabClick);
@@ -402,5 +412,3 @@ PAY_BUTTON.addEventListener('click', loadReservation);
 FOOTER.addEventListener('click', payButtonState);
 
 //totalPrice는 patch하는 걸로
-
-patchBookingState({ paymentMethod });
