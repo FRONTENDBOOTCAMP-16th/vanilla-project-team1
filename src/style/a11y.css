@@ -9,4 +9,15 @@
   clip-path: inset(50%);
   padding: 0;
   border-width: 0;
+
+  &.focusable-main:focus {
+    overflow: initial;
+    position: static;
+    clip: auto;
+    clip-path: unset;
+    width: initial;
+    height: initial;
+    margin: initial;
+    white-space: initial;
+  }
 }
