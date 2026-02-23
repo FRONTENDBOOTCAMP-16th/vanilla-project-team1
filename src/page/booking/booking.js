@@ -1,7 +1,17 @@
 import { showtimeAPI } from '../../apis/apiRequest.js';
 import { regionAPI } from '../../apis/apiRequest.js';
+import { loadBookingState, patchBookingState } from '../../state/movieState.js';
 
 console.log('regionList:', document.getElementById('regionList'));
+
+const state = loadBookingState();
+
+const storageData = {
+  theaterId: 0,
+  theaterName: '',
+  timeTableId: 0,
+  timeTableName: '',
+};
 
 //상영 시간 정보 호출
 
@@ -36,6 +46,9 @@ function renderMovieList(movieList) {
       const button = document.createElement('button');
       button.classList.add('show-time');
       button.addEventListener('click', () => {
+        patchBookingState({
+          ...storageData,
+        });
         location.href = '/src/page/seat/index.html';
       });
 
@@ -85,6 +98,8 @@ function renderTheaterList(theaters) {
     btn.dataset.theaterId = t.id;
 
     btn.dataset.theaterName = t.name;
+    storageData.theaterId = t.id;
+    storageData.theaterName = t.name;
 
     li.appendChild(btn);
     theaterList.appendChild(li);
