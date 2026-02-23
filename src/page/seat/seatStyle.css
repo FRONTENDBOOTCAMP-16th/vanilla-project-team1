@@ -1,0 +1,283 @@
+/* 공통 */
+
+/* Small phone */
+@media (min-width: 480px) {
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+}
+
+/* Large Desktop */
+@media (min-width: 1280px) {
+}
+
+/* seatsyle */
+/* --------------------------------- */
+/* main.공통 스타일 일시 해제
+/* --------------------------------- */
+main.container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  background-color: black;
+}
+
+/* --------------------------------- */
+/* 상단 seat select*/
+/* --------------------------------- */
+.seat-component {
+  position: sticky;
+  background-color: var(--color-text);
+  padding-bottom: var(--sp-24);
+  font-family: var(--font-sans);
+  width: 100%;
+  /* [수정] 스크롤 설정 */
+  overflow-x: scroll;
+  /* overflow-y: hidden; */
+  scrollbar-width: none;
+}
+
+/* title-screen 스크린 위치*/
+.title-screen {
+  background-color: var(--gradient-primary);
+  color: var(--color-on-primary);
+  display: block;
+  width: 0%;
+  max-width: 400px;
+  margin: 0 auto 27px;
+  padding: 10px 0;
+  padding-top: 30%;
+  text-align: center;
+  font-size: var(--fs-20);
+  letter-spacing: 15px;
+}
+
+/* seat-area 좌석 배열(grid, 복도 공백) */
+.seat-area {
+  display: grid;
+  grid-template-columns: repeat(2, 30px) 37px repeat(8, 30px) 37px repeat(2, 30px);
+  gap: 8px;
+  width: max-content;
+  padding: 0 40px; /* 왼-40px, 오-40px 여백*/
+  margin: 0 auto;
+  margin-bottom: 30%;
+}
+.seat-area button {
+  width: 30px;
+  height: 20px;
+  font-size: var(--fs-12);
+  background-color: var(--color-surface);
+  border: none;
+  border-radius: var(--r-8) var(--r-8) 0 0;
+  letter-spacing: -1px;
+}
+
+/* --------------------------------- */
+/* 중단 - icon-list */
+/* --------------------------------- */
+.icon-list {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  background-color: var(--color-text);
+  color: var(--color-surface);
+  font-size: var(--fs-12);
+  height: 30px;
+  padding: 10px 20px;
+  /* border: 2px solid rgb(0, 238, 107); */
+}
+
+/* 장애인석 icon */
+.icon-special {
+  display: inline-block;
+  width: 12px;
+  height: 10px;
+  background-color: darkgreen;
+  border-radius: 4px 4px 0 0;
+  flex-shrink: 0;
+  margin: -1px;
+  margin-right: 4px;
+}
+/* 출입문 icon */
+.icon-door {
+  display: inline-block;
+  width: 16px;
+  height: 6px;
+  border: 2px solid var(--color-muted);
+  border-bottom: none;
+  position: relative;
+  flex-shrink: 0;
+  margin: 2px;
+  margin-right: 4px;
+}
+
+/* seat-area - 출입문 아이콘 위치 */
+.seat-area .icon-door-wrapper {
+  grid-column: 11 /13;
+  grid-row: 12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  transform: translateX(21px);
+}
+
+/* seat-area - 배열 사이에 출입문 아이콘 */
+.seat-area .icon-door {
+  width: 30px;
+  height: 8px;
+  border: 2px solid var(--color-muted);
+  border-bottom: none;
+  position: relative;
+  transform: rotate(180deg);
+}
+
+.icon-door::before,
+.icon-door::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 2px;
+  background-color: var(--color-muted);
+}
+.icon-door::before {
+  left: -2px;
+}
+.icon-door::after {
+  right: -2px;
+}
+
+/* --------------------------------- */
+/* 하단 - selected info */
+/* --------------------------------- */
+/* 상단부분 반 호 들어가야함 ✅*/
+.selected-component {
+  background-color: var(--color-bg);
+  border-radius: var(--r-16) var(--r-16) 0 0;
+}
+.selected-info-section {
+  border-radius: var(--r-8) var(--r-8) 20 20;
+  background-color: var(--color-bg);
+}
+
+/* movie- title h3 */
+/* h3 자간 좁게해야 됨 ✅ */
+.selected-details-wrapper {
+  font-size: var(--fs-16);
+  color: var(--color-text);
+  /* margin-bottom: var(--sp-24); */
+  padding-bottom: var(--sp-16);
+  border-bottom: 1px solid var(--color-border);
+  letter-spacing: -1px;
+  padding: 15px 20px;
+  background-color: var(--color-bg);
+  /* 상단부분 반 호 들어가야함 */
+  border-radius: var(--r-16) var(--r-16) 0 0;
+}
+
+/* selected info */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
+  margin-top: 10px;
+  margin-bottom: var(--sp-16);
+  padding: 0 20px;
+  border: 2px solid rgb(255, 135, 49);
+  background-color: var(--color-bg);
+}
+.info-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.info-item .label {
+  font-size: var(--fs-14);
+  color: var(--color-text);
+  font-weight: normal;
+}
+.info-item .value {
+  font-size: var(--fs-14);
+  font-weight: bold;
+  color: var(--color-text);
+}
+.content-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.info-item .value.placeholder-text {
+  color: var(--color-muted); /* 또는 var(--color-muted) */
+  font-weight: normal;
+}
+
+/* - + 버튼 */
+.person-count-wrapper {
+  display: flex;
+  gap: var(--sp-8);
+  width: 105px;
+  height: 40px;
+  background-color: var(--color-border);
+  border-radius: var(--r-pill);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--sp-8);
+}
+
+.person-count-wrapper button {
+  width: 26px;
+  height: 26px;
+  background-color: var(--color-surface);
+  border: none;
+  border-radius: var(--r-16);
+  font-size: var(--fs-18);
+  font-weight: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: red;
+}
+
+.count-value {
+  font-size: var(--fs-16);
+  font-weight: bold;
+  text-align: center;
+}
+
+/* --------------------------------- */
+/* 결제 섹션 - payment section
+/* --------------------------------- */
+
+.payment-section {
+  padding: 0 20px;
+  border: 2px solid rgb(255, 79, 135);
+  background-color: var(--color-bg);
+}
+
+.price-info {
+  border: 2px solid rgb(214, 34, 255);
+  background-color: var(--color-bg);
+}
+
+/* -원 부분 오른쪽 정렬 필요함 ✅*/
+.total-price {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+.go-payment {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  width: 327px;
+  padding: 8px 20px;
+  border: 0px solid;
+  cursor: pointer;
+}

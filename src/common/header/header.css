@@ -1,0 +1,35 @@
+#app-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+.header-login {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #111;
+  background: #fff;
+  font-weight: 700;
+}
+
+.header-right {
+  display: flex;
+  gap: 10px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+}

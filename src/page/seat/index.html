@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="123" />
+    <title>seatPage</title>
+    <link rel="stylesheet" href="/src/page/seat/seatStyle.css" />
+    <link rel="stylesheet" href="/src/style/index.css" />
+    <link rel="stylesheet" href="/src/style/a11y.css" />
+    <script src="/src/page/seat/seatJs.js" type="module"></script>
+  </head>
+
+  <body class="app">
+    <h1 id="seat-select-page" class="sr-only">좌석 선택 페이지</h1>
+    <!-- 메인 컨테이너 - 상단-->
+    <main class="container">
+      <!-- seat-component -->
+      <div class="seat-component" role="region" aria-labelledby="seat-section">
+        <!-- seat select section -->
+        <h2 id="seat-section" class="sr-only">좌석 선택</h2>
+        <!-- title screen -->
+        <span class="title-screen" role="heading"> SCREEN </span>
+        <!-- seat area (A~J 124석 배열) -->
+        <div class="seat-area">
+          <div class="icon-door-wrapper">
+            <span class="icon-door"></span>
+            <span class="sr-only">출입문</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 좌석 리스트 - 중단 -->
+      <!-- seat icon-list (special,door) -->
+      <ul class="icon-list">
+        <li class="list-item">
+          <span class="icon-special"></span>
+          <span class="label">장애인석</span>
+        </li>
+        <li class="list-item">
+          <span class="icon-door"></span>
+          <span class="label">출입문</span>
+        </li>
+      </ul>
+
+      <!-- 예매 정보 및 결제 - 하단  -->
+      <!-- selected-component -->
+      <div class="selected-component" role="region" aria-labelledby="selected-info-section">
+        <!-- selected-info-section -->
+        <h3 id="selected-info-section" class="sr-only">선택된 예매 정보</h3>
+        <!-- seledcted-details(날짜,장소,관(층)) -->
+        <div class="selected-details-wrapper">
+          <time datetime="2026-02-13">2026.02.13(금)</time>
+          <span class="site">광명(광명사거리)</span>
+          <span class="hall-floor">5관 일반(8층)</span>
+        </div>
+
+        <!-- selected info list (좌석, 인원(인원변경버튼))-->
+        <ul class="info-list">
+          <li class="info-item">
+            <span class="label">좌석</span>
+            <span class="value placeholder-text">좌석을 선택해주세요</span>
+          </li>
+          <li class="info-item">
+            <span class="label">인원</span>
+            <div class="content-group">
+              <span class="value">성인 0</span>
+              <!-- 인원 변경 카운터 - 숫자 + -->
+              <div class="person-count-wrapper">
+                <button type="button" class="minus-btn">-</button>
+                <span id="person-count" class="count-value">1</span>
+                <button type="button" class="plus-btn">+</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <!-- payment section (price n button) -->
+        <div class="payment-section">
+          <div class="price-info">
+            <span class="label">결제금액</span>
+            <span class="total-price"><strong>30,000</strong>원</span>
+          </div>
+          <button type="button" class="go-payment">결제</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
