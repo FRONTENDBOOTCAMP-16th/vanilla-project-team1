@@ -114,7 +114,6 @@ main {
   &.active {
     display: flex;
     flex-grow: 1;
-    border-top: 2px solid var(--color-text);
 
     .point-input-container,
     .card-point-password-input-container {
@@ -291,6 +290,13 @@ h2 {
   }
 }
 /* 할인 섹션 폼 영역 스타일링 */
+.point-tab {
+  .lion-point-button:not(.active) {
+    border-bottom: 2px solid var(--color-text);
+    border-radius: 0;
+  }
+}
+
 .point-tabpanel {
   font-size: var(--fs-14);
 

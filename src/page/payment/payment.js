@@ -141,10 +141,12 @@ function removeAttr(element, attrName) {
 function handleTabClick(e) {
   if (!e.target.closest('.lion-point-button')) return;
   removeAllActive(POINT_TABS, 'active'); // 모든 버튼 활성화 초기화
+  removeAllActive(LION_POINT_BUTTON, 'active');
   setAllAttr(LION_POINT_BUTTON, 'aria-selected', 'false'); // 모든 버튼 접근성 속성 초기화
   const target = e.target.closest('button'); // 부모요소에서 가장 가까운 버튼 찾기
   const targetValue = getAttr(target, 'aria-controls'); // 해당 속성값 읽기
   const activeTarget = document.getElementById(targetValue);
+  isActive(target);
   isActive(activeTarget); // 해당되는 타켓에 active 클래스명 추가
   setAttr(target, 'aria-selected', 'true'); // 해당되는 타켓에 상태 전환
 }
