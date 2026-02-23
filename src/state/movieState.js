@@ -14,7 +14,7 @@ const DEFAULT_STATE = {
   movieType: '2D', //영화 타입(2D, 3D 등)
   //찬미
   seats: ['A1', 'A2'], //선택된 좌석
-  price: 20000, //인원에 따른 금액
+  price: 30000, //인원에 따른 금액
   totalPrice: 0,
   //---
   updatedAt: null,
