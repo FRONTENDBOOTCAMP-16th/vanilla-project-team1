@@ -119,7 +119,6 @@ function handleFinalPaymentButton(e) {
   //paymentMethod 상태변경
   paymentMethod = target.dataset.label;
   alert(`${paymentMethod}를 선택하셨습니다.`);
-  console.log(paymentMethod);
 }
 
 // 2. 폼 서식 제어 함수들
@@ -228,9 +227,6 @@ function validateAllPanel2(e) {
   const currentPointValue = document.getElementById('use-current-point').value;
   if (cardNumberAuth() && lionPointCardNumberPasswordAuth(e) && currentInputAuth(e)) {
     alert('포인트 할인이 적용되었습니다.');
-    console.log(
-      `카드번호:${numberValue}, 카드비밀번호: ${cardPasswordValue}, 현재 적용한 포인트:${currentPointValue}`
-    );
     // 적용된 가격 표시
     discountPrice(currentPointValue);
     totalPrice();
@@ -291,7 +287,6 @@ function totalPrice() {
   const discountPriceValue = DISCOUNT_PRICE.textContent;
   totalPriceValue =
     Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
-  console.log(typeof totalPriceValue, totalPriceValue); // 확인용
   return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} 원`);
 }
 
