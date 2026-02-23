@@ -37,6 +37,7 @@ function redirectPage() {
 // 영화 예매 정보 브라우저에 표시
 const movie = await movieAPI.get(movieId);
 const movieImg = movie.postUrl;
+const loader = document.querySelector('.loader');
 
 // 영화 이미지
 function renderMovieImg() {
@@ -48,6 +49,8 @@ function renderMovieImg() {
   img.alt = '영화 포스터';
   fragment.appendChild(img);
   imgContainer.appendChild(fragment);
+  // 로딩 아이콘 이미지가 뜨면 사라지기
+  loader.style.display = 'none';
 }
 renderMovieImg();
 
@@ -60,14 +63,15 @@ function renderMovieInfo() {
   <h2 class="movie-title">${state.movieName}</h2>
   <ul class="js-component movie-info">
             <li><time datetime="2026-02-10T21:15">${state.timetableName}</time></li>
-            <li>${state.theaterName} 7관, 수퍼LED(일반) - 2D</li>
-            <li><strong>성인1</strong></li>
+            <li>${state.theaterName} 7관, 수퍼LED(일반) - ${state.movieType}</li>
+            <li><strong>인원</strong></li>
           </ul>
   `;
   movieInfoContainer.appendChild(infoTextContent);
 }
-
 renderMovieInfo();
+
+// 시용될 변수 이름 목록
 const POINT_TAB = document.querySelector('.point-tab');
 const POINT_TABS = document.querySelectorAll('.point-tabpanel');
 const POINT_TABPANEL_1 = document.getElementById('panel-1');
