@@ -1,13 +1,17 @@
 import { regionAPI, showtimeAPI, seatAPI } from '../../apis/apiRequest.js';
+<<<<<<< HEAD
 import { resetBookingState, loadBookingState, patchBookingState } from '../../state/movieState.js';
 
 const state = loadBookingState();
+=======
+>>>>>>> feature/booking
 
 let showtime = [];
 
 async function loadRegion() {
   try {
     const region = await regionAPI.list();
+<<<<<<< HEAD
     resetBookingState();
     patchBookingState({
       movieId: 1,
@@ -15,6 +19,8 @@ async function loadRegion() {
       seats: [],
       price: 0,
     });
+=======
+>>>>>>> feature/booking
   } catch (e) {
     console.error(e);
   }
