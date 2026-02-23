@@ -35,6 +35,9 @@ function renderMovieList(movieList) {
     v.timeTable.forEach((table) => {
       const button = document.createElement('button');
       button.classList.add('show-time');
+      button.addEventListener('click', () => {
+        location.href = '/src/page/seat/index.html';
+      });
 
       button.innerHTML = `
       <span class="hall"><strong>${table.screenName}</strong></span>
@@ -169,7 +172,6 @@ closeSheetBtn.addEventListener('click', () => {
   theaterSheet.classList.remove('is-open');
 });
 
-
 //영화관 선택 시 바텀 시트 닫힘
 theaterList.addEventListener('click', (e) => {
   const btn = e.target.closest('button');
@@ -180,4 +182,4 @@ theaterList.addEventListener('click', (e) => {
   openRegionBtn.textContent = `${theaterName}`;
 
   theaterSheet.classList.remove('is-open');
-})
+});

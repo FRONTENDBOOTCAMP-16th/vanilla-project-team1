@@ -305,6 +305,7 @@ async function loadReservation() {
     });
     console.log(data);
     alert(`${paymentMethod}로 결제 완료되었습니다.`);
+    location.href = '/src/page/main/index.html';
   } catch (e) {
     console.error('에러내용:', e);
     const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');

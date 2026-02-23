@@ -280,3 +280,9 @@ plusButton.addEventListener('click', () => {
 function updateCount() {
   countValue.textContent = count;
 }
+
+const goPaymentButton = document.querySelector('.go-payment');
+
+goPaymentButton.addEventListener('click', () => {
+  location.href = '/src/page/payment/index.html';
+});
