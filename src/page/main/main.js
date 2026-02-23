@@ -1,6 +1,10 @@
 import { movieAPI } from '../../apis/apiRequest.js';
 import { renderHeader } from '../../common/header/header.js';
 import '../../common/header/header.css';
+import { loadBookingState, patchBookingState } from '../../state/movieState.js';
+
+const state = loadBookingState();
+console.log(state);
 
 const mount = document.getElementById('app-header');
 
@@ -8,6 +12,10 @@ renderHeader(mount, {
   showLoginButton: true,
   showIcons: true,
   onLoginClick: () => {
+    patchBookingState({
+      name: '예매의정석',
+      movieId: 1,
+    });
     location.href = '/src/page/booking/index.html';
   },
   onCartClick: () => {
