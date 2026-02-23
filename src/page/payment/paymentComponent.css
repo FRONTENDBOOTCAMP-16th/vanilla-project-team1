@@ -236,7 +236,6 @@ main {
 }
 /* 푸터 섹션 레이아웃 */
 .final-payment-calculation {
-  position: sticky;
   display: grid;
   grid-template-columns: 2fr 1fr;
 
