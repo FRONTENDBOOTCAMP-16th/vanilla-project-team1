@@ -1,5 +1,14 @@
 import { reservationAPI } from '../../apis/apiRequest.js';
 import { formatPrices } from '../../utils/commonUtility';
+import { loadBookingState } from '../../state/movieState.js';
+
+loadBookingState();
+// 안전하게 사이트들 이동해주는 걸 만들기
+/**
+ * 결제창으로 유저가 바로 이동했을 시
+ * 해당 객체 값이 없으면 해당 사이트로 이동시켜 줄 수 있는
+ * 함수 만들고 상단에 함수 실행 넣어주기
+ */
 
 // 이벤트 연결
 // [✅] active 클래스 명 추가
@@ -39,7 +48,6 @@ const FOOTER = document.querySelector('.final-payment-calculation');
 const PAY_BUTTON = document.querySelector('.pay-button');
 
 // 1. 요소의 상태 변환 함수들
-
 // 모든 요소의 active 클래스 네임 제거 함수
 function removeAllActive(elements, attrValue) {
   for (const item of elements) {
@@ -221,8 +229,6 @@ function validateAllPanel1(e) {
 //패널 2
 function validateAllPanel2(e) {
   e.preventDefault();
-  const numberValue = document.getElementById('number-input').value;
-  const cardPasswordValue = document.getElementById('card-number-password').value;
   const currentPointValue = document.getElementById('use-current-point').value;
   if (cardNumberAuth() && lionPointCardNumberPasswordAuth(e) && currentInputAuth(e)) {
     alert('포인트 할인이 적용되었습니다.');
@@ -284,25 +290,22 @@ const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices());
 let totalPriceValue = null;
 function totalPrice() {
   const discountPriceValue = DISCOUNT_PRICE.textContent;
-  totalPriceValue =
-    Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
-  return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} 원`);
+  if (discountPriceValue === '') {
+    totalPriceValue = Number(productPriceValue.replace(/,/g, ''));
+    return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} `);
+  } else {
+    totalPriceValue =
+      Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
+  }
+  return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} `);
 }
-
+totalPrice();
 // 5. 결제하기 요청 함수
 
 async function loadReservation() {
   try {
-    const data = await reservationAPI.create({
-      id: '1',
-      userId: '1',
-      userName: '조재권',
-      theaterId: '3',
-      seatIds: ['A1', 'A2'],
-      paymentMethod: '신용카드',
-      totalPrice: '240000',
-    });
-    console.log(data);
+    const state = loadBookingState();
+    console.log(state);
     alert(`결제 완료되었습니다.`);
     location.href = '/src/page/main/index.html';
   } catch (e) {
