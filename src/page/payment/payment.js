@@ -346,15 +346,18 @@ totalPriceCal();
 
 // 5. 결제하기 요청 함수
 
-// 스토리지 객체 생성 (이전 페이지에서 받아온 데이터 모으기)
+// 스토리지 객체 생성 (이전 페이지에서 받아온 고정적인 데이터 모으기)
+
 const storageData = {
   ...state,
 };
 
 async function loadReservation() {
   try {
-    // 내 페이지에서 유동적으로 바뀌는 데이터 객체에 추가해주기
-    // 유동적으로 바뀌기 떄문에 미리 storageData객체에 값을 넣을 수 없음
+    if (!paymentMethod) {
+      alert('최종 결제 수단을 선택하세요');
+      return;
+    }
     storageData.paymentMethod = paymentMethod;
     storageData.totalPrice = totalPriceValue;
     patchBookingState(storageData);
