@@ -428,7 +428,7 @@ input[type='checkbox'] {
 /* 반응형 레이아웃*/
 @media (min-width: 1024px) {
   body {
-    max-width: 1500px;
+    max-width: 2000px;
     height: 1000px;
     margin: 0;
     display: grid;
@@ -476,7 +476,7 @@ input[type='checkbox'] {
           height: 200px;
         }
         & #panel-2 {
-          height: 260px;
+          height: 280px;
         }
         & .active {
           input,

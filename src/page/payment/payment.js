@@ -366,7 +366,7 @@ async function loadReservation() {
     console.log(storageData);
     alert(`결제 완료되었습니다.`);
     resetBookingState(storageData);
-    location.href = '/src/page/main/index.html';
+    //location.href = '/src/page/main/index.html';
   } catch (e) {
     console.error('에러내용:', e);
     const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');
@@ -415,5 +415,3 @@ PAY_BUTTON.addEventListener('click', loadReservation);
 
 // 결제 요청 버튼 클릭시 접근 속성 변경
 FOOTER.addEventListener('click', payButtonState);
-
-//totalPrice는 patch하는 걸로
