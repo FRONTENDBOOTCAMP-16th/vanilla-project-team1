@@ -17,6 +17,7 @@
 import { movieAPI } from '../../apis/apiRequest.js';
 import { formatPrices } from '../../utils/commonUtility';
 import { loadBookingState, patchBookingState, resetBookingState } from '../../state/movieState.js';
+import { renderHeader } from '../../common/header/header.js';
 
 // 초가 로드 및 가드 작업
 const state = loadBookingState();
