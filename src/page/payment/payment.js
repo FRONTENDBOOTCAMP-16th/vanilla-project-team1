@@ -20,7 +20,7 @@ import { loadBookingState, patchBookingState, resetBookingState } from '../../st
 
 // 초가 로드 및 가드 작업
 const state = loadBookingState();
-const { price, movieId, timetableId, seats } = state;
+const { price, movieId, timetableId, seats, timetable } = state;
 loadBookingState();
 redirectPage();
 
@@ -66,7 +66,22 @@ function renderMovieInfo() {
             <li>${state.theaterName} 7관, 수퍼LED(일반) - ${state.movieType}</li>
             <li><strong>인원 ${state.seats.length}명</strong></li>
           </ul>
+ 
   `;
+
+  //  <ul class="js-component movie-info">
+  //    <li>
+  //      <time datetime="${timetable[0].date}">
+  //        ${timetable[0].startTime} ~ ${timetable[0].endTime}
+  //      </time>
+  //    </li>
+  //    <li>
+  //      ${state.theaterName} ${timetable[0].screenName}, ${timetable[0].format}, ${timetable[1].tags}
+  //    </li>
+  //    <li>
+  //      <strong>인원 ${state.seats.length}명</strong>
+  //    </li>
+  //  </ul>;
   movieInfoContainer.appendChild(infoTextContent);
 }
 renderMovieInfo();
@@ -264,10 +279,8 @@ function cardAuth(e) {
 function validateAllPanel1(e) {
   e.preventDefault();
   const pointValue = document.querySelector('#point-input').value;
-  const passwordValue = document.querySelector('#card-point-password').value;
   if (pointInputAuth(e) && lionPointCardPasswordAuth(e)) {
     alert('포인트 할인이 적용되었습니다.');
-    console.log('적용한 포인트 값:', pointValue, '입력한 비밀번호:', passwordValue);
     // 적용된 가격 표시
     discountPrice(pointValue);
     totalPriceCal();
@@ -362,6 +375,9 @@ async function loadReservation() {
     }
     storageData.paymentMethod = paymentMethod;
     storageData.totalPrice = totalPriceValue;
+
+    // 상품 금액이 이전 페이지에서 저장되지 않았을 경우
+    storageData.price = productPriceValue;
     patchBookingState(storageData);
     console.log(storageData);
     alert(`결제 완료되었습니다.`);
