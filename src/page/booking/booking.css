@@ -264,6 +264,7 @@ img {
   background: var(--color-bg);
 }
 
+/* 지역, 지역별 영화관 선택 활성화 */
 #regionList button.selected,
 #theaterList button.selected {
   background: var(--color-primary-hover);
@@ -271,6 +272,10 @@ img {
   border-color: var(--color-focus);
 }
 
+#regionList button:active,
+#theaterList button:active {
+  background: rgb(130, 50, 0);
+}
 /* Small phone */
 @media (min-width: 480px) {
 }
