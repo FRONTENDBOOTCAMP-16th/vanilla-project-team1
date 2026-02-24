@@ -9,8 +9,9 @@ const state = loadBookingState();
 const storageData = {
   theaterId: 0,
   theaterName: '',
-  timeTableId: 0,
-  timeTableName: '',
+  timetableId: 0,
+  timetableName: '',
+  movieType: '',
 };
 
 //상영 시간 정보 호출
@@ -47,8 +48,17 @@ function renderMovieList(movieList) {
       button.classList.add('show-time');
       button.addEventListener('click', () => {
         patchBookingState({
-          ...storageData,
+          movieId: v.id,
+          movieName: v.movieName,
+          movieType: table.format,
+
+          timeTableName: table.screenName,
+          timetableId: table.showtimeId,
+          timetableName: `${table.startTime}~${table.endTime}`,
         });
+
+        console.log('table.id:', table.id, table);
+
         location.href = '/src/page/seat/index.html';
       });
 
@@ -98,8 +108,10 @@ function renderTheaterList(theaters) {
     btn.dataset.theaterId = t.id;
 
     btn.dataset.theaterName = t.name;
+    btn.dataset.theaterId = t.id;
     storageData.theaterId = t.id;
     storageData.theaterName = t.name;
+
 
     li.appendChild(btn);
     theaterList.appendChild(li);
@@ -116,6 +128,7 @@ function renderRegionList(regions) {
     btn.type = 'button';
     btn.textContent = r.name;
     btn.dataset.regionId = r.id;
+
 
     btn.addEventListener('click', (e) => {
       const currentRegion = regions.find((v) => String(v.id) === String(e.target.dataset.regionId));
@@ -170,9 +183,9 @@ container.addEventListener('click', (e) => {
 
 const regionButton = document.querySelector('#openRegion');
 
-regionButton.addEventListener('click', () => {
-  regionButton.classList.toggle('selected');
-});
+// regionButton.addEventListener('click', () => {
+//   regionButton.classList.toggle('selected');
+// });
 
 //바텀 시트 열기 / 닫기
 const openRegionBtn = document.getElementById('openRegion');
@@ -193,8 +206,62 @@ theaterList.addEventListener('click', (e) => {
   if (!btn) return;
 
   const theaterName = btn.dataset.theaterName;
+  const theaterId = Number(btn.dataset.theaterId);
 
+  // openRegionBtn.textContent = theaterName;
   openRegionBtn.textContent = `${theaterName}`;
 
+  openRegionBtn.classList.add('selected');
+
   theaterSheet.classList.remove('is-open');
+
+  patchBookingState({
+  theaterName,
+  theaterId,
 });
+});
+
+
+//지역, 지역 내 영화관 선택 활성화
+
+function selectOnly(containerEl, targetBtn) {
+  containerEl.querySelectorAll('button.selected').forEach((b) => b.classList.remove('selected'));
+  targetBtn.classList.add('selected');
+}
+
+regionList.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  selectOnly(regionList, btn);
+
+  const regionId = Number(btn.dataset.regionId);
+
+  const region = regionsCache.find((r) => Number(r.id) === regionId);
+  let theaters;
+
+  if (region && region.theaters) {
+    theaters = region.theaters;
+  } else {
+    theaters = [];
+  }
+
+  renderTheaterList(theaters);
+});
+
+theaterList.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  selectOnly(theaterList, btn);
+
+  const theaterName = btn.dataset.theaterName;
+  const theaterId = Number(btn.dataset.theaterId);
+
+  openRegionBtn.textContent = theaterName;
+  openRegionBtn.classList.add('selected');
+  theaterSheet.classList.remove('is-open');
+
+  patchBookingState({ theaterName, theaterId });
+});
+
