@@ -13,7 +13,7 @@ header {
   font-size: var(--fs-14);
   padding: var(--sp-8);
   text-align: center;
-  border: 3px dotted skyblue;
+  border: 3px dotted var(--color-primary);
 }
 
 main {
