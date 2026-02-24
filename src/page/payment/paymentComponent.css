@@ -461,6 +461,7 @@ input[type='checkbox'] {
     margin-bottom: var(--sp-8);
     padding: var(--sp-12);
     border-radius: var(--r-8);
+    border: none;
   }
   main {
     height: 100%;
