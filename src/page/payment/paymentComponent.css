@@ -428,9 +428,9 @@ input[type='checkbox'] {
 /* 반응형 레이아웃*/
 @media (min-width: 1024px) {
   body {
-    max-width: 2000px;
+    max-width: 1500px;
     height: 1000px;
-    margin: 0;
+    margin: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
@@ -442,7 +442,7 @@ input[type='checkbox'] {
     overflow: visible;
 
     h2 {
-      font-size: var(--fs-20);
+      font-size: 25px;
       font-weight: 700;
     }
 
