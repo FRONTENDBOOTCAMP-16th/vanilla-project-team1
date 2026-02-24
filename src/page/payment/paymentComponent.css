@@ -570,14 +570,17 @@ input[type='checkbox'] {
     grid-template-rows: 100px 1fr;
 
     .tickect-price-cal-container {
+      padding-right: var(--sp-8);
       .ticket-price,
       .total-ticket-price {
         font-size: 22px;
         white-space: nowrap;
+        padding-bottom: var(--sp-8);
       }
     }
 
     button {
+      width: 250px;
       font-size: 25px;
       &:hover {
         background-color: var(--color-primary-200);
