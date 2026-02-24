@@ -429,7 +429,6 @@ input[type='checkbox'] {
 @media (min-width: 1024px) {
   body {
     max-width: 1500px;
-    height: 1000px;
     margin: auto;
     padding-block: 20px;
     background-color: var(--color-border);
@@ -540,6 +539,7 @@ input[type='checkbox'] {
   .final-payment-calculation {
     background-color: var(--color-on-primary);
     border-radius: var(--r-12);
+    padding-block: var(--sp-16);
     display: grid;
     grid-template-rows: 100px 1fr;
 
