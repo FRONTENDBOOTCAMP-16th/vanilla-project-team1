@@ -91,8 +91,9 @@ renderMovieInfo();
 // 시용될 변수 이름 목록
 const POINT_TAB = document.querySelector('.point-tab');
 const POINT_TABS = document.querySelectorAll('.point-tabpanel');
-const POINT_TABPANEL_1 = document.getElementById('panel-1');
 const POINT_TABPANEL_2 = document.getElementById('panel-2');
+const CARD_POINT_PASSWORD = document.getElementById('card-point-password');
+const CARD_NUMBER_PASSWORD = document.getElementById('card-number-password');
 const LION_POINT_BUTTON = document.querySelectorAll('.lion-point-button');
 const COUPON_LIST = document.querySelector('.coupon-list');
 const COUPON_LIST_BUTTON = document.querySelectorAll('.coupon-list button');
@@ -371,6 +372,12 @@ const storageData = {
 
 async function loadReservation() {
   try {
+    // 결제 버튼 클릭 시 유효성 검사
+    // 비밀번호 입력해야 포인트 적용된 가격 결제 가능
+    // 최종 결제 수단 선택해야 결제 가능
+    if (CARD_POINT_PASSWORD.value || CARD_NUMBER_PASSWORD.value === '') {
+      return alert('포인트 적용 시 비밀번호를 입력하세요');
+    }
     if (paymentMethod === null) {
       alert('최종 결제 수단을 선택하세요');
       return;
