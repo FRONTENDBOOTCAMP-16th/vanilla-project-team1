@@ -1,7 +1,37 @@
 import { seatAPI } from '../../apis/apiRequest.js';
-import { patchBookingState } from '../../state/movieState.js';
+import { patchBookingState, loadBookingState } from '../../state/movieState.js';
 
-let showtime = [];
+//---------------------------------
+// 예매 정보 데이터 연결
+//---------------------------------
+// 데이터 불러오기
+const state = loadBookingState();
+
+function renderBookingHeader() {
+  if (!state) return;
+
+  // 중단 마크업에 데이터 넣어줌
+  const movieNameElement = document.querySelector('.selected-details-wrapper .movie-name');
+  const timeElement = document.querySelector('.selected-details-wrapper time');
+  const siteElement = document.querySelector('.selected-details-wrapper .site');
+  const hallElement = document.querySelector('.selected-details-wrapper .hall');
+
+  if (movieNameElement && timeElement && siteElement && hallElement) {
+    const movieName = state.movieName || '영화 제목 정보 없음';
+    const date = state.date || '2026.02.13(금)'; // 임시로 날짜 넣어줌
+    const theaterName = state.theaterName || '극장 정보 없음';
+    const movieType = state.movieType || '';
+    const timeTableName = state.date || '';
+
+    // 내 태그에 데이터 붙이기
+    movieNameElement.textContent = state.movieName;
+    timeElement.textContent = state.date; // 날짜 불러오기 아직 설정안됨
+    siteElement.textContent = state.theaterName;
+    hallElement.textContent = `${state.timeTableName || ''} ${state.movieType || ''}`;
+  }
+}
+// 데이터 호출 !!
+renderBookingHeader();
 
 // 데이터 로드 및 좌석 렌더링
 async function loadSeats() {
@@ -283,7 +313,7 @@ plusButton.addEventListener('click', () => {
   }
 });
 
-// 카운트 숫자 업데이트
+// 인원수 카운트 업데이트
 function updateCount() {
   countValue.textContent = count;
   container.querySelectorAll('.selected').forEach((s) => s.classList.remove('selected'));
