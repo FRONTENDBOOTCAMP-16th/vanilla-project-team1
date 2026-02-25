@@ -17,7 +17,7 @@
     <main id="main-content">
       <section class="movie-ticket-payment-info">
         <h2 class="sr-only">영화 예매 티켓 정보</h2>
-        <span class="loader"></span>
+        <span class="loader" role="status" aria-label="로딩중"></span>
         <!-- 추후 접근성 관련해서 고려해봐야 함 -->
         <div class="img-container"></div>
       </section>
@@ -61,7 +61,9 @@
                       name="point-data"
                       id="point-input"
                       placeholder="포인트 입력(100P 단위로 사용가능)"
+                      aria-describedby="panel-1-point-description"
                     />
+                    <span class="sr-only" id="panel-1-point-description">100단위 사용 가능</span>
                     <button type="button" data-value="maximum-point">최대 적용</button>
                   </div>
                   <div class="card-point-password-input-container">
@@ -73,7 +75,11 @@
                       name="card-point-password"
                       id="card-point-password"
                       placeholder="Lion-POINT 비밀번호 입력(6~8자리)"
+                      aria-describedby="panel-1-password-description"
                     />
+                    <span class="sr-only" id="panel-1-password-description"
+                      >6~8자리를 입력하시오</span
+                    >
                   </div>
                   <div class="point-input-button-container">
                     <button type="reset" class="reset-button">취소</button>
@@ -90,7 +96,11 @@
                       name="card-number-data"
                       id="number-input"
                       placeholder="카드번호 입력(16자리)"
+                      aria-describedby="card-number-description"
                     />
+                    <span class="sr-only" id="card-number-description"
+                      >카드번호 16자리를 입력하시오</span
+                    >
                   </div>
                   <div class="card-password-input-container">
                     <label for="card-number-password" class="sr-only"
@@ -101,7 +111,11 @@
                       name="card-point-password"
                       id="card-number-password"
                       placeholder="Lion-POINT 비밀번호 입력(6~8자리)"
+                      aria-describedby="panel-2-password-description"
                     />
+                    <span class="sr-only" id="panel-2-password-description"
+                      >6~8자리를 입력하시오</span
+                    >
                     <button type="button" aria-label="카드번호 조회" id="card-details">조회</button>
                   </div>
                   <div class="current-points-container">
@@ -114,7 +128,9 @@
                         type="text"
                         id="use-current-point"
                         placeholder="포인트 입력(100p 단위로 사용가능)"
+                        aria-describedby="panel-2-point-description"
                       />
+                      <span class="sr-only" id="panel-2-point-description">100단위 사용 가능</span>
                       <button type="button" data-value="maximum-point">최대 적용</button>
                     </div>
                   </div>

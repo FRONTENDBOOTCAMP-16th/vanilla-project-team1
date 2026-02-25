@@ -70,20 +70,6 @@ function renderMovieInfo() {
           </ul>
  
   `;
-
-  //  <ul class="js-component movie-info">
-  //    <li>
-  //      <time datetime="${timetable[0].date}">
-  //        ${timetable[0].startTime} ~ ${timetable[0].endTime}
-  //      </time>
-  //    </li>
-  //    <li>
-  //      ${state.theaterName} ${timetable[0].screenName}, ${timetable[0].format}, ${timetable[1].tags}
-  //    </li>
-  //    <li>
-  //      <strong>인원 ${state.seats.length}명</strong>
-  //    </li>
-  //  </ul>;
   movieInfoContainer.appendChild(infoTextContent);
 }
 renderMovieInfo();
