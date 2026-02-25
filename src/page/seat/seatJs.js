@@ -1,16 +1,17 @@
-// import { seatAPI } from '../../apis/apiRequest.js';
+import { seatAPI } from '../../apis/apiRequest.js';
+import { patchBookingState } from '../../state/movieState.js';
 
-// let showtime = [];
+let showtime = [];
 
-// async function loadSeats() {
-//   try {
-//     const seats = await seatAPI.list();
-//     console.log(seats);
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }
-// loadSeats();
+async function loadSeats() {
+  try {
+    const seats = await seatAPI.list();
+    console.log(seats);
+  } catch (e) {
+    console.error(e);
+  }
+}
+loadSeats();
 // import { searchForWorkspaceRoot } from 'vite';
 
 //---------------------------------
@@ -175,7 +176,6 @@ const seatArr = [
   ],
 ];
 
-// html에서 클래스.seat-area 선택함
 const container = document.querySelector('.seat-area');
 const countValue = document.querySelector('.count-value');
 const MIN_COUNT = 1;
@@ -185,6 +185,7 @@ const PRICE_PER_PERSON = 14000;
 
 const seatValueShow = document.querySelector('.info-item .value');
 const totalPriceShow = document.querySelector('.total-price strong');
+const goPaymentButton = document.querySelector('.go-payment');
 
 //---------------------------------
 // 좌석 렌더링
@@ -253,12 +254,11 @@ function renderSeat(seatArr) {
         }
         updateSelectedInfo();
         updateTotalPrice();
-        updateSeatStatus();
       });
     }
   }
 }
-// 상단 - 좌석 배열 출력
+//좌석 배열 출력
 renderSeat(seatArr);
 
 //---------------------------------
@@ -290,7 +290,8 @@ plusButton.addEventListener('click', () => {
 // 카운트 숫자 업데이트
 function updateCount() {
   countValue.textContent = count;
-  resetSelectedSeats();
+  container.querySelectorAll('.selected').forEach((s) => s.classList.remove('selected'));
+  updateSelectedInfo();
   updateTotalPrice();
 }
 
@@ -324,9 +325,19 @@ function updateTotalPrice() {
     totalPriceShow.textContent = totalPrice.toLocaleString();
   }
 }
-// 결제 화면으로 이동
-const goPaymentButton = document.querySelector('.go-payment');
 
+// 결제 화면으로 이동
 goPaymentButton.addEventListener('click', () => {
+  const selectedSeats = Array.from(container.querySelectorAll('.selected')).map(
+    (seat) => seat.textContent
+  );
+
+  const totalPrice = Number(totalPriceShow.textContent.split(',').join(''));
+
+  patchBookingState({
+    seats: selectedSeats,
+    price: totalPrice,
+  });
+
   location.href = '/src/page/payment/index.html';
 });
