@@ -291,3 +291,36 @@ main.container {
   cursor: pointer;
   margin-top: var(--sp-16);
 }
+
+/* --------------------- */
+/* 초기 상태 */
+
+/* 예약불가능  */
+.seat-area button.reserved {
+  background-color: var(--color-muted);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+/* 예약 가능 */
+/* 일반석 */
+.seat-area button {
+  background-color: var(--color-on-primary);
+}
+/* 장애인석 */
+.seat-area button.special {
+  background-color: darkgreen;
+  color: var(--color-on-primary);
+}
+
+/* 선택시 상태 */
+/* 장애인석 선택시 */
+.seat-area button.special.selected {
+  background-color: var(--color-primary-active);
+  color: var(--color-on-primary);
+}
+
+/* 일반석 선택시 */
+.seat-area button.selected {
+  background-color: var(--color-primary-active);
+  color: var(--color-on-primary);
+}
