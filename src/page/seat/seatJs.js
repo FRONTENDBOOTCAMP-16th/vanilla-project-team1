@@ -375,6 +375,7 @@ goPaymentButton.addEventListener('click', () => {
   const totalPrice = Number(totalPriceShow.textContent.split(',').join(''));
 
   patchBookingState({
+    ...state,
     seats: selectedSeats,
     price: totalPrice,
   });
