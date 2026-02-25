@@ -9,20 +9,10 @@ console.log(state);
 const mount = document.getElementById('app-header');
 
 renderHeader(mount, {
-  showLoginButton: true,
   showIcons: true,
-  onLoginClick: () => {
-    patchBookingState({
-      name: '예매의정석',
-      movieId: 1,
-    });
+  title: '홈',
+  onClickGoBackButton: () => {
     location.href = '/src/page/booking/index.html';
-  },
-  onCartClick: () => {
-    console.log('cart');
-  },
-  onTicketClick: () => {
-    console.log('ticket');
   },
 });
 
