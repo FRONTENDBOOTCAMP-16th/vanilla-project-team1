@@ -33,7 +33,9 @@ function renderBookingHeader() {
 // 데이터 호출 !!
 renderBookingHeader();
 
-// 데이터 로드 및 좌석 렌더링
+//---------------------------------
+// 좌석 렌더링 데이터 연결
+//---------------------------------
 async function loadSeats() {
   try {
     const seats = await seatAPI.list();
@@ -47,7 +49,7 @@ async function loadSeats() {
 loadSeats();
 // import { searchForWorkspaceRoot } from 'vite';
 
-// 상단 - 좌석 렌더링 주석처리
+// 좌석 렌더링 주석 처리
 // const seatArr = [
 //   // A
 //   [
@@ -201,6 +203,9 @@ loadSeats();
 //   ],
 // ];
 
+//---------------------------------
+// 상수, 변수 선언
+//---------------------------------
 const AVAILABLE = 1;
 const RESERVED = 2;
 const SPECIAL = 3;
@@ -246,11 +251,11 @@ function renderSeat(seatArr) {
         seatElement.disabled = true; // 버튼 비활성화함
         seatElement.setAttribute('aria-label', `${seatName} 좌석 선택 불가`);
 
-        // 예약 가능 장애인석[]선택 가능
+        // 예약 가능 장애인석[] 선택 가능
       } else if (seatArr[i][j] === SPECIAL) {
         seatElement.classList.add('special');
         seatElement.setAttribute('aria-label', `장애인석 ${seatName} 선택 가능`);
-        // 예약 가능[]일반석 선택 가능
+        // 예약 가능 일반석[] 선택 가능
       } else {
         seatElement.setAttribute('aria-label', `일반석 ${seatName} 좌석 선택 가능`);
       }
@@ -290,6 +295,9 @@ function renderSeat(seatArr) {
 // 좌석 배열 출력 주석처리
 // renderSeat(seatArr);
 
+//---------------------------------
+// 인원, 좌석 업데이트
+//---------------------------------
 // 인원 버튼 (최소1 최대8)
 const minusButton = document.querySelector('.minus-btn');
 const plusButton = document.querySelector('.plus-btn');
@@ -335,6 +343,12 @@ function updateSelectedInfo() {
   }
 }
 
+//---------------------------------
+// 결제 섹션
+//---------------------------------
+
+// 숨겨두기 기능 추가 - 활성화 될때 보여주기
+
 // 총 결제금액 업데이트
 function updateTotalPrice() {
   const selectedSeats = container.querySelectorAll('.selected');
@@ -352,7 +366,7 @@ function updateTotalPrice() {
   }
 }
 
-// 결제 화면으로 이동
+// 결제 화면으로 이동(데이터 객체화 연결)
 goPaymentButton.addEventListener('click', () => {
   const selectedSeats = Array.from(container.querySelectorAll('.selected')).map(
     (seat) => seat.textContent
