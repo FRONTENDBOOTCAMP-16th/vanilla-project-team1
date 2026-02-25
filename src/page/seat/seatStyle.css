@@ -64,7 +64,7 @@ main.container {
   width: max-content;
   padding: 0 40px; /* 왼-40px, 오-40px 여백*/
   margin: 0 auto;
-  margin-bottom: 30%;
+  /* margin-bottom: 30%; */
 }
 .seat-area button {
   width: 30px;
@@ -188,7 +188,7 @@ main.container {
   margin-top: 10px;
   margin-bottom: var(--sp-16);
   padding: 0 20px;
-  border: 2px solid rgb(255, 135, 49);
+  /* border: 2px solid rgb(255, 135, 49); */
   background-color: var(--color-bg);
 }
 .info-item {
@@ -257,21 +257,29 @@ main.container {
 
 .payment-section {
   padding: 0 20px;
-  border: 2px solid rgb(255, 79, 135);
+  /* border: 2px solid rgb(255, 79, 135); */
   background-color: var(--color-bg);
 }
 
 .price-info {
-  border: 2px solid rgb(214, 34, 255);
+  /* border: 2px solid rgb(214, 34, 255); */
   background-color: var(--color-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
-
-/* -원 부분 오른쪽 정렬 필요함 ✅*/
+.price-info .label {
+  white-space: nowrap;
+  width: auto;
+}
 .total-price {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   width: 100%;
+  margin: 0;
+  white-space: nowrap;
 }
 .go-payment {
   background-color: var(--color-primary);
@@ -279,5 +287,40 @@ main.container {
   width: 327px;
   padding: 8px 20px;
   border: 0px solid;
+  border-radius: var(--r-8);
   cursor: pointer;
+  margin-top: var(--sp-16);
+}
+
+/* --------------------- */
+/* 초기 상태 */
+
+/* 예약불가능  */
+.seat-area button.reserved {
+  background-color: var(--color-muted);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+/* 예약 가능 */
+/* 일반석 */
+.seat-area button {
+  background-color: var(--color-on-primary);
+}
+/* 장애인석 */
+.seat-area button.special {
+  background-color: darkgreen;
+  color: var(--color-on-primary);
+}
+
+/* 선택시 상태 */
+/* 장애인석 선택시 */
+.seat-area button.special.selected {
+  background-color: var(--color-primary-active);
+  color: var(--color-on-primary);
+}
+
+/* 일반석 선택시 */
+.seat-area button.selected {
+  background-color: var(--color-primary-active);
+  color: var(--color-on-primary);
 }

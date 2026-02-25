@@ -13,10 +13,10 @@
 // loadSeats();
 // import { searchForWorkspaceRoot } from 'vite';
 
-//----------------
+//---------------------------------
 // 상단 - 좌석 (2차원 배열)
 // 평면 12열 11행
-//----------------
+//---------------------------------
 const AVAILABLE = 1;
 const RESERVED = 2;
 const SPECIAL = 3;
@@ -175,18 +175,26 @@ const seatArr = [
   ],
 ];
 
-console.log(seatArr);
 // html에서 클래스.seat-area 선택함
 const container = document.querySelector('.seat-area');
-// 가로세로 배열의 길이를 정함
+const countValue = document.querySelector('.count-value');
+const MIN_COUNT = 1;
+const MAX_COUNT = 8;
+let count = MIN_COUNT;
+const PRICE_PER_PERSON = 14000;
+
+const seatValueShow = document.querySelector('.info-item .value');
+const totalPriceShow = document.querySelector('.total-price strong');
+
+//---------------------------------
+// 좌석 렌더링
+// 가로세로 배열의 길이, 이중 for 문
+//---------------------------------
 function renderSeat(seatArr) {
   const rows = seatArr.length;
   const cols = seatArr[0].length;
   container.style.setProperty('--cols', String(cols));
 
-  //----------------
-  // 12행i 11열j 124석 배열 버튼타입으로 연결해서 이중for문 돌리기
-  //----------------
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       const seatElement = document.createElement('button');
@@ -198,33 +206,29 @@ function renderSeat(seatArr) {
       const seatName = `${rowLabel}${colLabel}`;
       seatElement.textContent = seatName;
 
-      //----------------
-      // 조건에 상태,컬러,접근성 추가함
-      // 조건 - RESERVED , SPECIAL , AVAILABLE(slse))
-      //----------------
-      // 예약불가능
+      //---------------------------------
+      // 좌석 렌더링 초기 스타일
+      // 조건 - RESERVED , SPECIAL
+      //---------------------------------
+      // 예약 불가능
       if (seatArr[i][j] === RESERVED) {
         seatElement.classList.add('reserved');
-        seatElement.style.color = 'var(--color-muted)'; // 색 다시확인하기
-        seatElement.style.backgroundColor = 'var(--color-muted)'; // 색 다시확인하기
         seatElement.disabled = true; // 버튼 비활성화함
-        // 상태 : []좌석 선택 불가
         seatElement.setAttribute('aria-label', `${seatName} 좌석 선택 불가`);
 
-        // 예약 가능
+        // 예약 가능 장애인석[]선택 가능
       } else if (seatArr[i][j] === SPECIAL) {
         seatElement.classList.add('special');
-        seatElement.style.backgroundColor = 'darkgreen'; // 색 다시확인하기
-        // 상태 : 장애인석[]선택 가능
         seatElement.setAttribute('aria-label', `장애인석 ${seatName} 선택 가능`);
+        // 예약 가능[]일반석 선택 가능
       } else {
-        // 상태 : []일반석 선택 가능
-        seatElement.setAttribute('aria-label', `${seatName} 좌석 선택 가능`);
+        seatElement.setAttribute('aria-label', `일반석 ${seatName} 좌석 선택 가능`);
       }
-      //----------------
+
+      //---------------------------------
       // 배열 사이 복도
       // left 2열, center 8열, right 2열
-      //----------------
+      //---------------------------------
       if (j < 2) {
         seatElement.style.gridColumn = j + 1;
       } else if (j >= 2 && j < 10) {
@@ -233,29 +237,36 @@ function renderSeat(seatArr) {
         seatElement.style.gridColumn = j + 3;
       }
       container.appendChild(seatElement);
+
+      //---------------------------------
+      // 좌석 상태 클릭 이벤트
+      //---------------------------------
+      seatElement.addEventListener('click', () => {
+        const selectedSeats = container.querySelectorAll('.selected');
+
+        if (seatElement.classList.contains('selected')) {
+          seatElement.classList.remove('selected');
+        } else {
+          if (selectedSeats.length < count) {
+            seatElement.classList.add('selected');
+          }
+        }
+        updateSelectedInfo();
+        updateTotalPrice();
+        updateSeatStatus();
+      });
     }
   }
 }
 // 상단 - 좌석 배열 출력
 renderSeat(seatArr);
 
-//----------------
-// 하단 - 인원 카운트
+//---------------------------------
+// 인원 버튼
 // 최소,최대인원 설정 0 ~ 8명까지
-//----------------
+//---------------------------------
 const minusButton = document.querySelector('.minus-btn');
 const plusButton = document.querySelector('.plus-btn');
-const countValue = document.querySelector('.count-value');
-
-// 1명에서 감소 버튼 누르면 확인 알리창 뜨게해야됨
-const MIN_COUNT = 1;
-// 8명에서 추가 버튼 누르면 확인 알림창 뜨게해야됨
-const MAX_COUNT = 8;
-// 초기값 1로 설정
-let count = MIN_COUNT;
-
-// ⭐️⭐️⭐️⭐️⭐️ 테스트코드
-console.log('지금 카운트:', count);
 
 // 인원 감소 버튼 (-)
 minusButton.addEventListener('click', () => {
@@ -276,11 +287,44 @@ plusButton.addEventListener('click', () => {
   }
 });
 
-// 카운트 숫자 업데이트 (.count-value)
+// 카운트 숫자 업데이트
 function updateCount() {
   countValue.textContent = count;
+  resetSelectedSeats();
+  updateTotalPrice();
 }
 
+// 선택된 좌석 업데이트
+function updateSelectedInfo() {
+  const selectedSeats = container.querySelectorAll('.selected');
+  const seatNames = Array.from(selectedSeats).map((s) => s.textContent);
+
+  if (seatNames.length > 0) {
+    seatValueShow.textContent = seatNames.join(', ');
+    seatValueShow.style.color = 'var(--color-text)';
+  } else {
+    seatValueShow.textContent = '좌석을 선택해주세요';
+    seatValueShow.style.color = 'var(--color-muted)';
+  }
+}
+
+// 총 결제금액 업데이트
+function updateTotalPrice() {
+  const selectedSeats = container.querySelectorAll('.selected');
+  let totalPrice = 0;
+
+  selectedSeats.forEach((seat) => {
+    if (seat.classList.contains('special')) {
+      totalPrice += 4000;
+    } else {
+      totalPrice += 14000;
+    }
+  });
+  if (totalPriceShow) {
+    totalPriceShow.textContent = totalPrice.toLocaleString();
+  }
+}
+// 결제 화면으로 이동
 const goPaymentButton = document.querySelector('.go-payment');
 
 goPaymentButton.addEventListener('click', () => {

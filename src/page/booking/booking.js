@@ -112,7 +112,6 @@ function renderTheaterList(theaters) {
     storageData.theaterId = t.id;
     storageData.theaterName = t.name;
 
-
     li.appendChild(btn);
     theaterList.appendChild(li);
   });
@@ -128,7 +127,6 @@ function renderRegionList(regions) {
     btn.type = 'button';
     btn.textContent = r.name;
     btn.dataset.regionId = r.id;
-
 
     btn.addEventListener('click', (e) => {
       const currentRegion = regions.find((v) => String(v.id) === String(e.target.dataset.regionId));
@@ -216,11 +214,10 @@ theaterList.addEventListener('click', (e) => {
   theaterSheet.classList.remove('is-open');
 
   patchBookingState({
-  theaterName,
-  theaterId,
+    theaterName,
+    theaterId,
+  });
 });
-});
-
 
 //지역, 지역 내 영화관 선택 활성화
 
@@ -264,4 +261,3 @@ theaterList.addEventListener('click', (e) => {
 
   patchBookingState({ theaterName, theaterId });
 });
-
