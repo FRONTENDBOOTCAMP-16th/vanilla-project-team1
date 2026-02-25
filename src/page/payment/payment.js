@@ -21,7 +21,7 @@ import { renderHeader } from '../../common/header/header.js';
 
 // 초가 로드 및 가드 작업
 const state = loadBookingState();
-const { price, movieId, timetableId, seats, timetable } = state;
+const { price, movieId, timetableId, seats } = state;
 loadBookingState();
 redirectPage();
 
@@ -40,39 +40,58 @@ const movie = await movieAPI.get(movieId);
 const movieImg = movie.postUrl;
 const loader = document.querySelector('.loader');
 
-// 영화 이미지
-function renderMovieImg() {
-  const fragment = document.createDocumentFragment();
-  const imgContainer = document.querySelector('.img-container');
+// 브라우저에 렌더링할 영화 이미지 만들기
+function movieImgUi() {
   const img = document.createElement('img');
   img.src = movieImg;
   img.className = 'movie-img';
   img.alt = '영화 포스터';
-  fragment.appendChild(img);
-  imgContainer.appendChild(fragment);
-  // 로딩 아이콘 이미지가 뜨면 사라지기
-  loader.style.display = 'none';
+  return img;
 }
-renderMovieImg();
+
+// 해당 영화 이미지 Dom에 구현
+function renderMovieImg(className, element) {
+  const fragment = document.createDocumentFragment();
+  const imgContainer = document.querySelector(className);
+
+  fragment.appendChild(element);
+  imgContainer.appendChild(fragment);
+
+  // 로딩 아이콘 이미지가 뜨면 사라지기
+  hideLoader(loader);
+}
+renderMovieImg('.img-container', movieImgUi());
+
+// 로더 숨겨주는 함수
+function hideLoader(element) {
+  element.style.display = 'none';
+}
 
 // 영화 예매 내역 정보
-function renderMovieInfo() {
-  const infoTextContent = document.createElement('div');
-  const movieInfoContainer = document.querySelector('.movie-ticket-payment-info');
-  infoTextContent.className = 'info-text-content';
-  infoTextContent.innerHTML = `
-  <h2 class="movie-title">${state.movieName}</h2>
+// 예매 정보만 담은 함수
+function createMovieInfoUi(movieData) {
+  const { movieName, timetableName, theaterName, movieType, seats, timetable } = movieData;
+  return `
+  <h2 class="movie-title">${movieName}</h2>
   <ul class="js-component movie-info">
-            <li><time datetime="2026-02-10T21:15">${state.timetableName}</time></li>
-            <li>${state.theaterName} 7관, 수퍼LED(일반) - ${state.movieType}</li>
-            <li><strong>인원 ${state.seats.length}명</strong></li>
-            <li><strong>예매 좌석 ${state.seats} </strong></li>
+            <li><time datetime="2026-02-10T21:15">${timetableName}</time></li>
+            <li>${theaterName} 7관, 수퍼LED(일반) - ${movieType}</li>
+            <li><strong>인원 ${seats.length}명</strong></li>
+            <li><strong>예매 좌석 ${seats} </strong></li>
           </ul>
  
   `;
-  movieInfoContainer.appendChild(infoTextContent);
 }
-renderMovieInfo();
+
+// 담은 정보를 브라우저에 렌더링 해주는 함수
+function renderMovieInfo(containerElement, state) {
+  const container = document.querySelector(containerElement);
+  if (!container) return;
+
+  container.className = 'info-text-content';
+  container.innerHTML = createMovieInfoUi(state);
+}
+renderMovieInfo('.movie-info', state);
 
 // 시용될 변수 이름 목록
 const POINT_TAB = document.querySelector('.point-tab');
@@ -297,6 +316,9 @@ function maximumPoint(e) {
   if (input.value === '' || input.value % 100 !== 0 || input.value === '0') {
     return alert('포인트 최대 적용 실패 ❌');
   }
+  if (!discountPriceAuth()) return;
+
+  // 위의 할인 가격 검증까지 다 통과된 후에 포인트 최대 적용 완료
   alert('포인트 최대 적용 완료 ✅');
 
   // 할인 가격 푸터에  즉시 표시
@@ -330,6 +352,23 @@ function discountPrice(value) {
     return (DISCOUNT_PRICE.textContent = Number(value).toLocaleString());
   }
 }
+
+function discountPriceAuth() {
+  // 1. 현재 어떤 패널이 활성화되어 있는지 확인
+  const isPanel1Active = POINT_TABS[0].classList.contains('active');
+  const isPanel2Active = POINT_TABS[1].classList.contains('active');
+
+  if (isPanel1Active) {
+    if (!lionPointCardPasswordAuth()) return false;
+    return true;
+  }
+
+  if (isPanel2Active) {
+    if (!cardNumberAuth()) return false;
+    if (!lionPointCardNumberPasswordAuth()) return false;
+    return true;
+  }
+}
 // 총 예매 티켓 가격
 // 기본 가격 표시
 const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices(price));
@@ -348,8 +387,17 @@ function totalPriceCal() {
 }
 totalPriceCal();
 
-// 5. 결제하기 요청 함수
+// 취소 버튼 클릭 시 적용된 할인 금액 초기화 함수
+function handlePointReset(e) {
+  const target = e.target.closest('button[type="reset"]');
+  if (!target) return;
 
+  discountPrice(0);
+  totalPriceCal();
+  alert('포인트 적용이 해제되었습니다.');
+}
+
+// 5. 결제하기 요청 함수
 // 스토리지 객체 생성 (이전 페이지에서 받아온 고정적인 데이터 모으기)
 
 const storageData = {
@@ -361,9 +409,7 @@ async function loadReservation() {
     // 결제 버튼 클릭 시 유효성 검사
     // 비밀번호 입력해야 포인트 적용된 가격 결제 가능
     // 최종 결제 수단 선택해야 결제 가능
-    if (CARD_POINT_PASSWORD.value || CARD_NUMBER_PASSWORD.value === '') {
-      return alert('포인트 적용 시 비밀번호를 입력하세요');
-    }
+
     if (paymentMethod === null) {
       alert('최종 결제 수단을 선택하세요');
       return;
@@ -414,6 +460,7 @@ CARD_NUMBER_SUBMIT_BUTTON.addEventListener('click', validateAllPanel2);
 
 // 폼 서식 패널 1, 2에서 최대 적용 조건 충족 시 알림 메시지 나오게 하는 이벤트
 POINT_TAB.addEventListener('click', maximumPoint);
+POINT_TAB.addEventListener('click', handlePointReset);
 
 // 최종 결제 수단 클릭 시 버튼 속성 변환 이벤트
 FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);
