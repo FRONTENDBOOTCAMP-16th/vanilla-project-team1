@@ -253,12 +253,17 @@ main.container {
 
 /* --------------------------------- */
 /* 결제 섹션 - payment section
+/* 숨겨두기 기능 추가 - 활성화 될때 보여주기 */
 /* --------------------------------- */
 
 .payment-section {
+  display: none;
   padding: 0 20px;
   /* border: 2px solid rgb(255, 79, 135); */
   background-color: var(--color-bg);
+}
+.payment-section .active {
+  display: block;
 }
 
 .price-info {
