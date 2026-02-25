@@ -288,6 +288,7 @@ function renderSeat(seatArr) {
         }
         updateSelectedInfo();
         updateTotalPrice();
+        togglePaymentsection();
       });
     }
   }
@@ -327,6 +328,7 @@ function updateCount() {
   container.querySelectorAll('.selected').forEach((s) => s.classList.remove('selected'));
   updateSelectedInfo();
   updateTotalPrice();
+  togglePaymentsection();
 }
 
 // 선택된 좌석 업데이트
@@ -346,8 +348,21 @@ function updateSelectedInfo() {
 //---------------------------------
 // 결제 섹션
 //---------------------------------
-
 // 숨겨두기 기능 추가 - 활성화 될때 보여주기
+function togglePaymentsection() {
+  const currentSelected = container.querySelectorAll('.selected').length;
+  const paymentsection = document.querySelector('.payment-section');
+
+  console.log('현재선택된 모든좌석:', currentSelected); // 콘솔에 찍어보기
+  console.log('인원수:', count);
+
+  if (currentSelected === count) {
+    console.log('active 추가됨');
+    paymentsection.classList.add('active');
+  } else {
+    paymentsection.classList.remove('active');
+  }
+}
 
 // 총 결제금액 업데이트
 function updateTotalPrice() {
