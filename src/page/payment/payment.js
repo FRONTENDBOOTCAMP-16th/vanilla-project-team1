@@ -66,6 +66,7 @@ function renderMovieInfo() {
             <li><time datetime="2026-02-10T21:15">${state.timetableName}</time></li>
             <li>${state.theaterName} 7관, 수퍼LED(일반) - ${state.movieType}</li>
             <li><strong>인원 ${state.seats.length}명</strong></li>
+            <li><strong>예매 좌석 ${state.seats} </strong></li>
           </ul>
  
   `;
@@ -383,7 +384,7 @@ async function loadReservation() {
     console.log(storageData);
     alert(`결제 완료되었습니다.`);
     resetBookingState(storageData);
-    //location.href = '/src/page/main/index.html';
+    location.href = '/src/page/main/index.html';
   } catch (e) {
     console.error('에러내용:', e);
     const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');
