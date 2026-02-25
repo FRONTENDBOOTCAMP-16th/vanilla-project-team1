@@ -4,22 +4,29 @@ body {
   height: 100vh;
   margin: 0 auto;
   min-height: 100dvh;
-  background: var(--color-bg);
+  background-color: var(--color-border);
   display: flex;
   flex-direction: column;
+}
+
+header {
+  font-size: var(--fs-14);
+  padding: var(--sp-8);
+  text-align: center;
+  border: 3px dotted var(--color-primary);
 }
 
 main {
   padding-left: var(--sp-16);
   padding-right: var(--sp-16);
+  padding-bottom: var(--sp-8);
   flex: 1;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding-bottom: var(--sp-8);
+  background-color: var(--color-on-primary);
   font-family: var(--font-sans);
-
-  /* 반응형 레이아웃*/
 }
+
 /* 영화 예매 정보 레이아웃 */
 .movie-ticket-payment-info {
   display: flex;
@@ -30,8 +37,13 @@ main {
   .img-container {
     display: inline-block;
     position: relative;
+
+    .movie-img {
+      width: 130px;
+      height: 150px;
+    }
   }
-  .info-text-part {
+  .info-text-content {
     display: flex;
     flex-flow: wrap column;
     gap: 10px;
@@ -41,6 +53,7 @@ main {
   .movie-info {
     color: var(--color-muted);
     width: 100%;
+    white-space: nowrap;
 
     li {
       float: left;
@@ -51,14 +64,8 @@ main {
     }
   }
 }
-.movie-age-rating {
-  position: absolute;
-  top: -5px;
-  right: -10px;
-}
 
 /* 할인 섹션 레이아웃 */
-
 .payment-discount {
   display: flex;
   flex-flow: wrap column;
@@ -72,7 +79,7 @@ main {
   .point-tab {
     border: 2px solid var(--color-text);
     border-radius: var(--r-8);
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
   .point-tab ul {
@@ -101,7 +108,6 @@ main {
 }
 
 /* 할인 섹션 폼 요소 레이아웃 */
-
 .tabpanel-container {
   display: flex;
   flex-direction: column;
@@ -115,7 +121,6 @@ main {
   &.active {
     display: flex;
     flex-grow: 1;
-    border-top: 2px solid var(--color-text);
 
     .point-input-container,
     .card-point-password-input-container {
@@ -134,8 +139,9 @@ main {
       width: 220px;
       height: 30px;
       flex-grow: 1;
-      background-color: #ddd;
+      background-color: var(--color-on-primary);
       border: 1px solid var(--color-border);
+      border-radius: 5px;
     }
 
     .lion-point-panel {
@@ -234,11 +240,14 @@ main {
     justify-self: end;
   }
 }
+
 /* 푸터 섹션 레이아웃 */
 .final-payment-calculation {
-  position: sticky;
   display: grid;
   grid-template-columns: 2fr 1fr;
+  padding-left: var(--sp-16);
+  padding-right: var(--sp-16);
+  background-color: var(--color-on-primary);
 
   .tickect-price-cal-container {
     padding-block-start: var(--sp-8);
@@ -270,7 +279,6 @@ h2 {
 .lion-point-button {
   &:hover {
     background-color: var(--color-primary-hover);
-    color: var(--color-bg);
     font-weight: 500;
     border-radius: 0;
   }
@@ -279,6 +287,7 @@ h2 {
     outline: 3px solid var(--color-focus);
   }
 }
+
 .coupon-list-item button {
   &:hover {
     background-color: var(--color-primary-hover);
@@ -290,16 +299,30 @@ h2 {
     outline: 3px solid var(--color-focus);
   }
 }
+
 /* 할인 섹션 폼 영역 스타일링 */
+.lion-point-button {
+  &.active {
+    background-color: var(--color-primary-100);
+    border-radius: 0;
+  }
+}
 .point-tabpanel {
   font-size: var(--fs-14);
 
+  &.active {
+    background-color: var(--color-primary-100);
+    padding: 8px;
+  }
+
   button {
     text-decoration: none;
-    background-color: var(--color-border);
-    border: 1px solid var(--color-muted);
+    background-color: var(--color-primary-hover);
+    border: 1px solid var(--color-border);
     border-radius: 5px;
     padding: 5px;
+    color: var(--color-on-primary);
+    font-size: var(--fs-14);
 
     &:hover {
       background-color: var(--color-primary-hover);
@@ -391,31 +414,178 @@ input[type='checkbox'] {
   font-size: var(--fs-14);
 }
 
+/* loading spinner  */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: rgb(204 77 0);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* 반응형 레이아웃*/
-/* @media (min-width: 1024px) {
+@media (min-width: 1024px) {
   body {
-    max-width: 20000px;
-    height: 1000px;
-    margin: 0;
+    max-width: 1500px;
+    margin: auto;
+    padding-block: 20px;
+    background-color: var(--color-border);
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 
+  .focusable-main {
+    width: 150px;
+    height: 50px;
+    grid-column: span 2;
+
+    text-align: center;
+  }
+
+  header {
+    grid-column: span 2;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: var(--sp-8);
+    padding: var(--sp-12);
+    border-radius: var(--r-8);
+    border: none;
+  }
   main {
     height: 100%;
+    background-color: var(--color-on-primary);
+    border-radius: var(--r-12);
+    padding-bottom: var(--sp-16);
+    margin-right: var(--sp-16);
     display: grid;
     grid-template-rows: repeat(4, auto);
+    overflow: visible;
 
+    h2 {
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .movie-ticket-payment-info > .img-container {
+      flex-grow: 0;
+      width: 250px;
+      height: 300px;
+
+      .movie-img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .info-text-content {
+      h2 {
+        font-size: 30px;
+      }
+      .movie-info > li {
+        font-size: var(--fs-18);
+      }
+    }
     .payment-discount {
       display: flex;
       flex-flow: wrap column;
-      flex-grow: 1;
       row-gap: 5px;
+
+      /*탭 리스트 */
+      .point-tab {
+        & button {
+          font-size: var(--fs-18);
+        }
+      }
+
+      .lion-point-button {
+        height: 60px;
+      }
+
+      /* 탭패널 */
+      .tabpanel-container {
+        & #panel-1 {
+          height: 200px;
+        }
+
+        & #panel-2 {
+          height: 280px;
+        }
+
+        & .active {
+          input,
+          button,
+          span {
+            height: 50px;
+            font-size: var(--fs-18);
+          }
+        }
+      }
+
+      .discount-method-tab button {
+        height: 70px;
+        font-size: var(--fs-18);
+
+        &.active {
+          background-color: var(--color-primary-hover);
+          color: var(--color-on-primary);
+          font-weight: 500;
+        }
+      }
+    }
+
+    .final-payment-methods {
+      padding: 0;
+
+      button {
+        font-size: var(--fs-18);
+        height: 90px;
+      }
+    }
+
+    .earn-points {
+      padding-block-start: var(--sp-16);
+
+      div {
+        font-size: var(--fs-18);
+      }
     }
   }
 
-  footer {
+  .final-payment-calculation {
+    background-color: var(--color-on-primary);
+    border-radius: var(--r-12);
+    padding-block: var(--sp-16);
     display: grid;
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: 200px 1fr;
+
+    .tickect-price-cal-container {
+      padding-right: var(--sp-8);
+      .ticket-price,
+      .total-ticket-price {
+        font-size: 22px;
+        white-space: nowrap;
+        padding-bottom: var(--sp-8);
+      }
+    }
+
+    button {
+      font-size: 25px;
+      &:hover {
+        background-color: var(--color-primary-200);
+        font-size: 30px;
+      }
+    }
   }
-} */
+}

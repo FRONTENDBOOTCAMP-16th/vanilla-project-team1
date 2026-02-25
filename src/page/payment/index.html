@@ -6,55 +6,20 @@
     <meta name="description" content="예매의 정석 사이트 결제 페이지" />
     <title>영화 티켓 결제 페이지</title>
     <link rel="stylesheet" href="/src/style/index.css" />
+    <link rel="stylesheet" href="/src/common/header/header.css" />
     <link rel="stylesheet" href="/src/page/payment/paymentComponent.css" />
     <script type="module" src="/src/page/payment/payment.js" defer></script>
   </head>
   <body>
     <h1 class="sr-only">영화 예매 티켓 결제 페이지</h1>
     <a href="#main-content" class="sr-only focusable-main">본문 바로가기</a>
+    <header id="app-header">주문/결제</header>
     <main id="main-content">
       <section class="movie-ticket-payment-info">
         <h2 class="sr-only">영화 예매 티켓 정보</h2>
+        <span class="loader"></span>
         <!-- 추후 접근성 관련해서 고려해봐야 함 -->
-        <div class="img-container">
-          <img
-            class="movie-img"
-            width="100"
-            height="130"
-            src="/src/page/payment/dummyImg.jpg"
-            alt="영화 포스터"
-          />
-          <svg
-            class="movie-age-rating"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 64 64"
-            width="25"
-            height="25"
-            aria-hidden="true"
-          >
-            <rect x="8" y="8" width="48" height="48" rx="6" fill="#E8844D" />
-            <text
-              x="32"
-              y="36"
-              font-family="Arial, sans-serif"
-              font-size="44"
-              font-weight="bold"
-              fill="white"
-              text-anchor="middle"
-              dominant-baseline="middle"
-            >
-              15
-            </text>
-          </svg>
-        </div>
-        <div class="info-text-part">
-          <h2 class="movie-title">이터널 선샤인</h2>
-          <ul class="js-component movie-info">
-            <li><time datetime="2026-02-10T21:15">2026-02-10 (화) 21:15</time> ~ 23:12</li>
-            <li>건대입구 7관, 수퍼LED(일반) - 2D</li>
-            <li><strong>성인1</strong></li>
-          </ul>
-        </div>
+        <div class="img-container"></div>
       </section>
 
       <section class="payment-discount">
@@ -399,14 +364,14 @@
         </div>
       </section>
     </main>
-    <footer class="container final-payment-calculation">
+    <footer class="final-payment-calculation">
       <div class="tickect-price-cal-container">
         <p class="ticket-price">
           상품금액 <strong class="js-component-product-price"></strong>원 - 할인금액
           <strong class="js-component-discount-price"></strong>원
         </p>
-        <p class="total-ticket-price js-component-total-price" aria-live="polite">
-          <strong>총 합계</strong> 원
+        <p class="total-ticket-price" aria-live="polite">
+          <strong>총 합계</strong> <span class="js-component-total-price"></span> 원
         </p>
       </div>
       <button type="button" class="pay-button" aria-pressed="false">결제하기</button>
