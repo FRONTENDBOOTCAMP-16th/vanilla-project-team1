@@ -328,3 +328,14 @@ main.container {
   background-color: var(--color-primary-active);
   color: var(--color-on-primary);
 }
+
+/* 인원수 대로 좌석 선택완료시 opacity,cursor 주기 */
+.seat-area.full button:not(.selceted) {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.seat-area.full button.selected {
+  opacity: 1;
+  pointer-events: auto;
+}
