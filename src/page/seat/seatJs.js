@@ -3,193 +3,192 @@ import { patchBookingState } from '../../state/movieState.js';
 
 let showtime = [];
 
+// 데이터 로드 및 좌석 렌더링
 async function loadSeats() {
   try {
     const seats = await seatAPI.list();
-    console.log(seats);
+    if (seats && seats.length > 0) {
+      renderSeat(seats[0].seatData);
+    }
   } catch (e) {
-    console.error(e);
+    // console.error(e);
   }
 }
 loadSeats();
 // import { searchForWorkspaceRoot } from 'vite';
 
-//---------------------------------
-// 상단 - 좌석 (2차원 배열)
-// 평면 12열 11행
-//---------------------------------
+// 상단 - 좌석 렌더링 주석처리
+// const seatArr = [
+//   // A
+//   [
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     RESERVED,
+//     RESERVED,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//   ],
+//   // B
+//   [
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     RESERVED,
+//     RESERVED,
+//   ],
+//   // C
+//   [
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     RESERVED,
+//     RESERVED,
+//     RESERVED,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//   ],
+//   // D
+//   [
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//   ],
+//   // E
+//   [
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     RESERVED,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//   ],
+//   // F
+//   [
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     RESERVED,
+//     RESERVED,
+//     AVAILABLE,
+//     RESERVED,
+//     RESERVED,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//   ],
+//   // G
+//   [
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     RESERVED,
+//     RESERVED,
+//   ],
+//   // H
+//   [
+//     AVAILABLE,
+//     RESERVED,
+//     RESERVED,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//   ],
+//   // I
+//   [
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     RESERVED,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//   ],
+//   // J
+//   [
+//     SPECIAL,
+//     SPECIAL,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     AVAILABLE,
+//     RESERVED,
+//     RESERVED,
+//     AVAILABLE,
+//     SPECIAL,
+//     SPECIAL,
+//   ],
+// ];
+
 const AVAILABLE = 1;
 const RESERVED = 2;
 const SPECIAL = 3;
-// const selected = 4;
-
-const seatArr = [
-  // A
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-  ],
-  // B
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-  ],
-  // C
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-    RESERVED,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-  ],
-  // D
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-  ],
-  // E
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-  ],
-  // F
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-  ],
-  // G
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-  ],
-  // H
-  [
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-  ],
-  // I
-  [
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-  ],
-  // J
-  [
-    SPECIAL,
-    SPECIAL,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    AVAILABLE,
-    RESERVED,
-    RESERVED,
-    AVAILABLE,
-    SPECIAL,
-    SPECIAL,
-  ],
-];
 
 const container = document.querySelector('.seat-area');
 const countValue = document.querySelector('.count-value');
 const MIN_COUNT = 1;
 const MAX_COUNT = 8;
 let count = MIN_COUNT;
-const PRICE_PER_PERSON = 14000;
 
 const seatValueShow = document.querySelector('.info-item .value');
 const totalPriceShow = document.querySelector('.total-price strong');
+
 const goPaymentButton = document.querySelector('.go-payment');
 
 //---------------------------------
-// 좌석 렌더링
-// 가로세로 배열의 길이, 이중 for 문
+// 좌석 렌더링 - 가로세로 배열의 길이, 이중 for 문
+// (2차원 배열) 12열 11행
 //---------------------------------
 function renderSeat(seatArr) {
   const rows = seatArr.length;
@@ -258,13 +257,10 @@ function renderSeat(seatArr) {
     }
   }
 }
-//좌석 배열 출력
-renderSeat(seatArr);
+// 좌석 배열 출력 주석처리
+// renderSeat(seatArr);
 
-//---------------------------------
-// 인원 버튼
-// 최소,최대인원 설정 0 ~ 8명까지
-//---------------------------------
+// 인원 버튼 (최소1 최대8)
 const minusButton = document.querySelector('.minus-btn');
 const plusButton = document.querySelector('.plus-btn');
 
