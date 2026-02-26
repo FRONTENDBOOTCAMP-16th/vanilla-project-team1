@@ -10,8 +10,8 @@
 // [✅] 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
 
 // 데이터 받아와야 할 것들
-// [] 영화 예매 정보(이미지, 상영날짜, 상영관,인원)
-// [] 최종 결제 금액(할인율이 적용된)
+// [✅] 영화 예매 정보(이미지, 상영날짜, 상영관,인원)
+// [✅] 최종 결제 금액(할인율이 적용된)
 // -> 최종 결제 금액은 데이터에서 받아오고, 할인율은 할인 및 포인트 섹션의 할인율 데이터와 연결
 
 import { movieAPI } from '../../apis/apiRequest.js';
@@ -22,9 +22,8 @@ import { renderHeader } from '../../common/header/header.js';
 // 초가 로드 및 가드 작업
 const state = loadBookingState();
 const { price, movieId, timetableId, seats } = state;
-loadBookingState();
-redirectPage();
 
+redirectPage();
 function redirectPage() {
   if (movieId === null) {
     location.href = '/src/page/main/index.html';
@@ -160,7 +159,7 @@ function removeAttr(element, attrName) {
   return element.removeAttribute(attrName);
 }
 
-// 할인 포인트 버튼 클릭 시 화면 전환되는 함수
+// 2. 할인 포인트 탭 버튼 클릭 시 화면 전환되는 함수
 
 // 탭 초기화 함수
 function resetTabsState(tabs, buttons) {
@@ -180,13 +179,36 @@ function activeTab(tab, activePanel) {
   attr(activePanel, 'hidden', null); // 해당되는 타켓에 hidden 속성 삭제
 }
 
+// url searchParams 사용하여, 해당 탭 패널 id 저장 함수
+function setActiveTabUrl(tab, panelValue) {
+  const url = new URL(location.href);
+  url.searchParams.set('tab', tab.id);
+  url.searchParams.set('panel', panelValue);
+  history.pushState({}, '', url.toString());
+}
+
+// 새로고침 시, 현재 페이지의 url의 활성화 탭을 그대로 읽어오는 함수
+function resetTabUrl() {
+  const resetUrl = new URL(location.href);
+  const tabId = resetUrl.searchParams.get('tab');
+
+  if (!tabId) return;
+  const target = document.getElementById(tabId);
+  const targetValue = getAttr(target, 'aria-controls');
+  const activeTargetPanel = document.getElementById(targetValue);
+  activeTab(target, activeTargetPanel);
+}
+resetTabUrl();
+
 function handleTabClick(e) {
   if (!e.target.closest('.lion-point-button')) return;
   const target = e.target.closest('button'); // 부모요소에서 가장 가까운 버튼 찾기
   const targetValue = getAttr(target, 'aria-controls'); // 해당 속성값 읽기
   const activeTargetPanel = document.getElementById(targetValue);
+
   resetTabsState(POINT_TABS, LION_POINT_BUTTON);
   activeTab(target, activeTargetPanel);
+  setActiveTabUrl(target, targetValue);
 }
 
 // 힐인/포인트 방법 버튼 속성 및 스타일링 변환 함수
@@ -214,7 +236,7 @@ function handleFinalPaymentButton(e) {
   paymentMethod = target.dataset.label;
 }
 
-// 2. 폼 서식 제어 함수들
+// 3. 폼 서식 제어 함수들
 // 폼 서식 포인트 입력 조건 미충족 시 알림창 나오게 하기
 // + 100 단위로 쓸 수 있게 하기
 // 패널 1
@@ -343,7 +365,7 @@ function maximumPoint(e) {
   totalPriceCal();
 }
 
-// 3. 체크 박스 체크 제어 함수
+// 4. 체크 박스 체크 제어 함수
 function checkboxAuth() {
   const checked = EARN_POINTS_METHOD_CHECKBOX.checked;
   const ALL_EARN_POINTS = CHECKBOX_CONTAINER.querySelectorAll('input[type= "checkbox"]');
@@ -360,7 +382,7 @@ function checkboxAuth() {
   }
 }
 
-// 4. 금액 계산/표기 로직 함수
+// 5. 금액 계산/표기 로직 함수
 
 // 할인된 티켓 가격
 function discountPrice(value) {
@@ -413,7 +435,7 @@ function handlePointReset(e) {
   alert('포인트 적용이 해제되었습니다.');
 }
 
-// 5. 결제하기 요청 함수
+// 6. 결제하기 요청 함수
 // 스토리지 객체 생성 (이전 페이지에서 받아온 고정적인 데이터 모으기)
 
 const storageData = {
