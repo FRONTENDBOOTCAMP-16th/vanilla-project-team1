@@ -346,9 +346,11 @@ function updateSelectedInfo() {
 }
 
 //---------------------------------
-// 결제 섹션
+// active,
 //---------------------------------
+
 // 숨겨두기 기능 추가 - 활성화 될때 보여주기
+// 인원 수 대로 좌석 선택 완료시
 function togglePaymentsection() {
   const currentSelected = container.querySelectorAll('.selected').length;
   const paymentsection = document.querySelector('.payment-section');
@@ -359,11 +361,16 @@ function togglePaymentsection() {
   if (currentSelected === count) {
     console.log('active 추가됨');
     paymentsection.classList.add('active');
+    container.classList.add('full');
   } else {
     paymentsection.classList.remove('active');
+    container.classList.remove('full');
   }
 }
 
+//---------------------------------
+// 결제 섹션
+//---------------------------------
 // 총 결제금액 업데이트
 function updateTotalPrice() {
   const selectedSeats = container.querySelectorAll('.selected');
