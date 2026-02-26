@@ -21,21 +21,25 @@ import { renderHeader } from '../../common/header/header.js';
 
 // 초가 로드 및 가드 작업
 const state = loadBookingState();
-const { price, movieId, timetableId, seats } = state;
+redirectPage(state);
 
-redirectPage();
-function redirectPage() {
-  if (movieId === null) {
-    location.href = '/src/page/main/index.html';
-  } else if (timetableId === null) {
-    location.href = '/src/page/booking/index.html';
-  } else if (!seats || seats.length === 0) {
-    location.href = '/src/page/seat/index.html';
-  } else return;
+function redirectPage(state) {
+  const required = ['movieId', 'timetableId', 'seats', 'price'];
+  if (state[required[0]] === null) {
+    return (location.href = '/src/page/main/index.html');
+  }
+
+  if (state[required[1]] === null) {
+    return (location.href = '/src/page/booking/index.html');
+  }
+  if (!state[required[2]] || state[required[2]].length === 0) {
+    return (location.href = '/src/page/seat/index.html');
+  }
+  return;
 }
 
 // 영화 예매 정보 브라우저에 표시
-const movie = await movieAPI.get(movieId);
+const movie = await movieAPI.get(state.movieId);
 const movieImg = movie.postUrl;
 const loader = document.querySelector('.loader');
 
@@ -409,7 +413,7 @@ function discountPriceAuth() {
 }
 // 총 예매 티켓 가격
 // 기본 가격 표시
-const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices(price));
+const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices(state.price));
 // 총 가격 변수 선언
 let totalPriceValue = null;
 function totalPriceCal() {
