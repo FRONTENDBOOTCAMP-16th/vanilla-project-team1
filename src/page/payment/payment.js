@@ -45,7 +45,7 @@ function movieImgUi() {
   const img = document.createElement('img');
   img.src = movieImg;
   img.className = 'movie-img';
-  img.alt = '영화 포스터';
+  img.alt = `${movie.title}`;
   return img;
 }
 
