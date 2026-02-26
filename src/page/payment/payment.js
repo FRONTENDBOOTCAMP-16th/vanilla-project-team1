@@ -324,7 +324,8 @@ function validateAllPanel2(e) {
 
 // 최대 적용 버튼 조건 충족 시 알림창 나오게 하기
 function maximumPoint(e) {
-  const target = e.target.closest('[data-value="maximum-point"]');
+  const target = e.target.closest('[data-target]');
+
   if (!target) return;
   const input = target.parentElement.querySelector('input');
   e.preventDefault();
