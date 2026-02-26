@@ -140,7 +140,7 @@ function attr(element, attrName, attrValue) {
   if (attrValue === undefined) {
     return getAttr(element, attrName);
   }
-  if (attrName === null) {
+  if (attrValue === null) {
     return removeAttr(element, attrName);
   }
   return setAttr(element, attrName, attrValue);
@@ -161,17 +161,32 @@ function removeAttr(element, attrName) {
 }
 
 // 할인 포인트 버튼 클릭 시 화면 전환되는 함수
+
+// 탭 초기화 함수
+function resetTabsState(tabs, buttons) {
+  removeAllActive(tabs, 'active'); // 모든 버튼 활성화 초기화
+  removeAllActive(buttons, 'active');
+  setAllAttr(buttons, 'aria-selected', 'false'); // 모든 버튼 접근성 속성 초기화
+  setAllAttr(buttons, 'tabindex', '-1'); // 모든 탭 -1로 초기화
+  setAllAttr(tabs, 'hidden', '');
+}
+
+// 활성화 된 탭 속성 제어 함수
+function activeTab(tab, activePanel) {
+  isActive(tab);
+  isActive(activePanel); // 해당되는 타켓에 active 클래스명 추가
+  attr(tab, 'aria-selected', 'true');
+  attr(tab, 'tabindex', '0'); // 해당되는 타켓에 상태 전환
+  attr(activePanel, 'hidden', null); // 해당되는 타켓에 hidden 속성 삭제
+}
+
 function handleTabClick(e) {
   if (!e.target.closest('.lion-point-button')) return;
-  removeAllActive(POINT_TABS, 'active'); // 모든 버튼 활성화 초기화
-  removeAllActive(LION_POINT_BUTTON, 'active');
-  setAllAttr(LION_POINT_BUTTON, 'aria-selected', 'false'); // 모든 버튼 접근성 속성 초기화
   const target = e.target.closest('button'); // 부모요소에서 가장 가까운 버튼 찾기
   const targetValue = getAttr(target, 'aria-controls'); // 해당 속성값 읽기
-  const activeTarget = document.getElementById(targetValue);
-  isActive(target);
-  isActive(activeTarget); // 해당되는 타켓에 active 클래스명 추가
-  setAttr(target, 'aria-selected', 'true'); // 해당되는 타켓에 상태 전환
+  const activeTargetPanel = document.getElementById(targetValue);
+  resetTabsState(POINT_TABS, LION_POINT_BUTTON);
+  activeTab(target, activeTargetPanel);
 }
 
 // 힐인/포인트 방법 버튼 속성 및 스타일링 변환 함수
