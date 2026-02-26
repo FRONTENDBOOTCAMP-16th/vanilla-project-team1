@@ -1,7 +1,6 @@
 /*  레이아웃 */
 body {
   max-width: var(--app-max-width);
-  height: 100vh;
   margin: 0 auto;
   min-height: 100dvh;
   background-color: var(--color-border);
@@ -212,6 +211,7 @@ main {
 /* 최종 결제 수단 섹션 레이아웃 */
 .final-payment {
   padding-block: 15px;
+  position: sticky;
 
   .final-payment-methods {
     padding-block: 15px;
@@ -583,7 +583,6 @@ input[type='checkbox'] {
     button {
       font-size: 25px;
       &:hover {
-        background-color: var(--color-primary-200);
         font-size: 30px;
       }
     }
