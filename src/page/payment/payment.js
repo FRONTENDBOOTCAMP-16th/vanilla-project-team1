@@ -267,22 +267,12 @@ function pointInputAuth(e) {
 }
 
 // 폼 서식에 비밀번호 입력 안했을 시 해당 알림창 나오게 하기
-// 패널 1
-function lionPointCardPasswordAuth() {
-  const target = document.querySelector('#card-point-password');
-  if (!target) return;
-  if (target.value.length < 6 || target.value.length > 8) {
-    alert('비밀번호를 6~8자리로 입력하세요');
-    return false;
-  } else {
-    return target.value;
-  }
-}
 
-//패널 2
-function lionPointCardNumberPasswordAuth() {
-  const target = document.getElementById('card-number-password');
-  if (!target) return false;
+// 패널 1/패널 2 공통 함수
+function cardPasswordAuth(e) {
+  const form = e.target.closest('form');
+  const target = form.querySelector('input[type="password"]');
+  if (!target) return;
   if (target.value.length < 6 || target.value.length > 8) {
     alert('비밀번호를 6~8자리로 입력하세요');
     return false;
@@ -310,7 +300,7 @@ function cardAuth(e) {
   if (!target) return;
   e.preventDefault();
   const cardValid = cardNumberAuth();
-  const passwordValid = lionPointCardNumberPasswordAuth();
+  const passwordValid = cardPasswordAuth(e);
   if (cardValid && passwordValid) {
     alert('적용 가능한 카드번호 입니다.');
   }
@@ -321,7 +311,7 @@ function cardAuth(e) {
 function validateAllPanel1(e) {
   e.preventDefault();
   const pointValue = document.querySelector('#point-input').value;
-  if (pointInputAuth(e) && lionPointCardPasswordAuth(e)) {
+  if (pointInputAuth(e) && cardPasswordAuth(e)) {
     alert('포인트 할인이 적용되었습니다.');
     // 적용된 가격 표시
     discountPrice(pointValue);
@@ -334,7 +324,7 @@ function validateAllPanel2(e) {
   e.preventDefault();
   const currentPointValue = document.getElementById('use-current-point').value;
   if (!cardNumberAuth()) return;
-  if (!lionPointCardNumberPasswordAuth()) return;
+  if (!cardPasswordAuth(e)) return;
   if (!pointInputAuth(e)) return;
   alert('포인트 할인이 적용되었습니다.');
   // 적용된 가격 표시
@@ -395,13 +385,13 @@ function discountPriceAuth() {
   const isPanel2Active = POINT_TABS[1].classList.contains('active');
 
   if (isPanel1Active) {
-    if (!lionPointCardPasswordAuth()) return false;
+    if (!cardPasswordAuth(e)) return false;
     return true;
   }
 
   if (isPanel2Active) {
     if (!cardNumberAuth()) return false;
-    if (!lionPointCardNumberPasswordAuth()) return false;
+    if (!cardPasswordAuth(e)) return false;
     return true;
   }
 }
@@ -471,6 +461,8 @@ async function loadReservation() {
 function payButtonState(e) {
   const target = e.target.closest('button');
   if (!target) return;
+
+  // active 클래스명 추가
   attr(PAY_BUTTON, 'aria-pressed', 'true');
 }
 
