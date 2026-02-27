@@ -30,17 +30,20 @@ main.container {
 /* 상단 seat select*/
 /* --------------------------------- */
 .seat-component {
+  height: calc(100vh - 50px);
   position: sticky;
   background-color: var(--color-text);
   font-family: var(--font-sans);
   width: 100%;
   /* 스크롤 설정 */
   overflow-x: scroll;
-  /* overflow-y: scroll; */
+  overflow-y: auto;
   scrollbar-width: none;
   padding: 45px 45px 260px 45px;
 }
-
+.seat-component::-webkit-scrollbar {
+  display: none;
+}
 /* title-screen 스크린 위치*/
 .title-screen {
   background-color: var(--gradient-primary);
@@ -267,14 +270,11 @@ main.container {
 }
 .payment-section.active {
   display: block;
-  padding: 12px 20px 20px 20px;
-  padding-top: var();
+  padding: 8px 20px 20px 20px;
   background-color: rgb(245, 245, 245);
 }
 
 .price-info {
-  /* border: 2px solid rgb(214, 34, 255); */
-  background-color: var(--color-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -286,13 +286,21 @@ main.container {
   background-color: rgb(245, 245, 245);
 }
 .total-price {
-  display: flex;
+  display: inline-flex;
+  align-items: baseline;
   justify-content: flex-end;
-  align-items: center;
   width: 100%;
   margin: 0;
   white-space: nowrap;
+  font-size: var(--fs-14);
+  font-weight: 400;
   background-color: rgb(245, 245, 245);
+}
+.total-price strong {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0 3px;
+  color: var(--color-text);
 }
 .go-payment {
   background-color: var(--color-primary);
