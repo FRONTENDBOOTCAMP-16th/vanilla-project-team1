@@ -110,8 +110,6 @@ const COUPON_LIST = document.querySelector('.coupon-list');
 const COUPON_LIST_BUTTON = document.querySelectorAll('.coupon-list button');
 const FINAL_PAYMENT = document.querySelector('.final-payment');
 const FINAL_PAYMENT_METHODS_BUTTON = document.querySelectorAll('.final-payment-methods button');
-const POINT_INPUT_DATA_BUTTON = document.querySelector('.point-input-container button');
-const CURRENT_POINT_INPUT_BUTTON = document.querySelector('.current-point-input button');
 const POINT_INPUT_SUBMIT_BUTTON = document.getElementById('point-submit-button');
 const CARD_NUMBER_SUBMIT_BUTTON = document.getElementById('card-number-submit-button');
 const EARN_POINTS_METHOD_CHECKBOX = document.getElementById('earn-point');
@@ -442,11 +440,12 @@ async function loadReservation() {
     }
     storageData.paymentMethod = paymentMethod;
     storageData.totalPrice = totalPriceValue;
-
+    attr(PAY_BUTTON, 'aria-pressed', 'true');
     // 상품 금액이 이전 페이지에서 저장되지 않았을 경우
     storageData.price = productPriceValue;
     patchBookingState(storageData);
     console.log(storageData);
+
     alert(`결제 완료되었습니다.`);
     resetBookingState(storageData);
     location.href = '/src/page/main/index.html';
@@ -457,14 +456,6 @@ async function loadReservation() {
   }
 }
 
-// 결제 버튼 aria-pressed 속성 변경 함수
-function payButtonState(e) {
-  const target = e.target.closest('button');
-  if (!target) return;
-
-  // active 클래스명 추가
-  attr(PAY_BUTTON, 'aria-pressed', 'true');
-}
 
 // 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
@@ -500,6 +491,3 @@ EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
 
 // 결제하기 버튼 누르면 객체 형태로 결제 수단 방식과 총 예매 티켓 가격 데이터를 post 함수 body 부분에 넣어주기
 PAY_BUTTON.addEventListener('click', loadReservation);
-
-// 결제 요청 버튼 클릭시 접근 속성 변경
-FOOTER.addEventListener('click', payButtonState);
