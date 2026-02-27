@@ -65,7 +65,7 @@ main.container {
 /* seat-area 좌석 배열(grid, 복도 공백) */
 .seat-area {
   display: grid;
-  grid-template-columns: repeat(2, 30px) 37px repeat(8, 30px) 37px repeat(2, 30px);
+  grid-template-columns: repeat(2, 1fr) 1.2fr repeat(8, 1fr) 1.2fr repeat(2, 1fr);
   gap: 8px;
   width: max-content;
   padding: 0 40px; /* 왼-40px, 오-40px 여백*/
