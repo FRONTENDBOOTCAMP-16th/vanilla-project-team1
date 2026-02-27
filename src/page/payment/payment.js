@@ -117,7 +117,6 @@ const CHECKBOX_CONTAINER = document.querySelector('.earn-point-etc');
 const PRODUCT_PRICE = document.querySelector('.js-component-product-price');
 const DISCOUNT_PRICE = document.querySelector('.js-component-discount-price');
 const TOTAL_PRICE = document.querySelector('.js-component-total-price');
-const FOOTER = document.querySelector('.final-payment-calculation');
 const PAY_BUTTON = document.querySelector('.pay-button');
 
 // 1. 요소의 상태 변환 함수들
@@ -309,13 +308,15 @@ function cardAuth(e) {
 function validateAllPanel1(e) {
   e.preventDefault();
   const pointValue = document.querySelector('#point-input').value;
-  if (pointInputAuth(e) && cardPasswordAuth(e)) {
+  if (!pointInputAuth(e)) return
+  if (!cardPasswordAuth(e)) return
+  const isValidDiscount = renderDiscountPrice(discountPrice(pointValue))
+  if(!isValidDiscount) return
+   // 적용된 가격 표시
+    renderTotalPrice();
     alert('포인트 할인이 적용되었습니다.');
-    // 적용된 가격 표시
-    discountPrice(pointValue);
-    totalPriceCal();
   }
-}
+
 
 //패널 2
 function validateAllPanel2(e) {
@@ -324,10 +325,11 @@ function validateAllPanel2(e) {
   if (!cardNumberAuth()) return;
   if (!cardPasswordAuth(e)) return;
   if (!pointInputAuth(e)) return;
-  alert('포인트 할인이 적용되었습니다.');
+ const isValidDiscount = renderDiscountPrice(discountPrice(currentPointValue))
+  if(!isValidDiscount) return
   // 적용된 가격 표시
-  discountPrice(currentPointValue);
-  totalPriceCal();
+  renderTotalPrice();
+  alert('포인트 할인이 적용되었습니다.');
 }
 
 // 최대 적용 버튼 조건 충족 시 알림창 나오게 하기
@@ -336,7 +338,9 @@ function maximumPoint(e) {
 
   if (!target) return;
   const input = target.parentElement.querySelector('input');
+  const isValidDiscount = renderDiscountPrice(discountPrice(input.value))
   e.preventDefault();
+  if(!isValidDiscount) return
   if (input.value === '' || input.value % 100 !== 0 || input.value === '0') {
     return alert('포인트 최대 적용 실패 ❌');
   }
@@ -346,9 +350,9 @@ function maximumPoint(e) {
   alert('포인트 최대 적용 완료 ✅');
 
   // 할인 가격 푸터에  즉시 표시
-  discountPrice(input.value);
+  renderDiscountPrice(input.value);
   // 총 가격 푸터에 즉시 표시
-  totalPriceCal();
+  renderTotalPrice();
 }
 
 // 4. 체크 박스 체크 제어 함수
@@ -369,16 +373,35 @@ function checkboxAuth() {
 }
 
 // 5. 금액 계산/표기 로직 함수
+// 기본 상품 가격 표시
+const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices(state.price)); // 브라우저에 보이는 가격 (문자열)
+const productPrice = Number(state.price) //데이터에 보낼 상품 가격
 
-// 할인된 티켓 가격
+
+// 할인 티켓 가격 관련 함수
+// 할인된 티켓 가격 반환
 function discountPrice(value) {
-  if (!isNaN(value)) {
-    return (DISCOUNT_PRICE.textContent = Number(value).toLocaleString());
-  }
+ const discount = Number(value);
+  if (isNaN(discount)) return 0;
+  return Math.max(0, discount);
 }
 
+// 할인된 티켓 가격 DOM 표시
+function renderDiscountPrice(value){
+  const discount = discountPrice(value)
+  if(discount > productPrice){
+     alert('할인 금액이 결제 금액을 초과하였습니다. 포인트를 다시 적용하세요')
+     DISCOUNT_PRICE.textContent = formatPrices(0)
+     resetForm()
+     return false
+
+  }
+DISCOUNT_PRICE.textContent = formatPrices(discount)
+return true
+}
+
+// 현재 어떤 패널이 활성화되어 있는지 확인한 후 검증
 function discountPriceAuth(e) {
-  // 1. 현재 어떤 패널이 활성화되어 있는지 확인
   const isPanel1Active = POINT_TABS[0].classList.contains('active');
   const isPanel2Active = POINT_TABS[1].classList.contains('active');
 
@@ -393,23 +416,32 @@ function discountPriceAuth(e) {
     return true;
   }
 }
+
 // 총 예매 티켓 가격
-// 기본 가격 표시
-const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices(state.price));
 // 총 가격 변수 선언
 let totalPriceValue = null;
 function totalPriceCal() {
   const discountPriceValue = DISCOUNT_PRICE.textContent;
   if (discountPriceValue === '') {
-    totalPriceValue = Number(productPriceValue.replace(/,/g, ''));
-    return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} `);
+    return totalPriceValue = Number(productPriceValue.replace(/,/g, ''));
+    
   } else {
-    totalPriceValue =
-      Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
-    return (TOTAL_PRICE.textContent = `${formatPrices(totalPriceValue)} `);
+  return Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
   }
+
+ 
 }
-totalPriceCal();
+
+function renderTotalPrice(){
+  const total = totalPriceCal()
+return TOTAL_PRICE.textContent = `${formatPrices(total)} `;
+}
+renderTotalPrice()
+
+// 테스트 코드
+// console.log('상품 가격(productPrice):', productPrice, typeof productPrice);
+// console.log('할인 가격(discountPrice(100)):', discountPrice(100), typeof discountPrice(100));
+// console.log('총 가격(totalPriceCal()):', totalPriceCal(), typeof totalPriceCal());
 
 // 취소 버튼 클릭 시 적용된 할인 금액 초기화 함수
 function handlePointReset(e) {
@@ -439,16 +471,18 @@ async function loadReservation() {
       return;
     }
     storageData.paymentMethod = paymentMethod;
-    storageData.totalPrice = totalPriceValue;
+    storageData.totalPrice = Number(totalPriceValue);
+  
+    //storageData.totalPrice = totalPriceValue 저장 시 타입 확인(숫자 유지) + format된 문자열 저장 금지
     attr(PAY_BUTTON, 'aria-pressed', 'true');
     // 상품 금액이 이전 페이지에서 저장되지 않았을 경우
-    storageData.price = productPriceValue;
+    storageData.price = Number(productPrice);
     patchBookingState(storageData);
     console.log(storageData);
 
     alert(`결제 완료되었습니다.`);
     resetBookingState(storageData);
-    location.href = '/src/page/main/index.html';
+    //location.href = '/src/page/main/index.html';
   } catch (e) {
     console.error('에러내용:', e);
     const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');
@@ -456,6 +490,12 @@ async function loadReservation() {
   }
 }
 
+// 7. 폼 초기화 함수
+function resetForm(){
+const target = document.querySelector('.point-tabpanel.active form');
+if(!target) return
+target.reset()
+}
 
 // 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
 // 할인/포인트 버튼 클릭시 화면 전환 이벤트
@@ -491,3 +531,5 @@ EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
 
 // 결제하기 버튼 누르면 객체 형태로 결제 수단 방식과 총 예매 티켓 가격 데이터를 post 함수 body 부분에 넣어주기
 PAY_BUTTON.addEventListener('click', loadReservation);
+
+
