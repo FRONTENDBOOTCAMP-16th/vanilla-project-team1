@@ -32,14 +32,13 @@ main.container {
 .seat-component {
   position: sticky;
   background-color: var(--color-text);
-  /* padding-bottom: var(--sp-16); */
   font-family: var(--font-sans);
   width: 100%;
   /* 스크롤 설정 */
   overflow-x: scroll;
   /* overflow-y: scroll; */
   scrollbar-width: none;
-  padding: 45px;
+  padding: 45px 45px 260px 45px;
 }
 
 /* title-screen 스크린 위치*/
@@ -192,7 +191,7 @@ main.container {
   flex-direction: column;
   gap: var(--sp-12);
   margin-top: var(--sp-20);
-  margin-bottom: var(--sp-24);
+  margin-bottom: var(--sp-12);
   padding: 0 20px;
   /* border: 2px solid rgb(255, 135, 49); */
   background-color: var(--color-bg);
@@ -268,7 +267,7 @@ main.container {
 }
 .payment-section.active {
   display: block;
-  padding: 20px;
+  padding: 12px 20px 20px 20px;
   padding-top: var();
   background-color: rgb(245, 245, 245);
 }
@@ -303,7 +302,7 @@ main.container {
   border-radius: var(--r-8);
   cursor: pointer;
   margin-top: var(--sp-12);
-  padding: var(--sp-12) 0;
+  padding: 10px 0;
   font-size: var(--fs-16);
 }
 
@@ -341,7 +340,7 @@ main.container {
 }
 
 /* 인원수 대로 좌석 선택완료시 opacity,cursor 주기 */
-.seat-area.full button:not(.selceted) {
+.seat-area.full button:not(.selected) {
   opacity: 0.3;
   pointer-events: none;
   cursor: not-allowed;
