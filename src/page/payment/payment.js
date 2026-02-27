@@ -342,7 +342,7 @@ function maximumPoint(e) {
   if (input.value === '' || input.value % 100 !== 0 || input.value === '0') {
     return alert('포인트 최대 적용 실패 ❌');
   }
-  if (!discountPriceAuth()) return;
+  if (!discountPriceAuth(e)) return;
 
   // 위의 할인 가격 검증까지 다 통과된 후에 포인트 최대 적용 완료
   alert('포인트 최대 적용 완료 ✅');
@@ -379,7 +379,7 @@ function discountPrice(value) {
   }
 }
 
-function discountPriceAuth() {
+function discountPriceAuth(e) {
   // 1. 현재 어떤 패널이 활성화되어 있는지 확인
   const isPanel1Active = POINT_TABS[0].classList.contains('active');
   const isPanel2Active = POINT_TABS[1].classList.contains('active');
@@ -488,6 +488,8 @@ CARD_NUMBER_SUBMIT_BUTTON.addEventListener('click', validateAllPanel2);
 
 // 폼 서식 패널 1, 2에서 최대 적용 조건 충족 시 알림 메시지 나오게 하는 이벤트
 TAB_PANEL_CONTAINER.addEventListener('click', maximumPoint);
+
+// 취소 버튼을 클릭했을 때 작성한 내용들이 없어지는 이벤트
 POINT_TAB.addEventListener('click', handlePointReset);
 
 // 최종 결제 수단 클릭 시 버튼 속성 변환 이벤트
