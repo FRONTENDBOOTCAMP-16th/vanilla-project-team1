@@ -99,7 +99,10 @@ renderMovieInfo('.movie-info', state);
 // 시용될 변수 이름 목록
 const POINT_TAB = document.querySelector('.point-tab');
 const POINT_TABS = document.querySelectorAll('.point-tabpanel');
+const TAB_PANEL_CONTAINER = document.querySelector('.tabpanel-container');
 const POINT_TABPANEL_2 = document.getElementById('panel-2');
+const LION_POINT_PANEL_FORM = document.querySelector('.lion-point-panel');
+const CARD_NUMBER_POINT_PANEL_FORM = document.querySelector('.card-number-point-panel');
 const CARD_POINT_PASSWORD = document.getElementById('card-point-password');
 const CARD_NUMBER_PASSWORD = document.getElementById('card-number-password');
 const LION_POINT_BUTTON = document.querySelectorAll('.lion-point-button');
@@ -243,10 +246,14 @@ function handleFinalPaymentButton(e) {
 // 3. 폼 서식 제어 함수들
 // 폼 서식 포인트 입력 조건 미충족 시 알림창 나오게 하기
 // + 100 단위로 쓸 수 있게 하기
-// 패널 1
+
+// 패널 1/ 패널 2
 function pointInputAuth(e) {
+  e.preventDefault();
   if (!e.target) return;
-  const target = document.querySelector('#point-input');
+  const form = e.target.closest('form');
+  const target = form.querySelector('[data-point]');
+
   let value = parseInt(target.value, 10);
   // 조건문 만들기
   // 거짓: 숫자가 아니면 알림창 뜨기
@@ -256,20 +263,6 @@ function pointInputAuth(e) {
     return false;
   }
 
-  return value;
-}
-// 패널 2
-function currentInputAuth(e) {
-  if (!e.target) return;
-  const target = document.getElementById('use-current-point');
-  let value = parseInt(target.value, 10);
-  // 조건문 만들기
-  // 거짓: 숫자가 아니면 알림창 뜨기
-  // 참: 해당 값 표시
-  if (isNaN(value) || value % 100 !== 0 || value === 0) {
-    alert('포인트를 100 단위로 입력하세요');
-    return false;
-  }
   return value;
 }
 
@@ -340,12 +333,13 @@ function validateAllPanel1(e) {
 function validateAllPanel2(e) {
   e.preventDefault();
   const currentPointValue = document.getElementById('use-current-point').value;
-  if (cardNumberAuth() && lionPointCardNumberPasswordAuth(e) && currentInputAuth(e)) {
-    alert('포인트 할인이 적용되었습니다.');
-    // 적용된 가격 표시
-    discountPrice(currentPointValue);
-    totalPriceCal();
-  }
+  if (!cardNumberAuth()) return;
+  if (!lionPointCardNumberPasswordAuth()) return;
+  if (!pointInputAuth(e)) return;
+  alert('포인트 할인이 적용되었습니다.');
+  // 적용된 가격 표시
+  discountPrice(currentPointValue);
+  totalPriceCal();
 }
 
 // 최대 적용 버튼 조건 충족 시 알림창 나오게 하기
@@ -487,9 +481,9 @@ POINT_TAB.addEventListener('click', handleTabClick);
 // 할인/포인트 방법 버튼 속성 및 스타일링 변환 이벤트
 COUPON_LIST.addEventListener('click', handleCouponList);
 
-// 폼 서식 포인트 입력에 연결될 버튼 이벤트
-POINT_INPUT_DATA_BUTTON.addEventListener('click', pointInputAuth);
-CURRENT_POINT_INPUT_BUTTON.addEventListener('click', currentInputAuth);
+// 폼 서식 최대 적용 버튼 눌렀을 때 포인트 적용 인증 이벤트
+LION_POINT_PANEL_FORM.addEventListener('submit', pointInputAuth);
+CARD_NUMBER_POINT_PANEL_FORM.addEventListener('submit', pointInputAuth);
 
 // 패널 2 조회 버튼 클릭 시, 조건이 충족이면 적용되었다는 알림창이 나오는 이벤트
 POINT_TABPANEL_2.addEventListener('click', cardAuth);
@@ -501,7 +495,7 @@ POINT_INPUT_SUBMIT_BUTTON.addEventListener('click', validateAllPanel1);
 CARD_NUMBER_SUBMIT_BUTTON.addEventListener('click', validateAllPanel2);
 
 // 폼 서식 패널 1, 2에서 최대 적용 조건 충족 시 알림 메시지 나오게 하는 이벤트
-POINT_TAB.addEventListener('click', maximumPoint);
+TAB_PANEL_CONTAINER.addEventListener('click', maximumPoint);
 POINT_TAB.addEventListener('click', handlePointReset);
 
 // 최종 결제 수단 클릭 시 버튼 속성 변환 이벤트
