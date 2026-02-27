@@ -184,8 +184,10 @@ function activeTab(tab, activePanel) {
 }
 
 // url searchParams 사용하여, 해당 탭 패널 id 저장 함수
-function setActiveTabUrl(panelValue) {
+function setActiveTabUrl(panel) {
   const url = new URL(location.href);
+  const panelValue = getAttr(panel, 'aria-controls');
+
   url.searchParams.set('tab', panelValue);
   history.pushState({}, '', url.toString());
 }
@@ -193,9 +195,9 @@ function setActiveTabUrl(panelValue) {
 // 새로고침 시, 현재 페이지의 url의 활성화 탭을 그대로 읽어오는 함수
 function resetTabUrl() {
   const resetUrl = new URL(location.href);
-  const tabId = resetUrl.searchParams.get('tab'); //해당 panel 찾기
-  const target = document.getElementById(tabId);
-  if (!tabId) return;
+  const panelId = resetUrl.searchParams.get('tab'); //해당 panel 찾기
+  const target = document.getElementById(panelId);
+  if (!panelId) return;
   const targetValue = getAttr(target, 'aria-labelledby'); //해당 tab 찾기
   const activeTargetPanel = document.getElementById(targetValue);
   activeTab(target, activeTargetPanel);
