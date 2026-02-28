@@ -1,21 +1,6 @@
-// 이벤트 연결
-// [✅] active 클래스 명 추가
-// [✅] 할인/포인트 버튼 클릭시 화면 전환
-// [✅] 폼 변환될 때 스타일링
-// [✅] 폼 서식에 비밀번호 입력 안했을 시 해당 알림창 나오게 하기
-// [✅] 폼 서식 포인트 입력 및 비밀번호 입력 양식에 맞춰서 제어할 수 있게 버튼 연결
-// [✅] 폼 서식에 해당 값 적용하기 (해당 포인트 입력하고 적용 버튼 누르면 푸터 결제 영역에 보이게 하기)
-// [✅] 할인 및 포인트 적립 버튼 접근성 속성 변환
-// [✅] 버튼 클릭 시 아리아 속성 전환
-// [✅] 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
-
-// 데이터 받아와야 할 것들
-// [✅] 영화 예매 정보(이미지, 상영날짜, 상영관,인원)
-// [✅] 최종 결제 금액(할인율이 적용된)
-// -> 최종 결제 금액은 데이터에서 받아오고, 할인율은 할인 및 포인트 섹션의 할인율 데이터와 연결
-
 import { movieAPI } from '../../apis/apiRequest.js';
 import { formatPrices } from '../../utils/commonUtility';
+import { storage } from '../../utils/storage.js';
 import { loadBookingState, patchBookingState, resetBookingState } from '../../state/movieState.js';
 import { renderHeader } from '../../common/header/header.js';
 
@@ -24,6 +9,7 @@ const state = loadBookingState();
 redirectPage(state);
 
 function redirectPage(state) {
+  console.log(state);
   const required = ['movieId', 'timetableId', 'seats', 'price'];
   if (state[required[0]] === null) {
     return (location.href = '/src/page/main/index.html');
@@ -70,6 +56,17 @@ function hideLoader(element) {
   element.style.display = 'none';
 }
 
+// 로더 넣어주는 함수
+function showLoder(elment) {
+  const fragment = document.createDocumentFragment();
+  const paymentLoading = document.createElement('span');
+  paymentLoading.classList.add('payment-loading', 'loader');
+
+  fragment.appendChild(paymentLoading);
+  elment.appendChild(fragment);
+  document.querySelector('main').classList.add('body-blur');
+  document.querySelector('header').classList.add('body-blur');
+}
 // 영화 예매 내역 정보
 // 예매 정보만 담은 함수
 function createMovieInfoUi(movieData) {
@@ -91,10 +88,10 @@ function renderMovieInfo(containerElement, state) {
   const container = document.querySelector(containerElement);
   if (!container) return;
 
-  container.className = 'info-text-content';
+  container.classList.add('info-text-content');
   container.innerHTML = createMovieInfoUi(state);
 }
-renderMovieInfo('.movie-info', state);
+renderMovieInfo('.movie-info-container', state);
 
 // 시용될 변수 이름 목록
 const POINT_TAB = document.querySelector('.point-tab');
@@ -103,8 +100,6 @@ const TAB_PANEL_CONTAINER = document.querySelector('.tabpanel-container');
 const POINT_TABPANEL_2 = document.getElementById('panel-2');
 const LION_POINT_PANEL_FORM = document.querySelector('.lion-point-panel');
 const CARD_NUMBER_POINT_PANEL_FORM = document.querySelector('.card-number-point-panel');
-const CARD_POINT_PASSWORD = document.getElementById('card-point-password');
-const CARD_NUMBER_PASSWORD = document.getElementById('card-number-password');
 const LION_POINT_BUTTON = document.querySelectorAll('.lion-point-button');
 const COUPON_LIST = document.querySelector('.coupon-list');
 const COUPON_LIST_BUTTON = document.querySelectorAll('.coupon-list button');
@@ -136,6 +131,18 @@ function setAllAttr(elements, attrName, attrValue) {
 function isActive(element) {
   if (!element) return;
   element.classList.add('active');
+}
+
+// 해당 요소 토글 형태로 활성화 함수
+function activeElAuth(elements, target) {
+  const isAlreadyActive = target.classList.contains('active');
+  setAllAttr(elements, 'aria-pressed', 'false');
+  removeAllActive(elements, 'active');
+
+  if (!isAlreadyActive) {
+    setAttr(target, 'aria-pressed', 'true');
+    isActive(target);
+  }
 }
 
 // 속성 유틸리티 함수
@@ -219,25 +226,18 @@ function handleTabClick(e) {
 function handleCouponList(e) {
   if (!e.target.closest('button')) return;
   const target = e.target.closest('button');
-  setAllAttr(COUPON_LIST_BUTTON, 'aria-pressed', 'false');
-  removeAllActive(COUPON_LIST_BUTTON, 'active');
-  setAttr(target, 'aria-pressed', 'true');
-  isActive(target);
+  activeElAuth(COUPON_LIST_BUTTON, target);
 }
 
 // 최종 결제 수단 클릭 시 버튼 속성 변환 및 결제 수단 상태 변경 함수
-// 결제 방법 변수 선언
-
 //paymentMethod 상태변경
 let paymentMethod = null;
 function handleFinalPaymentButton(e) {
   const target = e.target.closest('button');
   if (!target) return;
-  setAllAttr(FINAL_PAYMENT_METHODS_BUTTON, 'aria-pressed', 'false');
-  setAttr(target, 'aria-pressed', 'true');
-  removeAllActive(FINAL_PAYMENT_METHODS_BUTTON, 'active');
-  isActive(target);
-  paymentMethod = target.dataset.label;
+  activeElAuth(FINAL_PAYMENT_METHODS_BUTTON, target);
+
+  paymentMethod = target.classList.contains('active') ? target.dataset.label : null;
 }
 
 // 3. 폼 서식 제어 함수들
@@ -308,15 +308,14 @@ function cardAuth(e) {
 function validateAllPanel1(e) {
   e.preventDefault();
   const pointValue = document.querySelector('#point-input').value;
-  if (!pointInputAuth(e)) return
-  if (!cardPasswordAuth(e)) return
-  const isValidDiscount = renderDiscountPrice(discountPrice(pointValue))
-  if(!isValidDiscount) return
-   // 적용된 가격 표시
-    renderTotalPrice();
-    alert('포인트 할인이 적용되었습니다.');
-  }
-
+  if (!pointInputAuth(e)) return;
+  if (!cardPasswordAuth(e)) return;
+  const isValidDiscount = renderDiscountPrice(discountPrice(pointValue));
+  if (!isValidDiscount) return;
+  // 적용된 가격 표시
+  renderTotalPrice();
+  alert('포인트 할인이 적용되었습니다.');
+}
 
 //패널 2
 function validateAllPanel2(e) {
@@ -325,8 +324,8 @@ function validateAllPanel2(e) {
   if (!cardNumberAuth()) return;
   if (!cardPasswordAuth(e)) return;
   if (!pointInputAuth(e)) return;
- const isValidDiscount = renderDiscountPrice(discountPrice(currentPointValue))
-  if(!isValidDiscount) return
+  const isValidDiscount = renderDiscountPrice(discountPrice(currentPointValue));
+  if (!isValidDiscount) return;
   // 적용된 가격 표시
   renderTotalPrice();
   alert('포인트 할인이 적용되었습니다.');
@@ -335,22 +334,20 @@ function validateAllPanel2(e) {
 // 최대 적용 버튼 조건 충족 시 알림창 나오게 하기
 function maximumPoint(e) {
   const target = e.target.closest('[data-target]');
-
   if (!target) return;
-  const input = target.parentElement.querySelector('input');
-  const isValidDiscount = renderDiscountPrice(discountPrice(input.value))
   e.preventDefault();
-  if(!isValidDiscount) return
+  const input = target.parentElement.querySelector('input');
+
   if (input.value === '' || input.value % 100 !== 0 || input.value === '0') {
     return alert('포인트 최대 적용 실패 ❌');
   }
-  if (!discountPriceAuth(e)) return;
 
-  // 위의 할인 가격 검증까지 다 통과된 후에 포인트 최대 적용 완료
+  // 활성화된 패널의 비밀번호 인증 후에 할인 가격 적용
+  if (!discountPriceAuth(e)) return;
+  const isValidDiscount = renderDiscountPrice(discountPrice(input.value));
+  if (!isValidDiscount) return;
   alert('포인트 최대 적용 완료 ✅');
 
-  // 할인 가격 푸터에  즉시 표시
-  renderDiscountPrice(input.value);
   // 총 가격 푸터에 즉시 표시
   renderTotalPrice();
 }
@@ -375,29 +372,27 @@ function checkboxAuth() {
 // 5. 금액 계산/표기 로직 함수
 // 기본 상품 가격 표시
 const productPriceValue = (PRODUCT_PRICE.textContent = formatPrices(state.price)); // 브라우저에 보이는 가격 (문자열)
-const productPrice = Number(state.price) //데이터에 보낼 상품 가격
-
+const productPrice = Number(state.price); //데이터에 보낼 상품 가격
 
 // 할인 티켓 가격 관련 함수
 // 할인된 티켓 가격 반환
 function discountPrice(value) {
- const discount = Number(value);
+  const discount = Number(value);
   if (isNaN(discount)) return 0;
   return Math.max(0, discount);
 }
 
 // 할인된 티켓 가격 DOM 표시
-function renderDiscountPrice(value){
-  const discount = discountPrice(value)
-  if(discount > productPrice){
-     alert('할인 금액이 결제 금액을 초과하였습니다. 포인트를 다시 적용하세요')
-     DISCOUNT_PRICE.textContent = formatPrices(0)
-     resetForm()
-     return false
-
+function renderDiscountPrice(value) {
+  const discount = discountPrice(value);
+  if (discount > productPrice) {
+    alert('할인 금액이 결제 금액을 초과하였습니다. 포인트를 다시 적용하세요');
+    DISCOUNT_PRICE.textContent = formatPrices(0);
+    resetForm();
+    return false;
   }
-DISCOUNT_PRICE.textContent = formatPrices(discount)
-return true
+  DISCOUNT_PRICE.textContent = formatPrices(discount);
+  return true;
 }
 
 // 현재 어떤 패널이 활성화되어 있는지 확인한 후 검증
@@ -405,6 +400,7 @@ function discountPriceAuth(e) {
   const isPanel1Active = POINT_TABS[0].classList.contains('active');
   const isPanel2Active = POINT_TABS[1].classList.contains('active');
 
+  if (!isPanel1Active && !isPanel2Active) return;
   if (isPanel1Active) {
     if (!cardPasswordAuth(e)) return false;
     return true;
@@ -418,30 +414,24 @@ function discountPriceAuth(e) {
 }
 
 // 총 예매 티켓 가격
-// 총 가격 변수 선언
-let totalPriceValue = null;
+// 총 금액 계산용 함수
 function totalPriceCal() {
   const discountPriceValue = DISCOUNT_PRICE.textContent;
   if (discountPriceValue === '') {
-    return totalPriceValue = Number(productPriceValue.replace(/,/g, ''));
-    
+    return Number(productPriceValue.replace(/,/g, ''));
   } else {
-  return Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''));
+    return (
+      Number(productPriceValue.replace(/,/g, '')) - Number(discountPriceValue.replace(/,/g, ''))
+    );
   }
-
- 
 }
 
-function renderTotalPrice(){
-  const total = totalPriceCal()
-return TOTAL_PRICE.textContent = `${formatPrices(total)} `;
+// 총 금액 DOM에 표시
+function renderTotalPrice() {
+  const total = totalPriceCal();
+  return (TOTAL_PRICE.textContent = `${formatPrices(total)} `);
 }
-renderTotalPrice()
-
-// 테스트 코드
-// console.log('상품 가격(productPrice):', productPrice, typeof productPrice);
-// console.log('할인 가격(discountPrice(100)):', discountPrice(100), typeof discountPrice(100));
-// console.log('총 가격(totalPriceCal()):', totalPriceCal(), typeof totalPriceCal());
+renderTotalPrice();
 
 // 취소 버튼 클릭 시 적용된 할인 금액 초기화 함수
 function handlePointReset(e) {
@@ -462,39 +452,56 @@ const storageData = {
 
 async function loadReservation() {
   try {
-    // 결제 버튼 클릭 시 유효성 검사
-    // 비밀번호 입력해야 포인트 적용된 가격 결제 가능
-    // 최종 결제 수단 선택해야 결제 가능
-
-    if (paymentMethod === null) {
-      alert('최종 결제 수단을 선택하세요');
-      return;
-    }
-    storageData.paymentMethod = paymentMethod;
-    storageData.totalPrice = Number(totalPriceValue);
-  
-    //storageData.totalPrice = totalPriceValue 저장 시 타입 확인(숫자 유지) + format된 문자열 저장 금지
-    attr(PAY_BUTTON, 'aria-pressed', 'true');
-    // 상품 금액이 이전 페이지에서 저장되지 않았을 경우
-    storageData.price = Number(productPrice);
-    patchBookingState(storageData);
-    console.log(storageData);
-
-    alert(`결제 완료되었습니다.`);
-    resetBookingState(storageData);
-    //location.href = '/src/page/main/index.html';
+    if (!storageDataAuth(storageData)) return;
+    changeButtonState(PAY_BUTTON, 'true');
+    await paymentSucess();
   } catch (e) {
     console.error('에러내용:', e);
     const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');
     if (retryPayment) return;
+  } finally {
+    changeButtonState(PAY_BUTTON, 'false');
   }
 }
 
+// 데이터 검증
+function storageDataAuth(data) {
+  if (paymentMethod === null) {
+    alert('최종 결제 수단을 선택하세요');
+    return false;
+  }
+
+  data.paymentMethod = paymentMethod;
+  data.totalPrice = totalPriceCal();
+  storageData.price = Number(productPrice);
+  return true;
+}
+// 버튼 상태 변경
+function changeButtonState(element, state) {
+  attr(element, 'aria-pressed', state);
+}
+// 결제처리,상태 리셋,
+async function paymentSucess() {
+  await patchBookingState(storageData);
+
+  alert(`결제 완료되었습니다.`);
+  resetBookingState();
+  showLoder(document.body);
+  movePage('/src/page/main/index.html');
+}
+
+//  페이지 이동
+function movePage(page) {
+  setTimeout(() => {
+    location.href = page;
+  }, 500);
+}
+
 // 7. 폼 초기화 함수
-function resetForm(){
-const target = document.querySelector('.point-tabpanel.active form');
-if(!target) return
-target.reset()
+function resetForm() {
+  const target = document.querySelector('.point-tabpanel.active form');
+  if (!target) return;
+  target.reset();
 }
 
 // 🙆‍♀️ 예매 티켓 결제 페이지 내부에 연결된 이벤트 🙆‍♀️
@@ -531,5 +538,3 @@ EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
 
 // 결제하기 버튼 누르면 객체 형태로 결제 수단 방식과 총 예매 티켓 가격 데이터를 post 함수 body 부분에 넣어주기
 PAY_BUTTON.addEventListener('click', loadReservation);
-
-
