@@ -234,6 +234,7 @@ function renderSeat(seatArr) {
     for (let j = 0; j < cols; j++) {
       const seatElement = document.createElement('button');
       seatElement.type = 'button';
+      seatElement.setAttribute('aria-pressed', 'false');
       // 12 행 (A, B...J) 아스키 코드 A(65) 활용
       const rowLabel = String.fromCodePoint(65 + i);
       // 11 열 (1, 2...12)
@@ -281,9 +282,11 @@ function renderSeat(seatArr) {
 
         if (seatElement.classList.contains('selected')) {
           seatElement.classList.remove('selected');
+          seatElement.setAttribute('aria-pressed', 'false');
         } else {
           if (selectedSeats.length < count) {
             seatElement.classList.add('selected');
+            seatElement.setAttribute('aria-pressed', 'true');
           }
         }
         updateSelectedInfo();
@@ -325,7 +328,12 @@ plusButton.addEventListener('click', () => {
 // 인원수 카운트 업데이트
 function updateCount() {
   countValue.textContent = count;
-  container.querySelectorAll('.selected').forEach((s) => s.classList.remove('selected'));
+
+  container.querySelectorAll('.selected').forEach((s) => {
+    s.classList.remove('selected');
+    s.setAttribute('aria-pressed', 'false');
+  });
+
   updateSelectedInfo();
   updateTotalPrice();
   togglePaymentsection();
