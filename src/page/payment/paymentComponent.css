@@ -308,6 +308,10 @@ h2 {
     background-color: var(--color-primary-100);
     border-radius: 0;
   }
+  &:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-on-primary);
+  }
 }
 .point-tabpanel {
   font-size: var(--fs-14);
@@ -335,10 +339,22 @@ h2 {
 
 .coupon-list button {
   white-space: nowrap;
+  background-color: transparent;
+
+  &:hover:not(.active) {
+    background-color: var(--color-primary-hover);
+    color: var(--color-on-primary);
+  }
+
   &.active {
     background-color: var(--color-primary-200);
   }
+  &:focus:not(.active) {
+    background-color: transparent;
+    color: inherit;
+  }
 }
+
 .final-payment button {
   text-decoration: none;
   background: none;
@@ -348,12 +364,17 @@ h2 {
   font-size: var(--fs-14);
   white-space: nowrap;
 
-  &:hover {
+  &:hover:not(.active) {
     background-color: var(--color-primary-100);
   }
 
   &.active {
     background-color: var(--color-primary-200);
+  }
+
+  &:focus:not(.active) {
+    background-color: transparent;
+    color: inherit;
   }
 }
 
