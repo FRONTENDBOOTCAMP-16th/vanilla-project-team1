@@ -16,6 +16,7 @@
   <body class="app">
     <!-- 날짜 선택 -->
     <main class="container">
+      <h1 class="sr-only">영화 상영 시간 선택</h1>
       <section class="region-container" aria-label="영화관 선택">
         <button id="openRegion" type="button">영화관 선택</button>
       </section>
@@ -66,10 +67,11 @@
         <span class="loader"></span>
       </section>
     </main>
-    <section id="theaterSheet">
+    <!-- 영화관 선택 바텀 시트 -->
+    <section id="theaterSheet" aria-label="영화관 선택 시트">
       <header class="sheet-header">
         <span class="sheet-title">영화관 선택</span>
-        <button id="closeSheet" type="button">X</button>
+        <button id="closeSheet" type="button" aria-label="영화관 선택 닫기">X</button>
       </header>
       <div class="bottom-container">
         <div>
