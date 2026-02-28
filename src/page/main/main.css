@@ -1,0 +1,144 @@
+button {
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.movie-carousel {
+  position: relative;
+  width: 100%;
+  padding: 30px 0;
+  height: 600px;
+  background-image: linear-gradient(rgb(255, 255, 255) 24%, rgb(244, 244, 244) 45%);
+}
+
+.card-list {
+  box-sizing: content-box;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: scroll;
+
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 40px 12vw;
+  gap: 16px;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.card-item {
+  min-width: 0;
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0.6;
+  filter: blur(0.2px);
+  transition:
+    transform 220ms ease,
+    opacity 220ms ease,
+    filter 220ms ease;
+  scroll-snap-align: center;
+  will-change: transform;
+}
+
+.card-item.is-focus {
+  flex-basis: 300px;
+  transform: scale(1.1);
+  opacity: 1;
+
+  .card-button-wrapper {
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.card-item img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-button-wrapper {
+  align-self: center;
+  position: relative;
+  margin-bottom: 20px;
+  border-radius: var(--r-16);
+  overflow: hidden;
+}
+
+.ggim-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 50%;
+  background-color: var(--color-muted);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+
+  h2 {
+    font-size: var(--fs-20);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+}
+
+.card-movie-meta-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  margin-bottom: 10px;
+
+  & > span {
+    color: var(--color-muted);
+
+    &:not(:last-child) {
+      padding-right: 10px;
+      margin-right: 10px;
+      position: relative;
+      &::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 10px;
+        background-color: var(--color-muted);
+      }
+    }
+  }
+}
+
+.card-reservation-button-wrapper {
+  align-self: center;
+}
+
+.card-reservation-button {
+  align-self: center;
+  font-size: var(--fs-16);
+  padding: 4px 16px;
+  background-color: var(--color-on-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-16);
+}

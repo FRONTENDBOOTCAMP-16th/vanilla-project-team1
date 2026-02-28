@@ -1,0 +1,293 @@
+/* Mobile First */
+
+/* loading spinner  */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: rgb(204 77 0);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* 
+button {
+  border-radius: var(--r-8);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+} */
+
+img {
+  padding: 5px;
+}
+
+/* 날짜 선택 */
+.date-container {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 5px;
+
+  border-bottom: 1px solid rgb(190, 190, 190);
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  /* fire fox 스크롤바 숨김*/
+  scrollbar-width: none;
+}
+/* 스크롤바 숨김 */
+.date-container::-webkit-scrollbar {
+  display: none;
+}
+
+.date-container > button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 50px;
+  padding: 8px;
+
+  border-radius: var(--r-8);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.play-week {
+  font-size: 12px;
+}
+
+.saturday {
+  color: rgb(65, 65, 252);
+}
+
+.sunday {
+  color: red;
+}
+
+.date-container > button.selected {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-focus);
+}
+
+/* .selected {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-focus);
+} */
+
+/* 상영 시간 선택 */
+
+.movie-card {
+  display: flex;
+  gap: 5px;
+  /* align-items: flex-start; */
+
+  border-bottom: 1px solid rgb(190, 190, 190);
+}
+
+.showtime-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 5px;
+
+  background-color: rgb(250, 250, 250);
+}
+
+.show-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 8px;
+
+  height: fit-content;
+  width: 57px;
+  box-sizing: border-box;
+
+  border-radius: var(--r-8);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.show-time:hover {
+  border-color: var(--color-focus);
+  background-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.show-time.selected {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-focus);
+}
+
+.movie-list {
+  display: grid;
+}
+
+.movie-title {
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+
+  padding-bottom: 5px;
+}
+
+.movie-list > button {
+  display: flex;
+  align-items: center;
+}
+
+.hall {
+  font-size: 7px;
+
+  margin-right: auto;
+}
+
+.format {
+  border-radius: 4px;
+  padding: 1px;
+  border: 1px solid;
+
+  font-size: 6px;
+  font-weight: bold;
+  color: rgb(190, 190, 190);
+
+  margin-left: auto;
+}
+
+.movie-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  text-align: center;
+
+  width: 90px;
+}
+
+/* 영화관 선택 */
+#openRegion.selected {
+  background: var(--color-primary-hover);
+  color: var(--color-on-primary);
+  border-color: var(--color-focus);
+}
+
+#openRegion {
+  border-radius: var(--r-16);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+
+  font-size: 13px;
+
+  padding: var(--sp-8);
+  margin: var(--sp-8);
+}
+
+/* 바텀 시트 */
+
+.sheet-header {
+  position: relative;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgb(190, 190, 190);
+  text-align: center;
+}
+
+.sheet-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#closeSheet {
+  position: absolute;
+  right: 5px;
+
+  border: none;
+  background: none;
+
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#theaterSheet .bottom-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#theaterSheet {
+  position: fixed;
+  width: 100%;
+  max-width: var(--app-max-width);
+  bottom: 0;
+
+  background: #fff;
+
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  transform: translateY(100%);
+  transition: transform 0.7s ease;
+
+  border-radius: 20px 20px 0 0;
+  border: 1px solid black;
+}
+
+#theaterSheet.is-open {
+  transform: translateY(0);
+}
+
+#regionList button,
+#theaterList button {
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  border-radius: var(--r-8);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+/* 지역, 지역별 영화관 선택 활성화 */
+#regionList button.selected,
+#theaterList button.selected {
+  background: var(--color-primary-hover);
+  color: var(--color-on-primary);
+  border-color: var(--color-focus);
+}
+
+#regionList button:active,
+#theaterList button:active {
+  background: rgb(130, 50, 0);
+}
+/* Small phone */
+@media (min-width: 480px) {
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+}
+
+/* Large Desktop */
+@media (min-width: 1280px) {
+}
