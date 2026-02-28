@@ -2,8 +2,6 @@ import { showtimeAPI } from '../../apis/apiRequest.js';
 import { regionAPI } from '../../apis/apiRequest.js';
 import { loadBookingState, patchBookingState } from '../../state/movieState.js';
 
-console.log('regionList:', document.getElementById('regionList'));
-
 const state = loadBookingState();
 
 const storageData = {
@@ -22,7 +20,6 @@ function renderMovieList(movieList) {
   container.innerHTML = '';
 
   movieList.forEach((v) => {
-    console.log(v);
     const article = document.createElement('article');
     article.classList.add('movie-card');
 
@@ -32,7 +29,6 @@ function renderMovieList(movieList) {
     poster.src = v.postUrl;
     poster.alt = v.movieName;
     poster.width = 100;
-    // poster.height = 150;
 
     const title = document.createElement('p');
     title.classList.add('movie-title');
@@ -57,8 +53,6 @@ function renderMovieList(movieList) {
           timetableName: `${table.startTime}~${table.endTime}`,
         });
 
-        console.log('table.id:', table.id, table);
-
         location.href = '/src/page/seat/index.html';
       });
 
@@ -81,7 +75,6 @@ function renderMovieList(movieList) {
 async function loadShowTime() {
   try {
     const data = await showtimeAPI.list();
-    // console.log(data);
     renderMovieList(data);
   } catch (e) {
     console.error(e);
@@ -180,10 +173,6 @@ container.addEventListener('click', (e) => {
 //영화관 선택 활성화
 
 const regionButton = document.querySelector('#openRegion');
-
-// regionButton.addEventListener('click', () => {
-//   regionButton.classList.toggle('selected');
-// });
 
 //바텀 시트 열기 / 닫기
 const openRegionBtn = document.getElementById('openRegion');
