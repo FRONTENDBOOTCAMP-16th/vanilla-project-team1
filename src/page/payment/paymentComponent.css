@@ -1,7 +1,6 @@
 /*  레이아웃 */
 body {
   max-width: var(--app-max-width);
-  height: 100vh;
   margin: 0 auto;
   min-height: 100dvh;
   background-color: var(--color-border);
@@ -212,6 +211,7 @@ main {
 /* 최종 결제 수단 섹션 레이아웃 */
 .final-payment {
   padding-block: 15px;
+  position: sticky;
 
   .final-payment-methods {
     padding-block: 15px;
@@ -243,6 +243,8 @@ main {
 
 /* 푸터 섹션 레이아웃 */
 .final-payment-calculation {
+  position: sticky;
+  bottom: 0;
   display: grid;
   grid-template-columns: 2fr 1fr;
   padding-left: var(--sp-16);
@@ -306,6 +308,10 @@ h2 {
     background-color: var(--color-primary-100);
     border-radius: 0;
   }
+  &:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-on-primary);
+  }
 }
 .point-tabpanel {
   font-size: var(--fs-14);
@@ -333,10 +339,22 @@ h2 {
 
 .coupon-list button {
   white-space: nowrap;
+  background-color: transparent;
+
+  &:hover:not(.active) {
+    background-color: var(--color-primary-hover);
+    color: var(--color-on-primary);
+  }
+
   &.active {
     background-color: var(--color-primary-200);
   }
+  &:focus:not(.active) {
+    background-color: transparent;
+    color: inherit;
+  }
 }
+
 .final-payment button {
   text-decoration: none;
   background: none;
@@ -346,12 +364,17 @@ h2 {
   font-size: var(--fs-14);
   white-space: nowrap;
 
-  &:hover {
+  &:hover:not(.active) {
     background-color: var(--color-primary-100);
   }
 
   &.active {
     background-color: var(--color-primary-200);
+  }
+
+  &:focus:not(.active) {
+    background-color: transparent;
+    color: inherit;
   }
 }
 
@@ -434,7 +457,21 @@ input[type='checkbox'] {
     transform: rotate(360deg);
   }
 }
+.payment-loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 100px;
+  height: 100px;
+  border-width: 10px;
+}
 
+.body-blur {
+  filter: blur(4px);
+  pointer-events: none;
+}
 /* 반응형 레이아웃*/
 @media (min-width: 1024px) {
   body {
@@ -569,6 +606,7 @@ input[type='checkbox'] {
     padding-block: var(--sp-16);
     display: grid;
     grid-template-rows: 200px 1fr;
+    position: static;
 
     .tickect-price-cal-container {
       padding-right: var(--sp-8);
@@ -583,7 +621,6 @@ input[type='checkbox'] {
     button {
       font-size: 25px;
       &:hover {
-        background-color: var(--color-primary-200);
         font-size: 30px;
       }
     }
