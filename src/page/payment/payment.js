@@ -309,9 +309,9 @@ function validateAllPanel1(e) {
   e.preventDefault();
   const pointValue = document.querySelector('#point-input').value;
   if (!pointInputAuth(e)) return;
-  if (!cardPasswordAuth(e)) return;
   const isValidDiscount = renderDiscountPrice(discountPrice(pointValue));
   if (!isValidDiscount) return;
+  if (!cardPasswordAuth(e)) return;
   // 적용된 가격 표시
   renderTotalPrice();
   alert('포인트 할인이 적용되었습니다.');
@@ -341,11 +341,12 @@ function maximumPoint(e) {
   if (input.value === '' || input.value % 100 !== 0 || input.value === '0') {
     return alert('포인트 최대 적용 실패 ❌');
   }
+  // 포인트 초과 여부 검증
+  const isValidDiscount = renderDiscountPrice(discountPrice(input.value));
+  if (!isValidDiscount) return;
 
   // 활성화된 패널의 비밀번호 인증 후에 할인 가격 적용
   if (!discountPriceAuth(e)) return;
-  const isValidDiscount = renderDiscountPrice(discountPrice(input.value));
-  if (!isValidDiscount) return;
   alert('포인트 최대 적용 완료 ✅');
 
   // 총 가격 푸터에 즉시 표시
@@ -510,10 +511,6 @@ POINT_TAB.addEventListener('click', handleTabClick);
 
 // 할인/포인트 방법 버튼 속성 및 스타일링 변환 이벤트
 COUPON_LIST.addEventListener('click', handleCouponList);
-
-// 폼 서식 최대 적용 버튼 눌렀을 때 포인트 적용 인증 이벤트
-LION_POINT_PANEL_FORM.addEventListener('submit', pointInputAuth);
-CARD_NUMBER_POINT_PANEL_FORM.addEventListener('submit', pointInputAuth);
 
 // 패널 2 조회 버튼 클릭 시, 조건이 충족이면 적용되었다는 알림창이 나오는 이벤트
 POINT_TABPANEL_2.addEventListener('click', cardAuth);
