@@ -24,6 +24,9 @@ function redirectPage(state) {
   return;
 }
 
+// 결제 페이지 헤더 영역
+const mount = document.getElementById('app-header');
+
 // 영화 예매 정보 브라우저에 표시
 const movie = await movieAPI.get(state.movieId);
 const movieImg = movie.postUrl;
