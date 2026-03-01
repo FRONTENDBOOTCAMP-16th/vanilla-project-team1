@@ -130,6 +130,10 @@ button {
   }
 }
 
+.card-reservation-button-wrapper {
+  align-self: center;
+}
+
 .card-reservation-button {
   align-self: center;
   font-size: var(--fs-16);

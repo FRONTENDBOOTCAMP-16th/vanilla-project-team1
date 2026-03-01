@@ -1,7 +1,7 @@
 import { movieAPI } from '../../apis/apiRequest.js';
 import { renderHeader } from '../../common/header/header.js';
 import '../../common/header/header.css';
-import { loadBookingState, patchBookingState } from '../../state/movieState.js';
+import { loadBookingState, patchBookingState, resetBookingState } from '../../state/movieState.js';
 
 const state = loadBookingState();
 console.log(state);
@@ -9,20 +9,10 @@ console.log(state);
 const mount = document.getElementById('app-header');
 
 renderHeader(mount, {
-  showLoginButton: true,
-  showIcons: true,
-  onLoginClick: () => {
-    patchBookingState({
-      name: '예매의정석',
-      movieId: 1,
-    });
+  showIcons: false,
+  title: '예매의 정석',
+  onClickGoBackButton: () => {
     location.href = '/src/page/booking/index.html';
-  },
-  onCartClick: () => {
-    console.log('cart');
-  },
-  onTicketClick: () => {
-    console.log('ticket');
   },
 });
 
@@ -73,8 +63,8 @@ function renderMovieCard(movieList) {
     if (index === 0) {
       cardEl.classList.add('is-focus');
     }
-    const buttonWrapperEl = document.createElement('div');
-    buttonWrapperEl.className = 'card-button-wrapper';
+    const cardWrapperEl = document.createElement('div');
+    cardWrapperEl.className = 'card-button-wrapper';
 
     const ggimButtonEl = document.createElement('button');
     ggimButtonEl.className = 'ggim-button';
@@ -110,16 +100,33 @@ function renderMovieCard(movieList) {
 
     const metaWrapperEl = document.createElement('div');
     metaWrapperEl.className = 'card-movie-meta-wrapper';
-    metaWrapperEl.innerHTML = `<span>97%</span>
-                <span>예매율 27.1%</span>
-                <span>누적 100.1만</span>`;
+    metaWrapperEl.innerHTML = `<span>${v.ratingAge}세</span>
+                <span>상영시간 ${v.runtime}분</span>
+                <span>좋아요 ${v.likeCount}개</span>`;
 
-    buttonWrapperEl.appendChild(ggimButtonEl);
-    buttonWrapperEl.appendChild(posterEl);
+    const reservationButtonWrapper = document.createElement('div');
+    reservationButtonWrapper.className = 'card-reservation-button-wrapper';
+    const reservationButton = document.createElement('button');
+    reservationButton.type = 'button';
+    reservationButton.className = 'card-reservation-button';
+    reservationButton.textContent = '예매하기';
+    reservationButton.addEventListener('click', () => {
+      resetBookingState();
+      patchBookingState({
+        userName: '바보',
+        movieId: v.id,
+      });
+      location.href = '/src/page/booking/index.html';
+    });
+    reservationButtonWrapper.appendChild(reservationButton);
 
-    cardEl.appendChild(buttonWrapperEl);
+    cardWrapperEl.appendChild(ggimButtonEl);
+    cardWrapperEl.appendChild(posterEl);
+
+    cardEl.appendChild(cardWrapperEl);
     cardEl.appendChild(titleWrapperEl);
     cardEl.appendChild(metaWrapperEl);
+    cardEl.appendChild(reservationButtonWrapper);
     cardList.appendChild(cardEl);
   });
 

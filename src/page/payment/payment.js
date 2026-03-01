@@ -12,7 +12,7 @@ function redirectPage(state) {
   console.log(state);
   const required = ['movieId', 'timetableId', 'seats', 'price'];
   if (state[required[0]] === null) {
-    return (location.href = '/src/page/main/index.html');
+    return (location.href = '/index.html');
   }
 
   if (state[required[1]] === null) {
@@ -491,7 +491,7 @@ async function paymentSucess() {
   alert(`결제 완료되었습니다.`);
   resetBookingState();
   showLoder(document.body);
-  movePage('/src/page/main/index.html');
+  movePage('/index.html');
 }
 
 //  페이지 이동

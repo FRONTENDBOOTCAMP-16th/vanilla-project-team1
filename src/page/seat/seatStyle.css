@@ -30,27 +30,30 @@ main.container {
 /* 상단 seat select*/
 /* --------------------------------- */
 .seat-component {
+  height: calc(100vh - 50px);
   position: sticky;
   background-color: var(--color-text);
-  padding-bottom: var(--sp-24);
   font-family: var(--font-sans);
   width: 100%;
-  /* [수정] 스크롤 설정 */
+  /* 스크롤 설정 */
   overflow-x: scroll;
-  /* overflow-y: hidden; */
+  overflow-y: auto;
   scrollbar-width: none;
+  padding: 45px 45px 260px 45px;
 }
-
+.seat-component::-webkit-scrollbar {
+  display: none;
+}
 /* title-screen 스크린 위치*/
 .title-screen {
   background-color: var(--gradient-primary);
   color: var(--color-on-primary);
   display: block;
-  width: 0%;
+  width: 100%;
   max-width: 400px;
-  margin: 0 auto 27px;
-  padding: 10px 0;
-  padding-top: 30%;
+  margin: var(--sp-16) 0 var(--sp-16) 100px;
+  padding: var(--sp-16) 0;
+  padding-top: var(--sp-16);
   text-align: center;
   font-size: var(--fs-20);
   letter-spacing: 15px;
@@ -59,7 +62,7 @@ main.container {
 /* seat-area 좌석 배열(grid, 복도 공백) */
 .seat-area {
   display: grid;
-  grid-template-columns: repeat(2, 30px) 37px repeat(8, 30px) 37px repeat(2, 30px);
+  grid-template-columns: repeat(2, 1fr) 1.2fr repeat(8, 1fr) 1.2fr repeat(2, 1fr);
   gap: 8px;
   width: max-content;
   padding: 0 40px; /* 왼-40px, 오-40px 여백*/
@@ -155,29 +158,31 @@ main.container {
 /* --------------------------------- */
 /* 하단 - selected info */
 /* --------------------------------- */
-/* 상단부분 반 호 들어가야함 ✅*/
 .selected-component {
   background-color: var(--color-bg);
   border-radius: var(--r-16) var(--r-16) 0 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 .selected-info-section {
-  border-radius: var(--r-8) var(--r-8) 20 20;
+  border-radius: var(--r-8) var(--r-8) 20px 20px;
   background-color: var(--color-bg);
 }
 
 /* movie- title h3 */
-/* h3 자간 좁게해야 됨 ✅ */
 .selected-details-wrapper {
   font-size: var(--fs-16);
   color: var(--color-text);
-  /* margin-bottom: var(--sp-24); */
-  padding-bottom: var(--sp-16);
   border-bottom: 1px solid var(--color-border);
   letter-spacing: -1px;
-  padding: 15px 20px;
+  padding: var(--sp-12) var(--sp-20);
   background-color: var(--color-bg);
   /* 상단부분 반 호 들어가야함 */
-  border-radius: var(--r-16) var(--r-16) 0 0;
+  /* border-radius: var(--r-16) var(--r-16) 0 0; */
 }
 
 /* selected info */
@@ -185,8 +190,8 @@ main.container {
   display: flex;
   flex-direction: column;
   gap: var(--sp-12);
-  margin-top: 10px;
-  margin-bottom: var(--sp-16);
+  margin-top: var(--sp-20);
+  margin-bottom: var(--sp-12);
   padding: 0 20px;
   /* border: 2px solid rgb(255, 135, 49); */
   background-color: var(--color-bg);
@@ -253,17 +258,20 @@ main.container {
 
 /* --------------------------------- */
 /* 결제 섹션 - payment section
+/* 숨겨두기 기능 추가 - 활성화 될때 보여주기
 /* --------------------------------- */
 
 .payment-section {
+  display: none;
   padding: 0 20px;
-  /* border: 2px solid rgb(255, 79, 135); */
-  background-color: var(--color-bg);
+}
+.payment-section.active {
+  display: block;
+  padding: 8px 20px 20px 20px;
+  background-color: rgb(245, 245, 245);
 }
 
 .price-info {
-  /* border: 2px solid rgb(214, 34, 255); */
-  background-color: var(--color-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -272,29 +280,40 @@ main.container {
 .price-info .label {
   white-space: nowrap;
   width: auto;
+  background-color: rgb(245, 245, 245);
 }
 .total-price {
-  display: flex;
+  display: inline-flex;
+  align-items: baseline;
   justify-content: flex-end;
-  align-items: center;
   width: 100%;
   margin: 0;
   white-space: nowrap;
+  font-size: var(--fs-14);
+  font-weight: 400;
+  background-color: rgb(245, 245, 245);
+}
+.total-price strong {
+  font-size: var(--fs-20);
+  font-weight: 800;
+  margin: 0 3px;
+  color: var(--color-text);
 }
 .go-payment {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
-  width: 327px;
-  padding: 8px 20px;
-  border: 0px solid;
+  width: 100%;
+  border: none;
   border-radius: var(--r-8);
   cursor: pointer;
-  margin-top: var(--sp-16);
+  margin-top: var(--sp-12);
+  padding: 10px 0;
+  font-size: var(--fs-16);
 }
 
 /* --------------------- */
 /* 초기 상태 */
-
+/* --------------------- */
 /* 예약불가능  */
 .seat-area button.reserved {
   background-color: var(--color-muted);
@@ -323,4 +342,21 @@ main.container {
 .seat-area button.selected {
   background-color: var(--color-primary-active);
   color: var(--color-on-primary);
+}
+
+/* 인원수 대로 좌석 선택완료시 opacity,cursor 주기 */
+.seat-area.full button:not(.selected) {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.seat-area.full button.selected {
+  opacity: 1;
+  pointer-events: auto;
+}
+.seat-area button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  z-index: 10;
+  border-radius: var(--r-8);
 }

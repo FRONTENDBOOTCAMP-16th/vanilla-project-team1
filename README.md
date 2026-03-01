@@ -2,7 +2,7 @@
 
 > HTML, CSS, JavaScript로 구현한 영화 예매 웹 프로젝트
 
-🔗 **배포 링크:** [첨부예정]
+🔗 **배포 링크:** [https://lousebooktton.netlify.app/]
 
 ---
 
@@ -75,11 +75,20 @@ likelion-16th-movie-reservation-site/
 ├── public/              # 정적 파일 (빌드 시 루트로 복사됨, favicon 등)
 │   └── favicon.svg
 ├── src/                 # 소스 코드 (실제 개발 작업 공간)
+│   ├── apis/            # api관련 함수
 │   ├── assets/          # JS/CSS에서 import해서 쓰는 이미지, 폰트
 │   │   ├── images/
 │   │   └── icons/
-│   ├── components/      # (선택) 재사용 가능한 UI 조각 (헤더, 카드 등)
-│   ├── styles/          # 스타일 시트
+│   ├── common/          # (선택) 재사용 가능한 UI 조각 (헤더, 카드 등)
+│   └── page
+│   │   ├──main/         # 메인 페이지
+│   │   │   ├──main.css
+│   │   │   ├──main.js
+│   │   ├──booking/      # 극장/시간 선택 페이지
+│   │   ├──seat/         # 좌석 선택 페이지
+│   │   ├──payment/      # 결제 페이지
+│   ├── state/           # 로컬스토리지 사용 함수
+│   ├── styles/          # 공통 스타일 시트
 │   │   └── a11y.css
 │   │   ├── base.css
 │   │   └── index.css
@@ -88,14 +97,7 @@ likelion-16th-movie-reservation-site/
 │   ├── utils/           # 공통 함수 (날짜 포맷팅, 유효성 검사 등)
 │   ├── api/             # API 호출 관련 로직 분리 (API 연동 fetch 함수 모음)
 │   └── main.js          # JavaScript 진입점 (Entry Point)
-│   └── page
-│   │   ├──main/         # 메인 페이지
-│   │   │   ├──index.html
-│   │   │   ├──main.css
-│   │   │   ├──main.js
-│   │   ├──booking/      # 극장/시간 선택 페이지
-│   │   ├──seat/         # 좌석 선택 페이지
-│   │   ├──payment/      # 결제 페이지
+
 ├── index.html           # 메인 HTML
 ├── package.json         # 의존성 관리
 ├── .gitignore           # Git 제외 파일 목록
