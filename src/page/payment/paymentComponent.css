@@ -8,12 +8,9 @@ body {
   flex-direction: column;
 }
 
-header {
-  font-size: var(--fs-14);
-  padding: var(--sp-8);
-  text-align: center;
+.header-icon {
+  border: none;
 }
-
 main {
   padding-left: var(--sp-16);
   padding-right: var(--sp-16);

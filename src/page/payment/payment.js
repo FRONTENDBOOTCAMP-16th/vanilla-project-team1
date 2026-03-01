@@ -27,6 +27,14 @@ function redirectPage(state) {
 // 결제 페이지 헤더 영역
 const mount = document.getElementById('app-header');
 
+renderHeader(mount, {
+  showIcons: true,
+  title: '주문/결제',
+  onClickGoBackButton: () => {
+    location.href = '/src/page/seat/index.html';
+  },
+});
+
 // 영화 예매 정보 브라우저에 표시
 const movie = await movieAPI.get(state.movieId);
 const movieImg = movie.postUrl;
