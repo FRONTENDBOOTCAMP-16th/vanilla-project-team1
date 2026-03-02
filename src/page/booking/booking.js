@@ -43,6 +43,27 @@ function renderMovieList(movieList) {
       const button = document.createElement('button');
       button.classList.add('show-time');
       button.addEventListener('click', () => {
+        const latestState = loadBookingState();
+
+        //영화관 우선 선택
+          if (!isTheaterSelected) {
+            alert('영화관을 선택해주세요.');
+            return;
+          }
+
+        //날짜 우선 선택
+        const hasSelectedDate = document.querySelector('.date-container button.selected');
+
+        if (!hasSelectedDate) {
+          alert('날짜를 선택해주세요.');
+          return;
+        }
+
+        //상영 시간 선택 활성화
+        container.querySelectorAll('.show-time.selected').forEach((b) => b.classList.remove('selected'));
+        button.classList.add('selected');
+        button.classList.remove('selected');
+
         patchBookingState({
           movieId: v.id,
           movieName: v.movieName,
@@ -88,8 +109,10 @@ loadShowTime();
 const regionList = document.getElementById('regionList');
 const theaterList = document.getElementById('theaterList');
 let regionsCache = [];
+let isTheaterSelected = false;
 
 function renderTheaterList(theaters) {
+  isTheaterSelected = false;   
   theaterList.innerHTML = '';
 
   theaters.forEach((t) => {
@@ -102,8 +125,17 @@ function renderTheaterList(theaters) {
 
     btn.dataset.theaterName = t.name;
     btn.dataset.theaterId = t.id;
-    storageData.theaterId = t.id;
-    storageData.theaterName = t.name;
+    // storageData.theaterId = t.id;
+    // storageData.theaterName = t.name;
+
+    btn.addEventListener('click', () => {
+      isTheaterSelected = true;
+
+      patchBookingState({
+        theaterId: t.id,
+        theaterName: t.name,
+      });
+    });
 
     li.appendChild(btn);
     theaterList.appendChild(li);
@@ -122,6 +154,8 @@ function renderRegionList(regions) {
     btn.dataset.regionId = r.id;
 
     btn.addEventListener('click', (e) => {
+      isTheaterSelected = false;   
+
       const currentRegion = regions.find((v) => String(v.id) === String(e.target.dataset.regionId));
       if (!currentRegion) {
         return;
@@ -159,20 +193,14 @@ dateButtons.forEach((button) => {
   });
 });
 
-//상영시간 선택 활성화
-
-container.addEventListener('click', (e) => {
-  const btn = e.target.closest('.show-time');
-  if (!btn) return;
-
-  container.querySelectorAll('.show-time.selected').forEach((b) => b.classList.remove('selected'));
-
-  btn.classList.add('selected');
-});
-
 //영화관 선택 활성화
 
 const regionButton = document.querySelector('#openRegion');
+
+//페이지 진입 시 바텀 시트 오픈
+document.addEventListener('DOMContentLoaded', () => {
+  theaterSheet.classList.add('is-open');
+});
 
 //바텀 시트 열기 / 닫기
 const openRegionBtn = document.getElementById('openRegion');
@@ -207,6 +235,7 @@ theaterList.addEventListener('click', (e) => {
     theaterId,
   });
 });
+
 
 //지역, 지역 내 영화관 선택 활성화
 
