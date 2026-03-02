@@ -26,12 +26,13 @@ main {
 .movie-ticket-payment-info {
   display: flex;
   flex-flow: nowrap row;
-  gap: 20px;
-  padding: 15px;
+  gap: 15px;
+  padding: 10px;
 
   .img-container {
     display: inline-block;
     position: relative;
+    flex-shrink: 0;
 
     .movie-img {
       width: 130px;

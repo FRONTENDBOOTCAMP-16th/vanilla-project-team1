@@ -85,8 +85,8 @@ function createMovieInfoUi(movieData) {
   return `
   <h2 class="movie-title">${movieName}</h2>
   <ul class="js-component movie-info">
-            <li><time datetime="2026-02-10T21:15">${timetableName}</time></li>
-            <li>${theaterName} 7관, 수퍼LED(일반) - ${movieType}</li>
+            <li><time datetime="${timetableName}"> 상영 시간 ${timetableName}</time></li>
+            <li class ="theater-info">${theaterName} 7관, 수퍼LED(일반) - ${movieType}</li>
             <li><strong>인원 ${seats.length}명</strong></li>
             <li><strong>예매 좌석 ${seats} </strong></li>
           </ul>
