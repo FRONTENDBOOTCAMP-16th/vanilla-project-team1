@@ -221,10 +221,10 @@
   width: 100%;
   max-width: var(--app-max-width);
   bottom: 0;
+  height: 95vh;
 
   background: #fff;
 
-  max-height: 100%;
   display: flex;
   flex-direction: column;
 
@@ -242,15 +242,17 @@
 #regionList button,
 #theaterList button {
   width: 100%;
-  padding: 10px;
+  padding: 14px;
   text-align: left;
 
   font-size: 15px;
   font-weight: bold;
 
-  border-radius: var(--r-8);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+
+  border-radius: 0;
 }
 
 /* 지역, 지역별 영화관 선택 활성화 */
