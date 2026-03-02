@@ -468,6 +468,7 @@ input[type='checkbox'] {
   filter: blur(4px);
   pointer-events: none;
 }
+
 /* 반응형 레이아웃*/
 @media (min-width: 1024px) {
   body {
@@ -477,17 +478,18 @@ input[type='checkbox'] {
     background-color: var(--color-border);
     display: grid;
     grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
   }
 
   .focusable-main {
     width: 150px;
     height: 50px;
     grid-column: span 2;
-
     text-align: center;
+    font-size: 30px;
   }
 
-  header {
+  #app-header {
     grid-column: span 2;
     text-align: center;
     font-size: 25px;
@@ -495,6 +497,10 @@ input[type='checkbox'] {
     padding: var(--sp-12);
     border-radius: var(--r-8);
     border: none;
+
+    .header-title {
+      font-size: 30px;
+    }
   }
   main {
     height: 100%;
@@ -510,7 +516,9 @@ input[type='checkbox'] {
       font-size: 25px;
       font-weight: 700;
     }
-
+    .movie-ticket-payment-info {
+      gap: 30px;
+    }
     .movie-ticket-payment-info > .img-container {
       flex-grow: 0;
       width: 250px;
