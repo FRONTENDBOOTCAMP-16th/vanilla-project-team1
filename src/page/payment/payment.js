@@ -9,7 +9,6 @@ const state = loadBookingState();
 redirectPage(state);
 
 function redirectPage(state) {
-  console.log(state);
   const required = ['movieId', 'timetableId', 'seats', 'price'];
   if (state[required[0]] === null) {
     return (location.href = '/index.html');
@@ -23,6 +22,17 @@ function redirectPage(state) {
   }
   return;
 }
+
+// 결제 페이지 헤더 영역
+const mount = document.getElementById('app-header');
+
+renderHeader(mount, {
+  showIcons: true,
+  title: '주문/결제',
+  onClickGoBackButton: () => {
+    location.href = '/src/page/seat/index.html';
+  },
+});
 
 // 영화 예매 정보 브라우저에 표시
 const movie = await movieAPI.get(state.movieId);
@@ -56,16 +66,27 @@ function hideLoader(element) {
   element.style.display = 'none';
 }
 
-// 로더 넣어주는 함수
+// 결제 완료 후 전체 영역에 로더 넣어주는 함수
 function showLoder(elment) {
   const fragment = document.createDocumentFragment();
+  const paymentLoadingWrapper = document.createElement('div');
   const paymentLoading = document.createElement('span');
+  paymentLoadingWrapper.classList.add('payment-wrapper');
   paymentLoading.classList.add('payment-loading', 'loader');
+  attr(paymentLoading, 'role', 'status');
+  attr(paymentLoading, 'aria-label', '로딩중');
 
-  fragment.appendChild(paymentLoading);
+  fragment.appendChild(paymentLoadingWrapper);
+  paymentLoadingWrapper.appendChild(paymentLoading);
   elment.appendChild(fragment);
-  document.querySelector('main').classList.add('body-blur');
-  document.querySelector('header').classList.add('body-blur');
+
+  addElClassName('main', 'body-blur');
+  addElClassName('header', 'body-blur');
+  addElClassName('footer', 'body-blur');
+}
+
+function addElClassName(element, className) {
+  document.querySelector(element).classList.add(className);
 }
 // 영화 예매 내역 정보
 // 예매 정보만 담은 함수
@@ -74,8 +95,8 @@ function createMovieInfoUi(movieData) {
   return `
   <h2 class="movie-title">${movieName}</h2>
   <ul class="js-component movie-info">
-            <li><time datetime="2026-02-10T21:15">${timetableName}</time></li>
-            <li>${theaterName} 7관, 수퍼LED(일반) - ${movieType}</li>
+            <li><time datetime="${timetableName}"> 상영 시간 ${timetableName}</time></li>
+            <li class ="theater-info">${theaterName} 7관, 수퍼LED(일반) - ${movieType}</li>
             <li><strong>인원 ${seats.length}명</strong></li>
             <li><strong>예매 좌석 ${seats} </strong></li>
           </ul>
@@ -98,8 +119,6 @@ const POINT_TAB = document.querySelector('.point-tab');
 const POINT_TABS = document.querySelectorAll('.point-tabpanel');
 const TAB_PANEL_CONTAINER = document.querySelector('.tabpanel-container');
 const POINT_TABPANEL_2 = document.getElementById('panel-2');
-const LION_POINT_PANEL_FORM = document.querySelector('.lion-point-panel');
-const CARD_NUMBER_POINT_PANEL_FORM = document.querySelector('.card-number-point-panel');
 const LION_POINT_BUTTON = document.querySelectorAll('.lion-point-button');
 const COUPON_LIST = document.querySelector('.coupon-list');
 const COUPON_LIST_BUTTON = document.querySelectorAll('.coupon-list button');

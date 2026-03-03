@@ -1,41 +1,38 @@
 <!doctype html>
 <html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="123" />
+    <title>seatPage</title>
+    <link rel="stylesheet" href="/src/style/index.css" />
+    <link rel="stylesheet" href="/src/page/seat/seatStyle.css" />
+    <script src="/src/page/seat/seatJs.js" type="module" defer></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="123" />
-  <title>seatPage</title>
-  <link rel="stylesheet" href="/src/page/seat/seatStyle.css" />
-  <link rel="stylesheet" href="/src/style/index.css" />
-  <script src="/src/page/seat/seatJs.js" type="module" defer></script>
-</head>
+  <body class="app">
+    <h1 id="seat-select-page" class="sr-only">좌석 선택 페이지</h1>
 
-<body class="app">
-  <h1 id="seat-select-page" class="sr-only">좌석 선택 페이지</h1>
-
-  <main class="container">
-
-    <!-- 좌석 영역 -->
-    <!-- seat-component -->
-    <section class="seat-component" role="region" aria-labelledby="seat-section">
-      <h2 id="seat-section" class="sr-only">좌석 선택</h2>
-      <!-- title screen -->
-      <h3 class="title-screen"> SCREEN </h3>
-      <!-- seat area (A~J 124석 배열) -->
-      <div class="seat-area">
-        <div class="icon-door-wrapper">
-          <span class="icon-door"></span>
-          <span class="sr-only">출입문</span>
+    <main class="container">
+      <!-- 좌석 영역 -->
+      <!-- seat-component -->
+      <section class="seat-component" role="region" aria-labelledby="seat-section">
+        <h2 id="seat-section" class="sr-only">좌석 선택</h2>
+        <!-- title screen -->
+        <h3 class="title-screen">SCREEN</h3>
+        <!-- seat area (A~J 124석 배열) -->
+        <div class="seat-area">
+          <div class="icon-door-wrapper">
+            <span class="icon-door"></span>
+            <span class="sr-only">출입문</span>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <div class="selected-component">
       <!-- 범례 -->
       <!-- legend-component -->
-      <section class="legend-component" role="region" aria-labelledby="legend-section">
-        <h2 id="legend-section" class="sr-only">좌석 범례</h2>
+      <section class="legend-component" aria-labelledby="legend-section">
+        <h2 id="legend-section" class="sr-only">좌석 범례 및 안내</h2>
 
         <ul class="icon-list">
           <li class="list-item">
@@ -51,7 +48,7 @@
 
       <!-- 선택정보 및 결제-->
       <!-- selected-info-section -->
-      <section class="selected-info-component-" role="region" aria-labelledby="selected-info-section">
+      <section class="selected-component" role="region" aria-labelledby="selected-info-section">
         <h2 id="selected-info-section" class="sr-only">선택된 예매 정보</h2>
 
         <!-- 영화제목,날짜,장소,관(2D) -->
@@ -71,12 +68,11 @@
           <li class="info-item">
             <span class="label">인원</span>
             <div class="content-group">
-
               <!-- 인원 변경 카운터 - 숫자 + -->
               <div class="person-count-wrapper">
-                <button type="button" class="minus-btn" aria-label="인원감소">-</button>
+                <button type="button" class="minus-btn" aria-label="인원 감소">-</button>
                 <span id="person-count" class="count-value">1</span>
-                <button type="button" class="plus-btn" aria-label="인원증가">+</button>
+                <button type="button" class="plus-btn" aria-label="인원 증가">+</button>
               </div>
             </div>
           </li>
@@ -91,8 +87,6 @@
           <button type="button" class="go-payment">결제</button>
         </div>
       </section>
-    </div>
-  </main>
-</body>
-
+    </main>
+  </body>
 </html>

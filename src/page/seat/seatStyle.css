@@ -8,10 +8,6 @@
 @media (min-width: 768px) {
 }
 
-/* Desktop */
-@media (min-width: 1024px) {
-}
-
 /* Large Desktop */
 @media (min-width: 1280px) {
 }
@@ -358,4 +354,32 @@ main.container {
   outline-offset: 2px;
   z-index: 10;
   border-radius: var(--r-8);
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  :root {
+    --app-max-width: 1500px;
+  }
+  .app {
+    background-color: var(--color-border);
+  }
+  .container {
+    width: 100%;
+    padding-block: 20px;
+  }
+
+  .seat-area button {
+    width: 40px;
+    height: 30px;
+  }
+
+  .selected-details-wrapper span {
+    font-size: var(--fs-20);
+  }
+
+  .info-item > .label,
+  .value.placeholder-text {
+    font-size: var(--fs-18);
+  }
 }
