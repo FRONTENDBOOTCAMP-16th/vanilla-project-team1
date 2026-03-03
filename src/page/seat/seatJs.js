@@ -47,8 +47,6 @@ async function loadSeats() {
   }
 }
 loadSeats();
-// import { searchForWorkspaceRoot } from 'vite';
-
 // 좌석 렌더링 주석 처리
 // const seatArr = [
 //   // A
