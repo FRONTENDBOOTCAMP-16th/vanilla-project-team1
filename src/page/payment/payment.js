@@ -196,7 +196,6 @@ function resetTabsState(tabs, buttons) {
   removeAllActive(tabs, 'active'); // 모든 버튼 활성화 초기화
   removeAllActive(buttons, 'active');
   setAllAttr(buttons, 'aria-selected', 'false'); // 모든 버튼 접근성 속성 초기화
-  setAllAttr(buttons, 'tabindex', '-1'); // 모든 탭 -1로 초기화
   setAllAttr(tabs, 'hidden', '');
 }
 
