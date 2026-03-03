@@ -67,16 +67,27 @@ function hideLoader(element) {
   element.style.display = 'none';
 }
 
-// 로더 넣어주는 함수
+// 결제 완료 후 전체 영역에 로더 넣어주는 함수
 function showLoder(elment) {
   const fragment = document.createDocumentFragment();
+  const paymentLoadingWrapper = document.createElement('div');
   const paymentLoading = document.createElement('span');
+  paymentLoadingWrapper.classList.add('payment-wrapper');
   paymentLoading.classList.add('payment-loading', 'loader');
+  attr(paymentLoading, 'role', 'status');
+  attr(paymentLoading, 'aria-label', '로딩중');
 
-  fragment.appendChild(paymentLoading);
+  fragment.appendChild(paymentLoadingWrapper);
+  paymentLoadingWrapper.appendChild(paymentLoading);
   elment.appendChild(fragment);
-  document.querySelector('main').classList.add('body-blur');
-  document.querySelector('header').classList.add('body-blur');
+
+  addElClassName('main', 'body-blur');
+  addElClassName('header', 'body-blur');
+  addElClassName('footer', 'body-blur');
+}
+
+function addElClassName(element, className) {
+  document.querySelector(element).classList.add(className);
 }
 // 영화 예매 내역 정보
 // 예매 정보만 담은 함수
