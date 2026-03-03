@@ -87,7 +87,7 @@ function setSeatTypeUI(seatElement, type, seatName) {
   } else {
     seatElement.setAttribute('aria-label', `일반석 ${seatName} 좌석 선택 가능`);
   }
-  seatElement.seatAttribute('aria-label', `${seatName} ${typeText} ${statusText}`);
+  seatElement.setAttribute('aria-label', `${seatName} ${typeText} ${statusText}`);
 }
 
 // 그리드(복도)위치 계산
