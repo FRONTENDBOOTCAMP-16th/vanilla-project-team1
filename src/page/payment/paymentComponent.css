@@ -480,9 +480,6 @@ input[type='checkbox'] {
     margin: auto;
     padding-block: 20px;
     background-color: var(--color-border);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    row-gap: 10px;
   }
 
   .focusable-main {
@@ -506,12 +503,13 @@ input[type='checkbox'] {
       font-size: 30px;
     }
   }
+
   main {
     height: 100%;
     background-color: var(--color-on-primary);
     border-radius: var(--r-12);
+    margin-top: var(--sp-12);
     padding-bottom: var(--sp-16);
-    margin-right: var(--sp-16);
     display: grid;
     grid-template-rows: repeat(4, auto);
     overflow: visible;
@@ -609,12 +607,14 @@ input[type='checkbox'] {
   }
 
   .final-payment-calculation {
+    position: sticky;
+    bottom: 0;
     background-color: var(--color-on-primary);
     border-radius: var(--r-12);
     padding-block: var(--sp-16);
+    margin-top: var(--sp-16);
     display: grid;
     grid-template-rows: 200px 1fr;
-    position: static;
 
     .tickect-price-cal-container {
       padding-right: var(--sp-8);
