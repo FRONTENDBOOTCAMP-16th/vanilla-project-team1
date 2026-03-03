@@ -172,7 +172,6 @@ function renderRegionList(regions) {
 async function loadRegions() {
   try {
     regionsCache = await regionAPI.list();
-    console.log('regionsCache:', regionsCache);
 
     renderRegionList(regionsCache);
   } catch (e) {
