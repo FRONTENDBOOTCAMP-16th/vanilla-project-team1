@@ -8,34 +8,28 @@
   <title>seatPage</title>
   <link rel="stylesheet" href="/src/page/seat/seatStyle.css" />
   <link rel="stylesheet" href="/src/style/index.css" />
+  <link rel="stylesheet" href="/src/style/a11y.css" />
   <script src="/src/page/seat/seatJs.js" type="module" defer></script>
 </head>
 
 <body class="app">
   <h1 id="seat-select-page" class="sr-only">좌석 선택 페이지</h1>
-
+  <!-- 메인 컨테이너 - 상단-->
   <main class="container">
-
-    <!-- 좌석 영역 -->
-    <!-- seat-component -->
-    <section class="seat-component" role="region" aria-labelledby="seat-section">
+    <div class="seat-component" role="region" aria-labelledby="seat-section">
       <h2 id="seat-section" class="sr-only">좌석 선택</h2>
-      <!-- title screen -->
-      <h3 class="title-screen"> SCREEN </h3>
-      <!-- seat area (A~J 124석 배열) -->
+      <span class="title-screen" role="heading"> SCREEN </span>
       <div class="seat-area">
         <div class="icon-door-wrapper">
           <span class="icon-door"></span>
           <span class="sr-only">출입문</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- 범례 -->
-    <!-- legend-component -->
-    <section class="legend-component" aria-labelledby="legend-section">
-      <h2 id="legend-section" class="sr-only">좌석 범례 및 안내</h2>
-
+    <!-- 예매 정보 및 결제 - 하단  -->
+    <!-- selected-component -->
+    <div class="selected-component" role="region" aria-labelledby="selected-info-section">
       <ul class="icon-list">
         <li class="list-item">
           <span class="icon-special"></span>
@@ -46,22 +40,16 @@
           <span class="label">출입문</span>
         </li>
       </ul>
-    </section>
-
-    <!-- 선택정보 및 결제-->
-    <!-- selected-info-section -->
-    <section class="selected-component" role="region" aria-labelledby="selected-info-section">
-      <h2 id="selected-info-section" class="sr-only">선택된 예매 정보</h2>
-
-      <!-- 영화제목,날짜,장소,관(2D) -->
+      <!-- selected-info-section -->
+      <h3 id="selected-info-section" class="sr-only">선택된 예매 정보</h3>
       <div class="selected-details-wrapper">
-        <span class="movie-name"></span>
-        <time datetime="2026-02-13"></time>
-        <span class="site"></span>
-        <span class="hall"></span>
+        <span class="movie-name">영화제목</span>
+        <time datetime="2026-02-13">2026.02.13(금)</time>
+        <span class="site">광명(광명사거리)</span>
+        <span class="hall">5관</span>
       </div>
 
-      <!-- 좌석, 인원 -->
+      <!-- selected info list (좌석, 인원(인원변경버튼))-->
       <ul class="info-list">
         <li class="info-item">
           <span class="label">좌석</span>
@@ -70,18 +58,17 @@
         <li class="info-item">
           <span class="label">인원</span>
           <div class="content-group">
-
             <!-- 인원 변경 카운터 - 숫자 + -->
             <div class="person-count-wrapper">
-              <button type="button" class="minus-btn" aria-label="인원 감소">-</button>
+              <button type="button" class="minus-btn">-</button>
               <span id="person-count" class="count-value">1</span>
-              <button type="button" class="plus-btn" aria-label="인원 증가">+</button>
+              <button type="button" class="plus-btn">+</button>
             </div>
           </div>
         </li>
       </ul>
 
-      <!-- 결제 -->
+      <!-- payment section (price n button) -->
       <div class="payment-section">
         <div class="price-info">
           <span class="label">결제금액</span>
@@ -89,7 +76,7 @@
         </div>
         <button type="button" class="go-payment">결제</button>
       </div>
-    </section>
+    </div>
   </main>
 </body>
 
