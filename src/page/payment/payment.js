@@ -1,6 +1,5 @@
 import { movieAPI } from '../../apis/apiRequest.js';
 import { formatPrices } from '../../utils/commonUtility';
-import { storage } from '../../utils/storage.js';
 import { loadBookingState, patchBookingState, resetBookingState } from '../../state/movieState.js';
 import { renderHeader } from '../../common/header/header.js';
 
@@ -53,11 +52,11 @@ function renderMovieImg(className, element) {
   const fragment = document.createDocumentFragment();
   const imgContainer = document.querySelector(className);
 
-  fragment.appendChild(element);
-  imgContainer.appendChild(fragment);
-
-  // 로딩 아이콘 이미지가 뜨면 사라지기
-  hideLoader(loader);
+  setTimeout(() => {
+    fragment.appendChild(element);
+    imgContainer.appendChild(fragment);
+    hideLoader(loader);
+  }, 300);
 }
 renderMovieImg('.img-container', movieImgUi());
 
