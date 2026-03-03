@@ -31,65 +31,67 @@
       </div>
     </section>
 
-    <!-- 범례 -->
-    <!-- legend-component -->
-    <section class="legend-component" aria-labelledby="legend-section">
-      <h2 id="legend-section" class="sr-only">좌석 범례 및 안내</h2>
+    <div class="selected-component">
+      <!-- 범례 -->
+      <!-- legend-component -->
+      <section class="legend-component" role="region" aria-labelledby="legend-section">
+        <h2 id="legend-section" class="sr-only">좌석 범례</h2>
 
-      <ul class="icon-list">
-        <li class="list-item">
-          <span class="icon-special"></span>
-          <span class="label">장애인석</span>
-        </li>
-        <li class="list-item">
-          <span class="icon-door"></span>
-          <span class="label">출입문</span>
-        </li>
-      </ul>
-    </section>
+        <ul class="icon-list">
+          <li class="list-item">
+            <span class="icon-special"></span>
+            <span class="label">장애인석</span>
+          </li>
+          <li class="list-item">
+            <span class="icon-door"></span>
+            <span class="label">출입문</span>
+          </li>
+        </ul>
+      </section>
 
-    <!-- 선택정보 및 결제-->
-    <!-- selected-info-section -->
-    <section class="selected-component" role="region" aria-labelledby="selected-info-section">
-      <h2 id="selected-info-section" class="sr-only">선택된 예매 정보</h2>
+      <!-- 선택정보 및 결제-->
+      <!-- selected-info-section -->
+      <section class="selected-info-component-" role="region" aria-labelledby="selected-info-section">
+        <h2 id="selected-info-section" class="sr-only">선택된 예매 정보</h2>
 
-      <!-- 영화제목,날짜,장소,관(2D) -->
-      <div class="selected-details-wrapper">
-        <span class="movie-name"></span>
-        <time datetime="2026-02-13"></time>
-        <span class="site"></span>
-        <span class="hall"></span>
-      </div>
-
-      <!-- 좌석, 인원 -->
-      <ul class="info-list">
-        <li class="info-item">
-          <span class="label">좌석</span>
-          <span class="value placeholder-text">좌석을 선택해주세요</span>
-        </li>
-        <li class="info-item">
-          <span class="label">인원</span>
-          <div class="content-group">
-
-            <!-- 인원 변경 카운터 - 숫자 + -->
-            <div class="person-count-wrapper">
-              <button type="button" class="minus-btn" aria-label="인원 감소">-</button>
-              <span id="person-count" class="count-value">1</span>
-              <button type="button" class="plus-btn" aria-label="인원 증가">+</button>
-            </div>
-          </div>
-        </li>
-      </ul>
-
-      <!-- 결제 -->
-      <div class="payment-section">
-        <div class="price-info">
-          <span class="label">결제금액</span>
-          <span class="total-price">총<strong>0</strong>원</span>
+        <!-- 영화제목,날짜,장소,관(2D) -->
+        <div class="selected-details-wrapper">
+          <span class="movie-name"></span>
+          <time datetime="2026-02-13"></time>
+          <span class="site"></span>
+          <span class="hall"></span>
         </div>
-        <button type="button" class="go-payment">결제</button>
-      </div>
-    </section>
+
+        <!-- 좌석, 인원 -->
+        <ul class="info-list">
+          <li class="info-item">
+            <span class="label">좌석</span>
+            <span class="value placeholder-text">좌석을 선택해주세요</span>
+          </li>
+          <li class="info-item">
+            <span class="label">인원</span>
+            <div class="content-group">
+
+              <!-- 인원 변경 카운터 - 숫자 + -->
+              <div class="person-count-wrapper">
+                <button type="button" class="minus-btn" aria-label="인원감소">-</button>
+                <span id="person-count" class="count-value">1</span>
+                <button type="button" class="plus-btn" aria-label="인원증가">+</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <!-- 결제 -->
+        <div class="payment-section">
+          <div class="price-info">
+            <span class="label">결제금액</span>
+            <span class="total-price">총<strong>0</strong>원</span>
+          </div>
+          <button type="button" class="go-payment">결제</button>
+        </div>
+      </section>
+    </div>
   </main>
 </body>
 
