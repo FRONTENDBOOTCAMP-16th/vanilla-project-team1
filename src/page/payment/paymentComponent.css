@@ -8,6 +8,10 @@ body {
   flex-direction: column;
 }
 
+.header-left {
+  gap: 3px;
+}
+
 .header-icon {
   border: none;
 }
