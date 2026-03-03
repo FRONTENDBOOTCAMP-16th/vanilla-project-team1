@@ -361,11 +361,11 @@ function togglePaymentsection() {
   const currentSelected = container.querySelectorAll('.selected').length;
   const paymentsection = document.querySelector('.payment-section');
 
-  console.log('현재선택된 모든좌석:', currentSelected); // 콘솔에 찍어보기
-  console.log('인원수:', count);
+  // console.log('현재선택된 모든좌석:', currentSelected); // 콘솔에 찍어보기
+  // console.log('인원수:', count);
 
   if (currentSelected === count) {
-    console.log('active 추가됨');
+    // console.log('active 추가됨');
     paymentsection.classList.add('active');
     container.classList.add('full');
   } else {
