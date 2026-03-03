@@ -475,10 +475,9 @@ async function loadReservation() {
     await paymentSucess();
   } catch (e) {
     console.error('에러내용:', e);
+    changeButtonState(PAY_BUTTON, 'false');
     const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');
     if (retryPayment) return;
-  } finally {
-    changeButtonState(PAY_BUTTON, 'false');
   }
 }
 
