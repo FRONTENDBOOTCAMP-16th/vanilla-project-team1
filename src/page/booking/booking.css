@@ -221,10 +221,10 @@
   width: 100%;
   max-width: var(--app-max-width);
   bottom: 0;
+  height: 95vh;
 
   background: #fff;
 
-  max-height: 100%;
   display: flex;
   flex-direction: column;
 
@@ -242,15 +242,17 @@
 #regionList button,
 #theaterList button {
   width: 100%;
-  padding: 10px;
+  padding: 14px;
   text-align: left;
 
   font-size: 15px;
   font-weight: bold;
 
-  border-radius: var(--r-8);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+
+  border-radius: 0;
 }
 
 /* 지역, 지역별 영화관 선택 활성화 */
@@ -276,6 +278,92 @@
 
 /* Desktop */
 @media (min-width: 1024px) {
+  .app {
+    margin: auto;
+    max-width: 1500px;
+    background-color: var(--color-border);
+  }
+
+  .container {
+    width: 1000px;
+    margin: auto;
+    padding-block: 20px;
+    background: var(--color-bg);
+  }
+
+  .region-container #openRegion {
+    font-size: var(--fs-20);
+    margin-block: var(--sp-8);
+    margin-inline: 0;
+  }
+#openRegion{
+padding: 10px;
+white-space: nowrap;
+font-size: var(--fs-20);
+}
+  .date-container button {
+    flex-grow: 1;
+    strong,
+    .play-week {
+      font-size: var(--fs-20);
+    }
+  }
+
+  .date-container .saturday span {
+    display: flex;
+    flex-direction: column;
+  }
+  .date-container .sunday span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movie-wrapper {
+    width: 150px;
+
+    img {
+      width: 100%;
+    }
+    .movie-title {
+      font-size: var(--fs-16);
+    }
+  }
+
+  .showtime-list {
+    flex-direction: row;
+    flex-grow: 1;
+
+    .show-time {
+      width: 120px;
+      row-gap: 3px;
+    }
+    .hall,
+    .time,
+    .seats {
+      font-size: var(--fs-16);
+    }
+    .format {
+      font-size: var(--fs-12);
+    }
+  }
+
+  #theaterSheet {
+    width: 100%;
+    max-width: 1000px;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    #regionList button {
+      font-size: var(--fs-18);
+      padding-block: 20px;
+    }
+
+    #theaterList button {
+      font-size: var(--fs-18);
+      padding-block: 20px;
+    }
+  }
 }
 
 /* Large Desktop */
