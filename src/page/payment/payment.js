@@ -9,7 +9,6 @@ const state = loadBookingState();
 redirectPage(state);
 
 function redirectPage(state) {
-  console.log(state);
   const required = ['movieId', 'timetableId', 'seats', 'price'];
   if (state[required[0]] === null) {
     return (location.href = '/index.html');
