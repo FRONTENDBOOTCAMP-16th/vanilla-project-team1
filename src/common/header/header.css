@@ -4,6 +4,12 @@
   z-index: 999;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
+  color-scheme: light;
+}
+
+#app-header,
+#app-header * {
+  forced-color-adjust: none;
 }
 
 .app-header {
@@ -38,8 +44,8 @@
   background-color: transparent;
   fill: var(--color-text);
   color: var(--color-text);
+}
 
-  & > svg {
-    fill: currentColor;
-  }
+.header-icon svg {
+  fill: currentColor;
 }
