@@ -32,7 +32,7 @@ export function renderHeader(target, options = {}) {
   `;
 
   target.querySelector('[data-action="gohome"]')?.addEventListener('click', () => {
-    location.href = '/src/page/main/index.html';
+    location.href = '/index.html';
   });
 
   target.querySelector('[data-action="goback"]')?.addEventListener('click', () => {

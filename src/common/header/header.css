@@ -35,5 +35,9 @@
   align-items: center;
   width: 36px;
   height: 36px;
-  background: #fff;
+  background-color: transparent;
+
+  & > svg {
+    fill: #222;
+  }
 }
