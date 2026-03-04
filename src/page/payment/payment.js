@@ -1,6 +1,5 @@
 import { movieAPI } from '../../apis/apiRequest.js';
 import { formatPrices } from '../../utils/commonUtility';
-import { storage } from '../../utils/storage.js';
 import { loadBookingState, patchBookingState, resetBookingState } from '../../state/movieState.js';
 import { renderHeader } from '../../common/header/header.js';
 
@@ -53,11 +52,11 @@ function renderMovieImg(className, element) {
   const fragment = document.createDocumentFragment();
   const imgContainer = document.querySelector(className);
 
-  fragment.appendChild(element);
-  imgContainer.appendChild(fragment);
-
-  // 로딩 아이콘 이미지가 뜨면 사라지기
-  hideLoader(loader);
+  setTimeout(() => {
+    fragment.appendChild(element);
+    imgContainer.appendChild(fragment);
+    hideLoader(loader);
+  }, 300);
 }
 renderMovieImg('.img-container', movieImgUi());
 
@@ -196,7 +195,6 @@ function resetTabsState(tabs, buttons) {
   removeAllActive(tabs, 'active'); // 모든 버튼 활성화 초기화
   removeAllActive(buttons, 'active');
   setAllAttr(buttons, 'aria-selected', 'false'); // 모든 버튼 접근성 속성 초기화
-  setAllAttr(buttons, 'tabindex', '-1'); // 모든 탭 -1로 초기화
   setAllAttr(tabs, 'hidden', '');
 }
 
@@ -477,10 +475,9 @@ async function loadReservation() {
     await paymentSucess();
   } catch (e) {
     console.error('에러내용:', e);
+    changeButtonState(PAY_BUTTON, 'false');
     const retryPayment = confirm('결제에 실패하였습니다. 재시도하시겠습니까?');
     if (retryPayment) return;
-  } finally {
-    changeButtonState(PAY_BUTTON, 'false');
   }
 }
 
