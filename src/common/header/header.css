@@ -25,6 +25,7 @@
   transform: translateY(-50%);
   display: flex;
   align-items: center;
+  z-index: 2;
 }
 
 .header-title {
@@ -33,6 +34,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: var(--fs-20);
+  z-index: 1;
 }
 
 .header-icon {
@@ -47,5 +49,8 @@
 }
 
 .header-icon svg {
+  width: 24px;
+  height: 24px;
   fill: currentColor;
+  display: block;
 }
