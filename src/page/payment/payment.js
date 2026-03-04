@@ -510,6 +510,7 @@ async function paymentSucess() {
 //  페이지 이동
 function movePage(page) {
   setTimeout(() => {
+    showLoder(document.body);
     location.href = page;
   }, 500);
 }
