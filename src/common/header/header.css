@@ -36,8 +36,10 @@
   width: 36px;
   height: 36px;
   background-color: transparent;
+  fill: var(--color-text);
+  color: var(--color-text);
 
   & > svg {
-    fill: #222;
+    fill: currentColor;
   }
 }
