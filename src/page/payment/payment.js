@@ -376,13 +376,15 @@ function checkboxAuth() {
   const ALL_EARN_POINTS = CHECKBOX_CONTAINER.querySelectorAll('input[type= "checkbox"]');
 
   if (!checked) {
+    attr(EARN_POINTS_METHOD_CHECKBOX, 'checked', null)
     for (const point of ALL_EARN_POINTS) {
-      setAttr(point, 'disabled', 'true');
+      setAttr(point, 'aria-disabled', 'true');
       removeAttr(point, 'checked');
     }
   } else {
+    attr(EARN_POINTS_METHOD_CHECKBOX, 'checked', 'true')
     for (const point of ALL_EARN_POINTS) {
-      removeAttr(point, 'disabled');
+      setAttr(point, 'aria-disabled', 'false');
     }
   }
 }

@@ -418,8 +418,10 @@ input[type='checkbox'] {
     }
   }
 
-  &:disabled {
+  &[aria-disabled="true"]{
     background-color: var(--color-border);
+    cursor: not-allowed;
+
 
     &::before {
       content: none;
