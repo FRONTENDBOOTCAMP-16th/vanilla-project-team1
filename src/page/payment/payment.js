@@ -131,6 +131,8 @@ const PRODUCT_PRICE = document.querySelector('.js-component-product-price');
 const DISCOUNT_PRICE = document.querySelector('.js-component-discount-price');
 const TOTAL_PRICE = document.querySelector('.js-component-total-price');
 const PAY_BUTTON = document.querySelector('.pay-button');
+const ALL_EARN_POINTS = CHECKBOX_CONTAINER.querySelectorAll('input[type= "checkbox"]');
+
 
 // 1. 요소의 상태 변환 함수들
 // 모든 요소의 active 클래스 네임 제거 함수
@@ -372,22 +374,37 @@ function maximumPoint(e) {
 
 // 4. 체크 박스 체크 제어 함수
 function checkboxAuth() {
-  const checked = EARN_POINTS_METHOD_CHECKBOX.checked;
-  const ALL_EARN_POINTS = CHECKBOX_CONTAINER.querySelectorAll('input[type= "checkbox"]');
+  const isChecked = EARN_POINTS_METHOD_CHECKBOX.checked; 
+  checkedState(isChecked)
+  } 
 
-  if (!checked) {
-    attr(EARN_POINTS_METHOD_CHECKBOX, 'checked', null)
-    for (const point of ALL_EARN_POINTS) {
-      setAttr(point, 'aria-disabled', 'true');
-      removeAttr(point, 'checked');
-    }
-  } else {
-    attr(EARN_POINTS_METHOD_CHECKBOX, 'checked', 'true')
-    for (const point of ALL_EARN_POINTS) {
-      setAttr(point, 'aria-disabled', 'false');
+
+// checked 여부에 따른 함수 
+function checkedState(isChecked){
+  isChecked? attr(EARN_POINTS_METHOD_CHECKBOX, 'checked', 'true'):attr(EARN_POINTS_METHOD_CHECKBOX, 'checked', null)
+  otherPointOptionCheck(isChecked)
+}
+
+function otherPointOptionCheck(isChecked){
+ for (const point of ALL_EARN_POINTS) {
+    // 기본 접근성 속성값
+    attr(point, 'aria-disabled', !(isChecked)); 
+
+    // 라이온 포인트 적립 체크박스가 체크 안되어 있을시, 해당 옵션 체크박스의 값들 초기화
+    if (!isChecked) {
+      point.checked = false;        
+      attr(point, 'checked', null);
     }
   }
 }
+
+// 개별 포인트 옵션 클릭 시
+function pointOptionClick(point) {
+  const isOptionChecked = point.checked;
+  isOptionChecked ? attr(point, 'checked', 'true') : attr(point, 'checked', null);
+}
+
+
 
 // 5. 금액 계산/표기 로직 함수
 // 기본 상품 가격 표시
@@ -551,6 +568,13 @@ FINAL_PAYMENT.addEventListener('click', handleFinalPaymentButton);
 
 // 체크박스 체크된 상태 일 때 추가 옵션 체크 박스 체크 할 수 있게
 EARN_POINTS_METHOD_CHECKBOX.addEventListener('change', checkboxAuth);
+
+// 개별 포인트 옵션 클릭 이벤트
+CHECKBOX_CONTAINER.addEventListener('click',(e) => {
+  if (e.target === EARN_POINTS_METHOD_CHECKBOX) return;
+  pointOptionClick(e.target)
+
+})
 
 // 결제하기 버튼 누르면 객체 형태로 결제 수단 방식과 총 예매 티켓 가격 데이터를 post 함수 body 부분에 넣어주기
 PAY_BUTTON.addEventListener('click', loadReservation);
