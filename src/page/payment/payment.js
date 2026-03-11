@@ -130,6 +130,7 @@ const CHECKBOX_CONTAINER = document.querySelector('.earn-point-etc');
 const PRODUCT_PRICE = document.querySelector('.js-component-product-price');
 const DISCOUNT_PRICE = document.querySelector('.js-component-discount-price');
 const TOTAL_PRICE = document.querySelector('.js-component-total-price');
+const SR_LIVE_REGION = document.querySelector('.sr-only[aria-live]');
 const PAY_BUTTON = document.querySelector('.pay-button');
 const ALL_EARN_POINTS = CHECKBOX_CONTAINER.querySelectorAll('input[type= "checkbox"]');
 
@@ -463,10 +464,23 @@ function totalPriceCal() {
   }
 }
 
+
+// 스크린리더에 가격 알림
+function announceTotalPrice(formatted) {
+  setTimeout(() => {
+    SR_LIVE_REGION.textContent = `총 합계 ${formatted}원`;
+  }, 100);
+}
+
+
 // 총 금액 DOM에 표시
 function renderTotalPrice() {
   const total = totalPriceCal();
-  return (TOTAL_PRICE.textContent = `${formatPrices(total)} `);
+  
+  TOTAL_PRICE.textContent = `${formatPrices(total)} `; 
+  
+  // 스크린 리더기에도 즉시 가격 알림
+  announceTotalPrice(formatPrices(total))
 }
 renderTotalPrice();
 

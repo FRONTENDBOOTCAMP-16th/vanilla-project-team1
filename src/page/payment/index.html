@@ -23,8 +23,8 @@
         <div class="movie-info-container"></div>
       </section>
 
-      <section class="payment-discount">
-        <h2 class="discount-part-heading">할인/포인트</h2>
+      <section class="payment-discount" aria-labelledby="discount-part-heading">
+        <h2 class="discount-part-heading" id="discount-part-heading">할인/포인트</h2>
         <div class="lion-point">
           <div class="point-tab" role="tablist">
             <ul role="none">
@@ -205,8 +205,8 @@
         </div>
       </section>
 
-      <section class="final-payment">
-        <h2>최종 결제수단</h2>
+      <section class="final-payment" aria-labelledby="final-payment-methods-title">
+        <h2 id="final-payment-methods-title">최종 결제수단</h2>
         <div class="final-payment-methods">
           <button type="button" class="credit-card" aria-pressed="false" data-label="신용카드">
             <!-- 신용카드 -->
@@ -384,8 +384,8 @@
         </div>
       </section>
 
-      <section class="earn-points">
-        <h2 class="sr-only">포인트 적립 방법</h2>
+      <section class="earn-points" aria-labelledby="earn-points-title">
+        <h2 class="sr-only" id="earn-points-title" >포인트 적립 방법</h2>
         <div class="earn-lionpoint">
           <label for="earn-point">라이온 포인트 적립</label>
           <input type="checkbox" name="point-data" id="earn-point" checked />
@@ -404,9 +404,11 @@
           상품금액 <strong class="js-component-product-price"></strong>원 - 할인금액
           <strong class="js-component-discount-price"></strong>원
         </p>
-        <p class="total-ticket-price" aria-live="polite">
-          <strong>총 합계</strong> <span class="js-component-total-price"></span> 원
+        <p class="total-ticket-price" >
+          <strong>총 합계</strong> <span class="js-component-total-price" ></span> 원
         </p>
+        <span class="sr-only js-sr-total-price"  aria-live="polite" aria-atomic="true"></span>
+
       </div>
       <button type="button" class="pay-button" aria-pressed="false">결제하기</button>
     </footer>
